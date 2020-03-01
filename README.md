@@ -1,5 +1,5 @@
-#Descripcion del proyecto
-##Primer Sprint
+# Descripcion del proyecto
+## Primer Sprint
 
 Nos presentamos al nivel 2 de aplicación y  vamos a realizar una extensión del proyecto PetClinic.
 
