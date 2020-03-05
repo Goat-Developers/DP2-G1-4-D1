@@ -83,7 +83,7 @@ public class Vet extends Person {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "vetSchedule_id")
+	@JoinColumn(name = "vet_schedule_id")
 	private VetSchedule vetSchedule;
 	
 	

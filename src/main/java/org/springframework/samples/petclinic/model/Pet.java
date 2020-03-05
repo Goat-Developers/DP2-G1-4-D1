@@ -69,6 +69,14 @@ public class Pet extends NamedEntity {
 	@JoinColumn(name = "vaccination_schedule_id")
 	@OneToOne
 	private VaccinationSchedule schedule;
+	
+	@ManyToOne
+	@JoinColumn(name = "treatment_id")
+	private Treatment treatment;
+	
+	@ManyToOne
+	@JoinColumn(name = "insurance_id")
+	private Insurance insurance;
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -124,5 +132,23 @@ public class Pet extends NamedEntity {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
 	}
+	
+	public Treatment getTreatment() {
+		return this.treatment;
+	}
+
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
+	}
+
+	public Insurance getInsurance() {
+		return insurance;
+	}
+
+	public void setInsurance(Insurance insurance) {
+		this.insurance = insurance;
+	}
+	
+	
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "vetSchedule")
+@Table(name = "vet_schedule")
 public class VetSchedule extends BaseEntity {
 	
 	

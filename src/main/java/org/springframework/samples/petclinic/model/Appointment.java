@@ -34,10 +34,10 @@ public class Appointment extends BaseEntity {
 	@JoinColumn(name = "pet_id")
 	private Pet pet;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "treatment_id")
-//	private Treatment treatment;
-//	
+	@ManyToOne
+	@JoinColumn(name = "treatment_id")
+	private Treatment treatment;
+	
 
 
 
@@ -76,12 +76,12 @@ public class Appointment extends BaseEntity {
 		this.pet = pet;
 	}
 	
-//	public Treatment getTreatment() {
-//		return this.treatment;
-//	}
-//
-//	public void setTreatment(Treatment treatment) {
-//		this.treatment = treatment;
-//	}
+	public Treatment getTreatment() {
+		return this.treatment;
+	}
+
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
+	}
 
 }
