@@ -21,16 +21,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -73,6 +78,35 @@ public class Vet extends Person {
 
 	public void addSpecialty(Specialty specialty) {
 		getSpecialtiesInternal().add(specialty);
+	}
+	
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "vetSchedule_id")
+	private VetSchedule vetSchedule;
+	
+	
+	@NotEmpty
+	@Column(name = "turns")
+	private Map<Integer, Turn> turns;
+	
+	
+	public Map<Integer, Turn>  getTurns() {
+		return this.turns;
+	}
+
+	
+	public void setTurns(Map<Integer, Turn>  turns) {
+		this.turns= turns;
+	}
+	
+	public VetSchedule getVetSchedule() {
+		return this.vetSchedule;
+	}
+
+	public void setVetSchedule(VetSchedule vetSchedule) {
+		this.vetSchedule = vetSchedule;
 	}
 
 }
