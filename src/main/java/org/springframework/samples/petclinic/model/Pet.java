@@ -26,6 +26,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * Simple business object representing a pet.
@@ -62,6 +64,11 @@ public class Pet extends NamedEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<Visit> visits;
+	
+	@NotNull
+	@JoinColumn(name = "vaccination_schedule_id")
+	@OneToOne
+	private VaccinationSchedule schedule;
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -96,6 +103,15 @@ public class Pet extends NamedEntity {
 
 	protected void setVisitsInternal(Set<Visit> visits) {
 		this.visits = visits;
+	}
+	
+
+	public VaccinationSchedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(VaccinationSchedule schedule) {
+		this.schedule = schedule;
 	}
 
 	public List<Visit> getVisits() {
