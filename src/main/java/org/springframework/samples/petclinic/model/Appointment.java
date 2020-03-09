@@ -10,18 +10,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 
 @Entity
-@Table(name = "appointment")
+@Table(name = "appointments")
 public class Appointment extends BaseEntity {
 
 
 	@Column(name = "appointment_date")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate appointment_date;
+	private LocalDate appointmentDate;
 
 
 	@NotEmpty
@@ -42,17 +41,17 @@ public class Appointment extends BaseEntity {
 
 
 	public Appointment() {
-		this.appointment_date = LocalDate.now();
+		this.appointmentDate = LocalDate.now();
 	}
 
 
 	public LocalDate getAppointment_date() {
-		return this.appointment_date;
+		return this.appointmentDate;
 	}
 
 
 	public void setAppointment_date(LocalDate appointment_date) {
-		this.appointment_date = appointment_date;
+		this.appointmentDate = appointment_date;
 	}
 
 

@@ -35,8 +35,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -70,10 +68,13 @@ public class Pet extends NamedEntity {
 	@OneToOne
 	private VaccinationSchedule schedule;
 	
+	
+	///Revisar multiplicidad
 	@ManyToOne
 	@JoinColumn(name = "treatment_id")
 	private Treatment treatment;
 	
+	///Revisar multiplicidad
 	@ManyToOne
 	@JoinColumn(name = "insurance_id")
 	private Insurance insurance;

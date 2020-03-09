@@ -54,6 +54,12 @@
             <groupId>org.springframework.security</groupId>  
             <artifactId>spring-security-taglibs</artifactId>  
         </dependency>
+        <!-- Money Dependency -->
+        <dependency>
+    		<groupId>org.javamoney</groupId>
+    			<artifactId>moneta</artifactId>
+    		<version>1.1</version>
+		</dependency>
         <!-- Databases - Uses H2 by default -->
         <!-- dependency>
                 <groupId>org.hsqldb</groupId>

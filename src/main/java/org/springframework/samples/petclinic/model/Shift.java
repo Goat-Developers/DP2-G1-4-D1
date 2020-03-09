@@ -5,8 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
@@ -14,13 +12,13 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "turn")
-public class Turn extends BaseEntity {
+@Table(name = "shifts")
+public class Shift extends BaseEntity {
 
 
-	@Column(name = "turn_date")        
+	@Column(name = "shift_date")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate turn_date;
+	private LocalDate shiftDate;
 
 
 	@NotEmpty
@@ -29,18 +27,18 @@ public class Turn extends BaseEntity {
 	
 	
 
-	public Turn() {
-		this.turn_date = LocalDate.now();
+	public Shift() {
+		this.shiftDate = LocalDate.now();
 	}
 
 
 	public LocalDate getTurn_date() {
-		return this.turn_date;
+		return this.shiftDate;
 	}
 
 
-	public void setTurn_date(LocalDate turn_date) {
-		this.turn_date = turn_date;
+	public void setTurn_date(LocalDate shiftDate) {
+		this.shiftDate = shiftDate;
 	}
 
 

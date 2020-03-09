@@ -5,14 +5,15 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.javamoney.moneta.Money;
+
 
 @Entity
-@Table(name = "treatment")
+@Table(name = "treatments")
 public class Treatment extends BaseEntity {
 
 
@@ -22,7 +23,7 @@ public class Treatment extends BaseEntity {
 	
 	@NotNull
 	@Column(name = "price")
-	private Double price;
+	private Money price;
 	
 	@NotEmpty
 	@Column(name = "description")
@@ -36,11 +37,11 @@ public class Treatment extends BaseEntity {
 		this.type = type;
 	}
 
-	public Double getPrice() {
+	public Money getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Money price) {
 		this.price = price;
 	}
 

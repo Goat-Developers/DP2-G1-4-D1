@@ -19,15 +19,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlElement;
@@ -35,7 +39,7 @@ import javax.xml.bind.annotation.XmlElement;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
-import com.sun.javafx.collections.MappingChange.Map;
+
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -81,6 +85,11 @@ public class Vet extends Person {
 	}
 	
 	
+	//Relationships
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vet")
+	private Set<Announcement> announcements;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "vet_schedule_id")
@@ -88,17 +97,18 @@ public class Vet extends Person {
 	
 	
 	@NotEmpty
-	@Column(name = "turns")
-	private Map<Integer, Turn> turns;
+	@ElementCollection
+	@Column(name = "shifts")
+	private Map<Integer, Shift> shifts;
 	
 	
-	public Map<Integer, Turn>  getTurns() {
-		return this.turns;
+	public Map<Integer, Shift>  getTurns() {
+		return this.shifts;
 	}
 
 	
-	public void setTurns(Map<Integer, Turn>  turns) {
-		this.turns= turns;
+	public void setShifts(Map<Integer, Shift>  shifts) {
+		this.shifts= shifts;
 	}
 	
 	public VetSchedule getVetSchedule() {

@@ -1,7 +1,8 @@
 
 package org.springframework.samples.petclinic.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,23 +12,22 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import java.time.LocalDate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.javamoney.moneta.Money;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
-@Table(name = "insurance")
+@Table(name = "insurances")
 public class Insurance extends BaseEntity {
 
 
 	@Column(name = "insurance_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate insurance_date;
+	private LocalDate insuranceDate;
 	
 	@Column(name = "price")
 	@NotEmpty
-	private Double price;
+	private Money price;
 	
 	
 	@ManyToOne
@@ -39,37 +39,37 @@ public class Insurance extends BaseEntity {
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "vaccine_id")
-	private Vaccine vaccine;
+	private List<Vaccine> vaccines;
 	
 	
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "treatment_id")
-	private Treatment treatment;
+	private List<Treatment> treatments;
 	
 
 
 	public Insurance() {
-		this.insurance_date = LocalDate.now();
+		this.insuranceDate = LocalDate.now();
 	}
 
 
 	public LocalDate getInsurance_date() {
-		return this.insurance_date;
+		return this.insuranceDate;
 	}
 
 
 	public void setInsurance_date(LocalDate insurance) {
-		this.insurance_date = insurance;
+		this.insuranceDate = insurance;
 	}
 	
 	
-	public Double getPrice() {
+	public Money getPrice() {
 		return this.price;
 	}
 
 
-	public void setPrice(Double price) {
+	public void setPrice(Money price) {
 		this.price= price;
 	}
 	
@@ -82,20 +82,20 @@ public class Insurance extends BaseEntity {
 	}
 	
 	
-	public Vaccine getVaccine() {
-		return this.vaccine;
+	public List<Vaccine> getVaccines() {
+		return this.vaccines;
 	}
 
-	public void setVaccine(Vaccine vaccine) {
-		this.vaccine = vaccine;
+	public void setVaccine(List<Vaccine> vaccine) {
+		this.vaccines = vaccine;
 	}
 	
-	public Treatment getTreatment() {
-		return this.treatment;
+	public List<Treatment> getTreatments() {
+		return this.treatments;
 	}
 
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
+	public void setTreatment(List<Treatment> treatment) {
+		this.treatments = treatment;
 	}
 
 }
