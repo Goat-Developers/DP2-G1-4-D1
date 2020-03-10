@@ -26,6 +26,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
@@ -34,8 +35,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * Simple business object representing a pet.
@@ -62,6 +62,26 @@ public class Pet extends NamedEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<Visit> visits;
+	
+	
+	@JoinColumn(name = "vaccination_schedule_id")
+	@OneToOne
+	private VaccinationSchedule schedule;
+	
+	@OneToMany
+	@JoinColumn(name= "appointment_id")
+	private List<Appointment> appointments;
+	
+	
+	///Revisar multiplicidad
+	@ManyToOne
+	@JoinColumn(name = "treatment_id")
+	private Treatment treatment;
+	
+	///Revisar multiplicidad
+	@ManyToOne
+	@JoinColumn(name = "insurance_id")
+	private Insurance insurance;
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -97,6 +117,15 @@ public class Pet extends NamedEntity {
 	protected void setVisitsInternal(Set<Visit> visits) {
 		this.visits = visits;
 	}
+	
+
+	public VaccinationSchedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(VaccinationSchedule schedule) {
+		this.schedule = schedule;
+	}
 
 	public List<Visit> getVisits() {
 		List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
@@ -108,5 +137,23 @@ public class Pet extends NamedEntity {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
 	}
+	
+	public Treatment getTreatment() {
+		return this.treatment;
+	}
+
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
+	}
+
+	public Insurance getInsurance() {
+		return insurance;
+	}
+
+	public void setInsurance(Insurance insurance) {
+		this.insurance = insurance;
+	}
+	
+	
 
 }

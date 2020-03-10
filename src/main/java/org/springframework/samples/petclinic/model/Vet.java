@@ -21,16 +21,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+
+
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -73,6 +81,41 @@ public class Vet extends Person {
 
 	public void addSpecialty(Specialty specialty) {
 		getSpecialtiesInternal().add(specialty);
+	}
+	
+	
+	//Relationships
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vet")
+	private Set<Announcement> announcements;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "vetschedule_id")
+	private VetSchedule vetSchedule;
+	
+
+	@OneToMany
+	@ElementCollection
+	@Column(name = "shifts")
+	private List<Shift> shifts;
+	
+	
+	public List<Shift>  getShifts() {
+		return this.shifts;
+	}
+
+	
+	public void setShifts(List<Shift>  shifts) {
+		this.shifts= shifts;
+	}
+	
+	public VetSchedule getVetSchedule() {
+		return this.vetSchedule;
+	}
+
+	public void setVetSchedule(VetSchedule vetSchedule) {
+		this.vetSchedule = vetSchedule;
 	}
 
 }
