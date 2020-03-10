@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -92,22 +91,22 @@ public class Vet extends Person {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "vet_schedule_id")
+	@JoinColumn(name = "vetschedule_id")
 	private VetSchedule vetSchedule;
 	
-	
-	@NotEmpty
+
+	@OneToMany
 	@ElementCollection
 	@Column(name = "shifts")
-	private Map<Integer, Shift> shifts;
+	private List<Shift> shifts;
 	
 	
-	public Map<Integer, Shift>  getTurns() {
+	public List<Shift>  getShifts() {
 		return this.shifts;
 	}
 
 	
-	public void setShifts(Map<Integer, Shift>  shifts) {
+	public void setShifts(List<Shift>  shifts) {
 		this.shifts= shifts;
 	}
 	

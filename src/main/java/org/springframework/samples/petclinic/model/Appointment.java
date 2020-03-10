@@ -50,8 +50,8 @@ public class Appointment extends BaseEntity {
 	}
 
 
-	public void setAppointment_date(LocalDate appointment_date) {
-		this.appointmentDate = appointment_date;
+	public void setAppointment_date(LocalDate appointmentDate) {
+		this.appointmentDate = appointmentDate;
 	}
 
 

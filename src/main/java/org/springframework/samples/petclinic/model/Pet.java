@@ -63,10 +63,14 @@ public class Pet extends NamedEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<Visit> visits;
 	
-	@NotNull
+	
 	@JoinColumn(name = "vaccination_schedule_id")
 	@OneToOne
 	private VaccinationSchedule schedule;
+	
+	@OneToMany
+	@JoinColumn(name= "appointment_id")
+	private List<Appointment> appointments;
 	
 	
 	///Revisar multiplicidad

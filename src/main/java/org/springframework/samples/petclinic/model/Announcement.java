@@ -40,4 +40,10 @@ public class Announcement extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "vet_id")
 	private Vet vet;
+
+	public Announcement() {
+		this.date = LocalDate.now();
+	}
+	
+	
 }

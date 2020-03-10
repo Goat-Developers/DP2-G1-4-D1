@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,13 +37,13 @@ public class Insurance extends BaseEntity {
 	private PetType petType;
 	
 	
-	@ManyToOne
+	@OneToMany
 	@NotNull
 	@JoinColumn(name = "vaccine_id")
 	private List<Vaccine> vaccines;
 	
 	
-	@ManyToOne
+	@OneToMany
 	@NotNull
 	@JoinColumn(name = "treatment_id")
 	private List<Treatment> treatments;
