@@ -17,11 +17,15 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
@@ -41,6 +45,8 @@ public class PetService {
 	private PetRepository petRepository;
 	
 	private VisitRepository visitRepository;
+	
+	private InsuranceRepository insuranceRepository;
 	
 
 	@Autowired
@@ -77,6 +83,13 @@ public class PetService {
 
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);
+	}
+
+	@Transactional
+	public void saveInsurance(@Valid Insurance insurance) {
+		
+		insuranceRepository.save(insurance);
+		
 	}
 
 }
