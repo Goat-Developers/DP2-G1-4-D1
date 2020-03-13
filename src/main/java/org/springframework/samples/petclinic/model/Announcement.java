@@ -46,4 +46,6 @@ public class Announcement extends BaseEntity{
 	}
 	
 	
+	
+	
 }

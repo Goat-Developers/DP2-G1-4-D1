@@ -15,6 +15,11 @@ INSERT INTO vets(id,first_name,last_name) VALUES (4, 'Rafael', 'Ortega');
 INSERT INTO vets(id,first_name,last_name) VALUES (5, 'Henry', 'Stevens');
 INSERT INTO vets(id,first_name,last_name) VALUES (6, 'Sharon', 'Jenkins');
 
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id) VALUES (1,'esto body','esto header','tag1','2010-09-07',1);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',2);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id) VALUES (3,'esto body CON MAYUS','esto header','gatos','2010-09-07',3);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-14',3);
+
 INSERT INTO specialties VALUES (1, 'radiology');
 INSERT INTO specialties VALUES (2, 'surgery');
 INSERT INTO specialties VALUES (3, 'dentistry');
