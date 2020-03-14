@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
 
-public interface VaccineRepository extends CrudRepository<Vaccine, Integer> {
+public interface VaccineRepository  {
 	
 	List<Vaccine> findAll() throws DataAccessException;
 

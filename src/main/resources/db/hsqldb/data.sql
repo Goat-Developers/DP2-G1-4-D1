@@ -63,7 +63,10 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock) VALUES (1,1,'vaccinePrueba1','Para ratas',32,'Chema','2022-06-08',3);
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock) VALUES (1,1,'vaccinePrueba1','Para ratas',32.3,'Chema','2022-06-08',3);
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock) VALUES (2,4,'vaccinePrueba2','Para polen',332,'Chema','2001-06-06',0);
 
+
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,4,'Dientes',65.7,'Limpieza de dientes');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (4,5,'Pelo',0,'Corte de pelo');
 
