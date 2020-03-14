@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,8 +13,13 @@ import javax.validation.constraints.NotNull;
 import org.javamoney.moneta.Money;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
+@Getter
+@Setter
 @Table(name = "vaccines")
 public class Vaccine extends BaseEntity {
 
@@ -27,9 +34,9 @@ public class Vaccine extends BaseEntity {
 	private String information;
 
 	
-	@NotNull
+
 	@Column(name ="price")
-	private Money price;
+	private Double price;
 	
 	@NotEmpty
 	@Column(name="provider")
@@ -43,66 +50,12 @@ public class Vaccine extends BaseEntity {
 	@NotNull
 	@Column(name="stock")
 	private Integer stock;
-
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getInformation() {
-		return information;
-	}
-
-
-	public void setInformation(String information) {
-		this.information = information;
-	}
-
-
-	public Money getPrice() {
-		return price;
-	}
-
-
-	public void setPrice(Money price) {
-		this.price = price;
-	}
-
-
-	public String getProvider() {
-		return provider;
-	}
-
-
-	public void setProvider(String provider) {
-		this.provider = provider;
-	}
-
-
-	public LocalDate getExpiration() {
-		return expiration;
-	}
-
-
-	public void setExpiration(LocalDate expiration) {
-		this.expiration = expiration;
-	}
-	public Integer getStock() {
-		return stock;
-	}
 	
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
+	@ManyToOne
+    @NotNull
+    @JoinColumn(name = "pet_type_id")
+    private PetType petType;
 
-	/**
-	 * Creates a new instance of Visit for the current date
-	 */
+
 	
 }

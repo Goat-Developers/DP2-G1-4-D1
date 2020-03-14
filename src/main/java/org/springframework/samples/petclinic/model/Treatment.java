@@ -5,6 +5,8 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,11 @@ public class Treatment extends BaseEntity {
 	@NotEmpty
 	@Column(name = "description")
 	private String description;
+	
+	@ManyToOne
+    @NotNull
+    @JoinColumn(name = "pet_type_id")
+    private PetType petType;
 
 	public String getType() {
 		return type;
