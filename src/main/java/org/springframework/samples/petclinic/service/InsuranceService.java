@@ -15,14 +15,11 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
-import org.springframework.samples.petclinic.model.InsuranceBase;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,27 +33,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class InsuranceService {
 
-	private InsuranceRepository insuranceRepository;	
-	
+	private InsuranceRepository insuranceRepository;
+
 	@Autowired
 	public InsuranceService(InsuranceRepository insuranceRepository) {
 		this.insuranceRepository = insuranceRepository;
-	}	
-
-	@Transactional(readOnly = true)
-	public Insurance findinsuranceById(int id) throws DataAccessException {
-		return insuranceRepository.findById(id);
 	}
-
-	@Transactional(readOnly = true)
-	public List<InsuranceBase> findInsurancesBaseByPetType(PetType type) throws DataAccessException{
-		return insuranceRepository.findInsurancesBaseByPetType(type).stream().collect(Collectors.toList());
+	@Transactional(readOnly = true)	
+	public Collection<Insurance> findInsurances() throws DataAccessException {
+		return insuranceRepository.findAll();
 	}
 	
-	@Transactional
-	public void saveinsurance(Insurance insurance) throws DataAccessException {
-		//creating insurance
-		insuranceRepository.save(insurance);		
-	}		
-
+	public Insurance findInsuranceById(int id) {
+		
+		return insuranceRepository.findById(id);
+	}
 }

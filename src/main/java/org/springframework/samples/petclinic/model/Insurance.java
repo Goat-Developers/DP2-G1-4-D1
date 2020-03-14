@@ -29,7 +29,7 @@ public class Insurance extends BaseEntity {
 	private LocalDate insuranceDate;
 	
 	@JoinColumn(name = "insurance_base_id")
-	@NotNull
+//	@NotNull
 	@ManyToOne
 	private InsuranceBase insuranceBase;
 	
