@@ -5,6 +5,7 @@ import java.beans.Transient;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -29,11 +30,11 @@ public class Insurance extends BaseEntity {
 	private LocalDate insuranceDate;
 	
 	@JoinColumn(name = "insurance_base_id")
-//	@NotNull
+	@NotNull
 	@ManyToOne
 	private InsuranceBase insuranceBase;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="insurance")
 	@JoinColumn(name = "vaccine_id")
 	private List<Vaccine> vaccines;
 	

@@ -30,7 +30,7 @@ public interface SpringDataInsuranceRepository extends InsuranceRepository, Repo
 
 	
 	@Override
-	@Query("SELECT Insurance FROM Insurance insurance WHERE insurance.id =?1")
+	@Query("SELECT insurance FROM Insurance insurance WHERE insurance.id =?1")
 	Insurance findById(@Param("id") int id);
 	
 	@Override
