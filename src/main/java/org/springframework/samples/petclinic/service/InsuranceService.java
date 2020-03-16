@@ -20,19 +20,12 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-/**
- * Mostly used as a facade for all Petclinic controllers Also a placeholder
- * for @Transactional and @Cacheable annotations
- *
- * @author Michael Isvy
- */
+
 @Service
 public class InsuranceService {
 
@@ -48,7 +41,6 @@ public class InsuranceService {
 	}
 	
 	public Insurance findInsuranceById(int id) {
-		
 		return insuranceRepository.findById(id);
 	}
 	

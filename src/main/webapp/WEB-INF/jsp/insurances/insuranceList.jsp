@@ -6,6 +6,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <petclinic:layout pageName="insurances">
     <h2>Insurances</h2>
 
@@ -25,21 +26,32 @@
             <tr>
             	<td>
             		<spring:url value="/insurances/{insuranceId}" var="insUrl">
-                        <spring:param name="insuranceId" value="${insurance.id}"/>
+                    <spring:param name="insuranceId" value="${insurance.id}"/>
                     </spring:url>
-<!--                 <td> -->
-<%--                     <c:out value="${insurance.date}"/> --%>
-<!--                 </td> -->
-<!--                 <td> -->
-<%--                 	<c:out value="${insurance.tag}"/> --%>
-<!--                 </td> -->
+                    <c:out value="${insurance.insuranceBase.conditions}"/>
+                </td>
+	            <td>
+	            	<c:forEach items="${insurance.vaccines}" var="vaccine">
+	            		<c:out value="${vaccine.name}"/><br/>
+	            	</c:forEach>
+	            </td>
+                <td>
+                	<c:forEach items="${insurance.treatments}" var="treatment">
+	            		<c:out value="${treatment.description}"/><br/>
+	            	</c:forEach>
+                </td>
             </tr>
            
         </c:forEach>
         </tbody>
     </table>
-    
-    		<a class="btn btn-default" href='<spring:url value="/insurance/new" htmlEscape="true"/>'>Create insurance</a>
-    
+    	
+    	<a class="btn btn-default" href='<spring:url value="/insurance/new" htmlEscape="true"/>'>Create insurance</a>
+    	
     <br/> 
 </petclinic:layout>
+
+<!-- Descomentar cuando este acabado (HU9) -->
+<!-- <sec:authorize access="hasAuthority('veterinarian')"> -->
+
+<!-- </sec:authorize> -->

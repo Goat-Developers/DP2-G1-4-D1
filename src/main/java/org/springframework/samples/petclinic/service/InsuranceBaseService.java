@@ -19,18 +19,11 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Mostly used as a facade for all Petclinic controllers Also a placeholder
- * for @Transactional and @Cacheable annotations
- *
- * @author Michael Isvy
- */
 @Service
 public class InsuranceBaseService {
 
@@ -40,13 +33,18 @@ public class InsuranceBaseService {
 	public InsuranceBaseService(InsuranceBaseRepository insuranceBaseRepository) {
 		this.insuranceBaseRepository = insuranceBaseRepository;
 	}
+	
 	@Transactional(readOnly = true)	
 	public Collection<InsuranceBase> findInsurancesBases() throws DataAccessException {
 		return insuranceBaseRepository.findAll();
 	}
 	
+	@Transactional(readOnly = true)
+	public Collection<InsuranceBase> findInsurancesBasesByPetTypeId(int id) throws DataAccessException {
+		return insuranceBaseRepository.findByPetTypeId(id);
+	}
+	
 	public InsuranceBase findInsuranceBaseById(int id) {
-		
 		return insuranceBaseRepository.findById(id);
 	}
 }

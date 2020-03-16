@@ -4,10 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="announcements">
-
-
-
+<petclinic:layout pageName="insurances">
 
 	<section>
 	<c:forEach items="${insurance.vaccines}" var="insurance">
@@ -21,21 +18,5 @@
 <!--             <hr> -->
 <%--              <p>Created by <c:out value="${announcement.vet.firstName } ${announcement.vet.lastName }" ></c:out></p> --%>
 	</section>
-  
-
-
-	
-       
-          
-            
-          
-    		
-            
-            
-          
-     
- 
-
-    
 
 </petclinic:layout>

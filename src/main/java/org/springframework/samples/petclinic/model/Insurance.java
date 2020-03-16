@@ -1,7 +1,9 @@
 
 package org.springframework.samples.petclinic.model;
 
+import java.beans.Transient;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -46,21 +48,31 @@ public class Insurance extends BaseEntity {
 			inverseJoinColumns = @JoinColumn(name = "treatment_id"))
 	private Set<Treatment> treatments;
 	
-
-
+	protected Set<Treatment> getTreatmentsInternal() {
+		if (this.treatments == null) {
+			this.treatments = new HashSet<>();
+		}
+		return this.treatments;
+	}
+	
+	protected void setTreatmentsInternal(Set<Treatment> treatments) {
+		this.treatments = treatments;
+	}
+	
 	public Insurance() {
 		this.insuranceDate = LocalDate.now();
 	}
 
 	//Propiedades derivadas - Derivated properties
-//	@Transient
-//	public Money getInsurancePrice() {
-//		Double amount;
-//		String s = "EUR";
-//		amount = insuranceBase.getPrice().getNumber().doubleValue() +
-//				vaccines.stream().mapToDouble(a-> a.getPrice().getNumber().doubleValue()).sum() +
-//				treatments.stream().mapToDouble(b->b.getPrice().getNumber().doubleValue()).sum();
-//		return Money.of(amount, s);
-//	}
-
+	
+	@Transient
+	public Double getInsurancePrice() {
+		Double res = 0.;
+		res += insuranceBase.getPrice();
+		res += vaccines.stream().mapToDouble(v -> v.getPrice()).sum();
+		res += treatments.stream().mapToDouble(t -> t.getPrice()).sum();
+		return res;
+	}
+	
+	
 }

@@ -18,7 +18,6 @@ package org.springframework.samples.petclinic.web;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.InsurancesBases;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
@@ -38,12 +37,9 @@ private final InsuranceBaseService insuranceBaseService;
 	public InsuranceBaseController(InsuranceBaseService insuranceBaseService) {
 		this.insuranceBaseService = insuranceBaseService;
 	}
-	
-
 
 	@GetMapping("/insurances_bases")
 	public String showInsuranceBaseList(Map<String,Object> model) {
-		
 		InsurancesBases insurances = new InsurancesBases();
 		insurances.getInsuranceBaseList().addAll(insuranceBaseService.findInsurancesBases());
 		InsuranceBase insurance = new InsuranceBase();

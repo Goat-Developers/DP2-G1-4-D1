@@ -17,17 +17,13 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Announcement;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Insurances;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.PetService;
@@ -41,23 +37,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class InsuranceController {
 
-private final InsuranceService insuranceService;
-private final PetService petService;	
-private final InsuranceBaseService insuranceBaseService;
+	private final InsuranceService insuranceService;
+	private final InsuranceBaseService insuranceBaseService;
+	private final PetService petService;	
+	
 	private static final String URL_INSURANCES ="insurances/insuranceList"; 
 	
 	@Autowired
-	public InsuranceController(InsuranceService insuranceService, PetService petService, InsuranceBaseService insuranceBaseService) {
+	public InsuranceController(InsuranceService insuranceService, InsuranceBaseService insuranceBaseService, PetService petService) {
 		this.insuranceService = insuranceService;
-		this.petService = petService;
 		this.insuranceBaseService = insuranceBaseService;
+		this.petService = petService;
 	}
 	
-
-
 	@GetMapping("/insurances")
 	public String showInsuranceList(Map<String,Object> model) {
-		
 		Insurances insurances = new Insurances();
 		insurances.getInsuranceList().addAll(insuranceService.findInsurances());
 		Insurance insurance = new Insurance();
@@ -68,7 +62,7 @@ private final InsuranceBaseService insuranceBaseService;
 	}
 	
 	@GetMapping("/insurances/{insuranceId}")
-	public String ShowInsuranceDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object>  model ) {
+	public String ShowInsuranceDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object> model) {
 		Insurance a = insuranceService.findInsuranceById(insuranceId);
 		model.put("insurance",a);
 		return "insurances/insuranceDetails";
@@ -77,11 +71,13 @@ private final InsuranceBaseService insuranceBaseService;
 	@GetMapping(value ="/insurance/new")
 	public String initAnnouncementCreationForm(Map<String,Object>model) {
 		Insurance insurance = new Insurance();
-		Collection<String> insuranceBase = this.insuranceBaseService.findInsurancesBases().stream().map(InsuranceBase::getConditions).collect(Collectors.toList());
+		Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
+		
 		model.put("insurance", insurance);
 		model.put("insurancebase", insuranceBase);
 		return "insurances/createOrUpdateInsuranceForm";
 	}
+	
 	@PostMapping(value ="/insurance/new")
 	public String initAnnouncementCreationForm(@Valid Insurance insurance, BindingResult result) {
 		if (result.hasErrors()){
@@ -91,8 +87,6 @@ private final InsuranceBaseService insuranceBaseService;
 			this.insuranceService.saveInsurance(insurance);
 			return "redirect:/insurances";
 		}
-		
-		
 	}
 
 }

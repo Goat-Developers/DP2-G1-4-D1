@@ -21,10 +21,8 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
-import org.springframework.samples.petclinic.repository.InsuranceRepository;
 
 public interface SpringDataInsuranceBaseRepository extends InsuranceBaseRepository, Repository<InsuranceBase, Integer> {
 
@@ -33,4 +31,7 @@ public interface SpringDataInsuranceBaseRepository extends InsuranceBaseReposito
 	
 	@Query("SELECT insurance_base FROM InsuranceBase insurance_base")
 	Collection<InsuranceBase> findAll();
+	
+	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.petType.id =?1")
+	Collection<InsuranceBase> findByPetTypeId(@Param("id") int id);
 }

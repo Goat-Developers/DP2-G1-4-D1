@@ -17,17 +17,13 @@ package org.springframework.samples.petclinic.repository;
 
 import java.util.Collection;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Announcement;
-import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
-import org.springframework.samples.petclinic.model.PetType;
 
 public interface InsuranceBaseRepository {
-
-	InsuranceBase findInsuranceBaseById(int id);
 	
 	Collection<InsuranceBase> findAll();
+	
+	Collection<InsuranceBase> findByPetTypeId(int id);
 	
 	InsuranceBase findById(int id);
 

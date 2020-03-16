@@ -21,14 +21,11 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Announcement;
 import org.springframework.samples.petclinic.model.Insurance;
-import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 
 public interface SpringDataInsuranceRepository extends InsuranceRepository, Repository<Insurance, Integer> {
 
-	
 	@Override
 	@Query("SELECT insurance FROM Insurance insurance WHERE insurance.id =?1")
 	Insurance findById(@Param("id") int id);

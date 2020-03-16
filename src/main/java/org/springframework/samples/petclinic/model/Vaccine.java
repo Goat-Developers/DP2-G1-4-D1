@@ -25,7 +25,6 @@ public class Vaccine extends BaseEntity {
 	@Column(name = "name")        
 	private String name;
 
-	
 	@NotEmpty
 	@Column(name = "information")
 	private String information;

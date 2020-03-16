@@ -10,11 +10,16 @@
     <h2>
         <c:if test="${insurance['new']}">New </c:if> Insurance
     </h2>
-<form:form modelAttribute="insurance" class="form-horizontal" id="add-insurance-form">
+	<form:form modelAttribute="insurance" class="form-horizontal" id="add-insurance-form">
         <div class="form-group has-feedback">
-            <petclinic:selectField name ="insuranceBase" label ="Seguro base" names ="${insurancebase}" size = "5"/>
-            <petclinic:selectField name="vaccines" label="Vacunas " names="${insurance.vaccines.name}" size="5"/> 
-     		<petclinic:selectField name="treatments" label="Tratamientos " names="${treatments}" size="5"/> 
+           	<petclinic:selectField name ="insuranceBase" label ="Seguro base" names ="${insurancebase}" size = "5"/>
+            <petclinic:selectField name="vaccines" label="Vacunas" names="${vaccines}" size="5"/> 
+     		<petclinic:selectField name="treatments" label="Tratamientos" names="${treatments}" size="5"/> 
         </div>
-     </form:form>
+    	<div class="form=group">
+    		<div class="col-sm-offset-2 col-sm-10">
+    			<button class="btn btn-default" type="submit">Create Insurance</button>
+    		</div>
+    	</div>
+    </form:form>
 </petclinic:layout>

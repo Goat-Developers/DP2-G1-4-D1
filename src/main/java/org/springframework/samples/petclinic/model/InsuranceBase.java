@@ -1,7 +1,7 @@
 
 package org.springframework.samples.petclinic.model;
 
-import java.util.List;
+import java.beans.Transient;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,16 +45,16 @@ public class InsuranceBase extends BaseEntity {
 	@JoinTable(name = "insurance_base_treatments", joinColumns = @JoinColumn(name = "insurance_base_id"),
 			inverseJoinColumns = @JoinColumn(name = "treatment_id"))
 	private Set<Treatment> treatments;
+
+	//Propiedades derivadas - Derivated properties
 	
+	@Transient
+	public Double getPrice() {
+		Double res = 0.;
+		res += vaccines.stream().mapToDouble(v -> v.getPrice()).sum();
+		res += treatments.stream().mapToDouble(t -> t.getPrice()).sum();
+		return res;
+	}
 	
-	
-//	@Transient
-//	public Money getPrice() {
-//		Double amount;
-//		String s = "EUR";
-//		amount = vaccines.stream().mapToDouble(a-> a.getPrice().getNumber().doubleValue()).sum() +
-//				treatments.stream().mapToDouble(b->b.getPrice().getNumber().doubleValue()).sum();
-//		return Money.of(amount, s);
-//	}
-//	
+
 }
