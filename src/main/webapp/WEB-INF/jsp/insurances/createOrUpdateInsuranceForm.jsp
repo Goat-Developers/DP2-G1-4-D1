@@ -6,27 +6,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-<%-- <petclinic:layout pageName="owners"> --%>
-<!--     <h2> -->
-<%--         <c:if test="${announcement['new']}">New </c:if> Announcement --%>
-<!--     </h2> -->
-<%--     <form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form"> --%>
-<!--         <div class="form-group has-feedback"> -->
-<%--             <petclinic:inputField label="Header" name="firstName"/> --%>
-<%--             <petclinic:inputField label="Body" name="lastName"/> --%>
-<%--             <petclinic:inputField label="Tag" name="address"/> --%>
-<!--         </div> -->
-<!--         <div class="form-group"> -->
-<!--             <div class="col-sm-offset-2 col-sm-10"> -->
-<%--                 <c:choose> --%>
-<%--                     <c:when test="${owner['new']}"> --%>
-<!--                         <button class="btn btn-default" type="submit">Add Owner</button> -->
-<%--                     </c:when> --%>
-<%--                     <c:otherwise> --%>
-<!--                         <button class="btn btn-default" type="submit">Update Owner</button> -->
-<%--                     </c:otherwise> --%>
-<%--                 </c:choose> --%>
-<!--             </div> -->
-<!--         </div> -->
-<%--     </form:form> --%>
-<%-- </petclinic:layout> --%>
+<petclinic:layout pageName="insurances">
+    <h2>
+        <c:if test="${insurance['new']}">New </c:if> Insurance
+    </h2>
+<form:form modelAttribute="insurance" class="form-horizontal" id="add-insurance-form">
+        <div class="form-group has-feedback">
+            <petclinic:selectField name ="insuranceBase" label ="Seguro base" names ="${insurancebase}" size = "5"/>
+            <petclinic:selectField name="vaccines" label="Vacunas " names="${insurance.vaccines.name}" size="5"/> 
+     		<petclinic:selectField name="treatments" label="Tratamientos " names="${treatments}" size="5"/> 
+        </div>
+     </form:form>
+</petclinic:layout>

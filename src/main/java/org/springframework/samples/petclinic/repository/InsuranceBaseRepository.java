@@ -23,15 +23,13 @@ import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.PetType;
 
-public interface InsuranceRepository {
+public interface InsuranceBaseRepository {
 
-	Insurance findInsuranceById(int id);
+	InsuranceBase findInsuranceBaseById(int id);
 	
-	void save(Insurance insurance);
+	Collection<InsuranceBase> findAll();
 	
-	Collection<Insurance> findAll();
-	
-	Insurance findById(int id);
+	InsuranceBase findById(int id);
 
 
 }

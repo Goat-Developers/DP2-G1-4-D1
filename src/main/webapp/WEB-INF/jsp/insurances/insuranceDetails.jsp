@@ -10,7 +10,9 @@
 
 
 	<section>
-	<span><c:out value="${insurance.conditions }" ></c:out></span>
+	<c:forEach items="${insurance.vaccines}" var="insurance">
+	<c:out value="${insurance.name}" ></c:out>
+	</c:forEach>
 <%-- 	<h1><c:out value="${announcement.header}"/></h1> --%>
 <!-- 	<hr> -->
 <%-- 	<div class="xd-container2"><c:out value="${announcement.body }" ></c:out></div> --%>

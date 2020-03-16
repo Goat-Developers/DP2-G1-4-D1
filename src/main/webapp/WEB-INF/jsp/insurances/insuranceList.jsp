@@ -27,8 +27,6 @@
             		<spring:url value="/insurances/{insuranceId}" var="insUrl">
                         <spring:param name="insuranceId" value="${insurance.id}"/>
                     </spring:url>
-                   <a href="${fn:escapeXml(insUrl)}"><c:out value="${insurance.conditions}"/></a>
-                </td>
 <!--                 <td> -->
 <%--                     <c:out value="${insurance.date}"/> --%>
 <!--                 </td> -->
@@ -40,5 +38,8 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    		<a class="btn btn-default" href='<spring:url value="/insurance/new" htmlEscape="true"/>'>Create insurance</a>
+    
     <br/> 
 </petclinic:layout>

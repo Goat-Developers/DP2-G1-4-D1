@@ -1,20 +1,28 @@
 
 package org.springframework.samples.petclinic.model;
 
-import java.beans.Transient;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.javamoney.moneta.Money;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "insurances_bases")
 public class InsuranceBase extends BaseEntity {
 
@@ -24,43 +32,20 @@ public class InsuranceBase extends BaseEntity {
 	@JoinColumn(name = "pet_type_id")
 	private PetType petType;
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "insurance_base_vaccines", joinColumns = @JoinColumn(name = "insurance_base_id"),
+			inverseJoinColumns = @JoinColumn(name = "vaccine_id"))
+	private Set<Vaccine> vaccines;
 	
-	@OneToMany
-	@JoinColumn(name = "vaccine_id")
-	private List<Vaccine> vaccines;
+	@NotBlank
+	@Column(name = "conditions")
+	private String conditions;
 	
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinTable(name = "insurance_base_treatments", joinColumns = @JoinColumn(name = "insurance_base_id"),
+			inverseJoinColumns = @JoinColumn(name = "treatment_id"))
+	private Set<Treatment> treatments;
 	
-	@OneToMany
-	@JoinColumn(name = "treatment_id")
-	private List<Treatment> treatments;
-	
-	
-
-	public PetType getPetType() {
-		return this.petType;
-	}
-
-	public void setPetType(PetType petType) {
-		this.petType = petType;
-	}
-	
-	
-	public List<Vaccine> getVaccines() {
-		return this.vaccines;
-	}
-
-	public void setVaccine(List<Vaccine> vaccine) {
-		this.vaccines = vaccine;
-	}
-	
-	public List<Treatment> getTreatments() {
-		return this.treatments;
-	}
-
-	public void setTreatment(List<Treatment> treatment) {
-		this.treatments = treatment;
-	}
-
 	
 	
 //	@Transient

@@ -1,7 +1,6 @@
 
 package org.springframework.samples.petclinic.model;
 
-import java.beans.Transient;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -14,9 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import org.javamoney.moneta.Money;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -29,13 +27,12 @@ import lombok.Setter;
 @Table(name = "insurances")
 public class Insurance extends BaseEntity {
 
-
 	@Column(name = "insurance_date")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate insuranceDate;
 	
 	@JoinColumn(name = "insurance_base_id")
-	//@NotNull
+	@NotNull
 	@ManyToOne
 	private InsuranceBase insuranceBase;
 	
@@ -43,11 +40,6 @@ public class Insurance extends BaseEntity {
 	@JoinTable(name = "insurance_vaccines", joinColumns = @JoinColumn(name = "insurance_id"),
 			inverseJoinColumns = @JoinColumn(name = "vaccine_id"))
 	private Set<Vaccine> vaccines;
-	
-	@Column(name = "conditions")
-	@NotBlank
-	private String conditions;
-	
 
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "insurance_treatments", joinColumns = @JoinColumn(name = "insurance_id"),
@@ -69,10 +61,6 @@ public class Insurance extends BaseEntity {
 //				vaccines.stream().mapToDouble(a-> a.getPrice().getNumber().doubleValue()).sum() +
 //				treatments.stream().mapToDouble(b->b.getPrice().getNumber().doubleValue()).sum();
 //		return Money.of(amount, s);
-//	}
-//	@Transient
-//	public PetType getPetType() {
-//		return insuranceBase.getPetType();
 //	}
 
 }

@@ -15,28 +15,42 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Announcement;
 import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Insurances;
+import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.InsuranceService;
+import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
 public class InsuranceController {
 
 private final InsuranceService insuranceService;
-	
+private final PetService petService;	
+private final InsuranceBaseService insuranceBaseService;
 	private static final String URL_INSURANCES ="insurances/insuranceList"; 
-
+	
 	@Autowired
-	public InsuranceController(InsuranceService insuranceService) {
+	public InsuranceController(InsuranceService insuranceService, PetService petService, InsuranceBaseService insuranceBaseService) {
 		this.insuranceService = insuranceService;
+		this.petService = petService;
+		this.insuranceBaseService = insuranceBaseService;
 	}
 	
 
@@ -54,10 +68,31 @@ private final InsuranceService insuranceService;
 	}
 	
 	@GetMapping("/insurances/{insuranceId}")
-	public String ShowAnnouncementDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object>  model ) {
+	public String ShowInsuranceDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object>  model ) {
 		Insurance a = insuranceService.findInsuranceById(insuranceId);
 		model.put("insurance",a);
 		return "insurances/insuranceDetails";
+	}
+	
+	@GetMapping(value ="/insurance/new")
+	public String initAnnouncementCreationForm(Map<String,Object>model) {
+		Insurance insurance = new Insurance();
+		Collection<String> insuranceBase = this.insuranceBaseService.findInsurancesBases().stream().map(InsuranceBase::getConditions).collect(Collectors.toList());
+		model.put("insurance", insurance);
+		model.put("insurancebase", insuranceBase);
+		return "insurances/createOrUpdateInsuranceForm";
+	}
+	@PostMapping(value ="/insurance/new")
+	public String initAnnouncementCreationForm(@Valid Insurance insurance, BindingResult result) {
+		if (result.hasErrors()){
+			return "insurances/createOrUpdateInsuranceForm";
+		}else {
+			this.petService.saveInsurance(insurance);
+			this.insuranceService.saveInsurance(insurance);
+			return "redirect:/insurances";
+		}
+		
+		
 	}
 
 }

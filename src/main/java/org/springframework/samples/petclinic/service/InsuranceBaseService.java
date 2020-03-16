@@ -20,12 +20,10 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.repository.InsuranceRepository;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.model.InsuranceBase;
+import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
@@ -34,26 +32,21 @@ import org.springframework.util.StringUtils;
  * @author Michael Isvy
  */
 @Service
-public class InsuranceService {
+public class InsuranceBaseService {
 
-	private InsuranceRepository insuranceRepository;
+	private InsuranceBaseRepository insuranceBaseRepository;
 
 	@Autowired
-	public InsuranceService(InsuranceRepository insuranceRepository) {
-		this.insuranceRepository = insuranceRepository;
+	public InsuranceBaseService(InsuranceBaseRepository insuranceBaseRepository) {
+		this.insuranceBaseRepository = insuranceBaseRepository;
 	}
 	@Transactional(readOnly = true)	
-	public Collection<Insurance> findInsurances() throws DataAccessException {
-		return insuranceRepository.findAll();
+	public Collection<InsuranceBase> findInsurancesBases() throws DataAccessException {
+		return insuranceBaseRepository.findAll();
 	}
 	
-	public Insurance findInsuranceById(int id) {
+	public InsuranceBase findInsuranceBaseById(int id) {
 		
-		return insuranceRepository.findById(id);
-	}
-	
-	@Transactional(rollbackFor = DuplicatedPetNameException.class)
-	public void saveInsurance(Insurance insurance) throws DataAccessException {
-        insuranceRepository.save(insurance);                
+		return insuranceBaseRepository.findById(id);
 	}
 }
