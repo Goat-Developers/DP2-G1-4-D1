@@ -8,58 +8,35 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="vaccine">
-    <h2>Vaccine</h2>
+    <h2>Vacunas</h2>
 
     <table id="vaccineTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Tipo de Mascota</th>
-            <th>Information</th>
-            <th>Price</th>
-            <th>Provider</th>
-            <th>Expiration</th>
-            <th>Stock</th>
+            <th>Nombre</th>
+            <th>Fecha de expiracion</th>
+         
             
             
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${vaccine}" var="vaccine">
+        
             <tr>
-                <td>
-                 <c:out value="${vaccine.name}"/>
+            <td>
+                    <spring:url value="/vaccine/{vaccineId}" var="vaccineUrl">
+                        <spring:param name="vaccineId" value="${vaccine.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(vaccineUrl)}"><c:out value="${vaccine.name}"/></a>
+                </td>
                
-                </td>
-                 <td>
-                    <c:out value="${vaccine.petType}"/>
-                </td>
-                <td>
-                    <c:out value="${vaccine.information}"/>
-                </td>
-                <td>
-                    <c:out value="${vaccine.price}"/>
-                </td>
-                <td>
-                    <c:out value="${vaccine.provider}"/>
-                </td>
                 <td>
                     <c:out value="${vaccine.expiration}"/>
                 </td>
-                <td>
-                <c:out value="${vaccine.stock}"/>
-                   
-                </td>
+               
                 
-      
-<!--
-                <td> 
-                    <c:out value="${owner.user.username}"/> 
-                </td>
-                <td> 
-                   <c:out value="${owner.user.password}"/> 
-                </td> 
--->
+  
                 
             </tr>
         </c:forEach>

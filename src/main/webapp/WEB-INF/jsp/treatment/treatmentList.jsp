@@ -14,40 +14,24 @@
         <thead>
         <tr>
             <th>Tipo</th>
-            <th>Tipo de Mascota</th>
-            <th>Price</th>
-            <th>Descripcion</th>
-            
-            
+                       
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${treatment}" var="treatment">
             <tr>
-                <td>
-                 <c:out value="${treatment.type}"/>
-               
-                </td>
+                
                  <td>
-                    <c:out value="${treatment.petType}"/>
-                </td>
-                <td>
-                    <c:out value="${treatment.price}"/>
-                </td>
-                <td>
-                    <c:out value="${treatment.description}"/>
+                    <spring:url value="/treatment/{treatmentId}" var="treatmentUrl">
+                        <spring:param name="treatmentId" value="${treatment.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(treatmentUrl)}"><c:out value="${treatment.type}"/></a>
                 </td>
                 
-      
-<!--
-                <td> 
-                    <c:out value="${owner.user.username}"/> 
-                </td>
-                <td> 
-                   <c:out value="${owner.user.password}"/> 
-                </td> 
--->
                 
+     
+                
+               
             </tr>
         </c:forEach>
         </tbody>

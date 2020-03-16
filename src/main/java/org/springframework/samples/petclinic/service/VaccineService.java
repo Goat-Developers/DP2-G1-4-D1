@@ -5,6 +5,7 @@ package org.springframework.samples.petclinic.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Vaccine;
@@ -25,6 +26,11 @@ public class VaccineService {
 	@Transactional
 	public List<Vaccine> findAll(){
 		return vaccineRepo.findAll().stream().collect(Collectors.toList());
+		
+	}
+
+	public void saveVaccine(@Valid Vaccine vaccine) {
+		vaccineRepo.save(vaccine);
 		
 	}
 	
