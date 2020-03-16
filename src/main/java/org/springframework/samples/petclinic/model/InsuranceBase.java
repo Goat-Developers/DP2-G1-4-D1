@@ -63,13 +63,13 @@ public class InsuranceBase extends BaseEntity {
 
 	
 	
-	@Transient
-	public Money getPrice() {
-		Double amount;
-		String s = "EUR";
-		amount = vaccines.stream().mapToDouble(a-> a.getPrice().getNumber().doubleValue()).sum() +
-				treatments.stream().mapToDouble(b->b.getPrice().getNumber().doubleValue()).sum();
-		return Money.of(amount, s);
-	}
-	
+//	@Transient
+//	public Money getPrice() {
+//		Double amount;
+//		String s = "EUR";
+//		amount = vaccines.stream().mapToDouble(a-> a.getPrice().getNumber().doubleValue()).sum() +
+//				treatments.stream().mapToDouble(b->b.getPrice().getNumber().doubleValue()).sum();
+//		return Money.of(amount, s);
+//	}
+//	
 }

@@ -11,8 +11,13 @@ import javax.validation.constraints.NotNull;
 
 import org.javamoney.moneta.Money;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
+@Getter
+@Setter
 @Table(name = "treatments")
 public class Treatment extends BaseEntity {
 
@@ -23,36 +28,13 @@ public class Treatment extends BaseEntity {
 	
 	@NotNull
 	@Column(name = "price")
-	private Money price;
+	private Double price;
 	
 	@NotEmpty
 	@Column(name = "description")
 	private String description;
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Money getPrice() {
-		return price;
-	}
-
-	public void setPrice(Money price) {
-		this.price = price;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
 	
 
 

@@ -62,5 +62,21 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
+INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (1,'vaccinePrueba1','Para ratas',32.3,'Chema','2022-06-08',3);
+INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (2,'vaccinePrueba2','Para polen',332,'Chema','2001-06-06',0);
+
+INSERT INTO treatments(id,type,price,description) VALUES (2,'Dientes',65.7,'Limpieza de dientes');
+INSERT INTO treatments(id,type,price,description) VALUES (4,'Pelo',0,'Corte de pelo');
+
 INSERT INTO insurances(id,insurance_date,conditions) VALUES (1,'2013-01-03','cond1');
 INSERT INTO insurances(id,insurance_date,conditions) VALUES (2,'2013-01-04','cond2');
+
+INSERT INTO insurance_vaccines VALUES (1, 1);
+INSERT INTO insurance_vaccines VALUES (1, 2);
+INSERT INTO insurance_vaccines VALUES (2, 1);
+INSERT INTO insurance_vaccines VALUES (2, 2);
+
+INSERT INTO insurance_treatments VALUES (1, 2);
+INSERT INTO insurance_treatments VALUES (1, 4);
+INSERT INTO insurance_treatments VALUES (2, 2);
+INSERT INTO insurance_treatments VALUES (2, 4);
