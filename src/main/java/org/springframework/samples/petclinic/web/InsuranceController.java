@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.web;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -33,6 +34,7 @@ import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -86,10 +88,11 @@ public class InsuranceController {
 	}
 	
 	@PostMapping(value ="/insurance/new")
-	public String initAnnouncementCreationForm(@Valid Insurance insurance, BindingResult result) {
+	public String initAnnouncementCreationForm(@Valid final Insurance insurance, BindingResult result) {
 		if (result.hasErrors()){
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
+			
 			this.insuranceService.saveInsurance(insurance);
 			return "redirect:/insurances";
 		}
