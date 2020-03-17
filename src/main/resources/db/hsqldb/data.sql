@@ -68,9 +68,9 @@ INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES
 INSERT INTO treatments(id,type,price,description) VALUES (2,'Dientes',65.7,'Limpieza de dientes');
 INSERT INTO treatments(id,type,price,description) VALUES (4,'Pelo',10,'Corte de pelo');
 
-INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (1,1,'Higuiene de la mascota. Tenga mas de un mes de vida. Sin alergias');
-INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (2,2,'Higuiene de la mascota. Tenga mas de un mes de vida.');
-INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (3,3,'Higuiene de la mascota. Tenga mas de un mes de vida. Desparasitado');
+INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (1,1,'Higiene de la mascota. Tenga mas de un mes de vida. Sin alergias');
+INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (2,2,'Higiene de la mascota. Tenga mas de un mes de vida.');
+INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (3,3,'Higiene de la mascota. Tenga mas de un mes de vida. Desparasitado');
 
 INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (1,'2013-01-03',1);
 INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (2,'2013-01-04',2);
@@ -84,7 +84,6 @@ INSERT INTO insurance_treatments VALUES (1, 4);
 INSERT INTO insurance_treatments VALUES (2, 2);
 INSERT INTO insurance_treatments VALUES (2, 4);
 
-INSERT INTO insurance_base_vaccines VALUES (1, 1);
 INSERT INTO insurance_base_vaccines VALUES (1, 2);
 INSERT INTO insurance_base_vaccines VALUES (2, 1);
 INSERT INTO insurance_base_vaccines VALUES (2, 2);

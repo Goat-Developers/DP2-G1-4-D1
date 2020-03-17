@@ -26,12 +26,13 @@ import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
 
 public interface SpringDataInsuranceBaseRepository extends InsuranceBaseRepository, Repository<InsuranceBase, Integer> {
 
-	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.id =?1")
+	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.id =:id")
 	InsuranceBase findById(@Param("id") int id);
 	
 	@Query("SELECT insurance_base FROM InsuranceBase insurance_base")
 	Collection<InsuranceBase> findAll();
 	
-	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.petType.id =?1")
+	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.petType.id =:id")
 	Collection<InsuranceBase> findByPetTypeId(@Param("id") int id);
+	
 }
