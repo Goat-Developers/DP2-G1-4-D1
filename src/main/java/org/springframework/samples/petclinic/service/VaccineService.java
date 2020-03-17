@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.VaccineRepository;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,16 @@ public class VaccineService {
 		return vaccineRepo.findAll().stream().collect(Collectors.toList());
 		
 	}
-
+	
+	@Transactional
 	public void saveVaccine(@Valid Vaccine vaccine) {
 		vaccineRepo.save(vaccine);
 		
+	}
+
+	public List<PetType> findPetTypes() {
+		
+		return vaccineRepo.findPetTypes();
 	}
 	
 

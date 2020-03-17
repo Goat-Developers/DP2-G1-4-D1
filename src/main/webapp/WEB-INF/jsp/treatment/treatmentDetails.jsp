@@ -32,6 +32,10 @@
         
     </table>
     
+        <spring:url value="/treatment" var="addUrl">
+ 
+    </spring:url>
+     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Volver</a>
     
 
     

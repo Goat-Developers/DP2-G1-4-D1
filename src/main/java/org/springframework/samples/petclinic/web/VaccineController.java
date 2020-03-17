@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,9 @@ public class VaccineController {
 	@GetMapping(value = "/vaccine/new")
 	public String initCreationVaccineForm(Map<String, Object> model) {
 		Vaccine vaccine = new Vaccine();
+		List<PetType> types = vaccineService.findPetTypes();
 		model.put("vaccine", vaccine);
+		model.put("types",types);
 		return "vaccine/vaccineCreate";
 	}
 

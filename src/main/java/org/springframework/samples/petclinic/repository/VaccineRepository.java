@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
 
 public interface VaccineRepository  {
@@ -15,7 +16,7 @@ public interface VaccineRepository  {
 
 	void save(@Valid Vaccine vaccine);
 	
-
+	List<PetType> findPetTypes() throws DataAccessException;
 	
 
 }

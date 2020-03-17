@@ -39,6 +39,11 @@
         </tr>
     </table>
     
+    <spring:url value="/vaccine" var="addUrl">
+ 
+    </spring:url>
+     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Volver</a>
+   
     
 
     

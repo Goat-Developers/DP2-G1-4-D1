@@ -1,3 +1,4 @@
+
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -26,7 +27,11 @@
             <petclinic:inputField label="Proveedor" name="provider"/>
             <petclinic:inputField label="Fecha de caducidad" name="expiration"/>
             <petclinic:inputField label="Stock" name="stock"/>
-            <petclinic:inputField label="Tipo de mascota" name="petType"/>
+            <petclinic:selectField  label="Tipo " name="petType" names="${types}" size="5"/>
+            
+             
+                   
+          
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -36,8 +41,15 @@
                     </c:when>
                     
                 </c:choose>
+                 <spring:url value="/vaccine" var="addUrl">
+ 
+    </spring:url>
+     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Cancelar</a>
             </div>
+            
         </div>
+        
     </form:form>
      </jsp:body>
+     
 </petclinic:layout>
