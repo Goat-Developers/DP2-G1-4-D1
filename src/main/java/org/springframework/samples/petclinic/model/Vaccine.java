@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.beans.Transient;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -55,7 +56,18 @@ public class Vaccine extends BaseEntity {
     @NotNull
     @JoinColumn(name = "pet_type_id")
     private PetType petType;
-
-
 	
+	@Column(name = "side_effects")
+	private String sideEffects;
+
+	@Transient
+	public Boolean getExpirationSoon() {
+		Boolean res = false;
+		LocalDate ahora= LocalDate.now();
+        LocalDate umbral = expiration.minusDays(7);
+        if (ahora.equals(umbral) || ahora.isAfter(expiration) || ahora.isAfter(umbral)) {
+            res = true;	        
+        }
+        	return res;
+	}
 }

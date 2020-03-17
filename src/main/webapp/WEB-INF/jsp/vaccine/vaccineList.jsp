@@ -16,7 +16,7 @@
         <tr>
             <th>Nombre</th>
             <th>Fecha de expiracion</th>
-         
+         	<th>Expiracion cercana</th>
             
             
         </tr>
@@ -35,7 +35,9 @@
                 <td>
                     <c:out value="${vaccine.expiration}"/>
                 </td>
-               
+               <td>
+               		<c:out value="${vaccine.expirationSoon}"/>
+               </td>
                 
   
                 
