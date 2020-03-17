@@ -21,6 +21,7 @@
 	</div>
 	</div>
 	</form:form>
+	
 
 	
 
@@ -31,6 +32,7 @@
         	<th>Header</th>
             <th>Date</th>
             <th>Tag</th>
+            <th>Likes</th>
         </tr>
         </thead>
         <tbody>
@@ -48,13 +50,17 @@
                 <td>
                 	<c:out value="${announcement.tag}"/>
                 </td>
+                <td>
+                	<c:out value="${announcement.likes}"/>
+                </td>
             </tr>
            
         </c:forEach>
         </tbody>
     </table>
     <br/> 
-    <a class="btn btn-default" href='<spring:url value="/announcements/old" htmlEscape="true"/>'>Show old announcements</a>
+    <a class="btn btn-default" href='<spring:url value="/announcements/old" htmlEscape="true"/>'>Old announcements</a>
+     <a href="/announcements" class="btn btn-default">Current Announcements</a>
     <sec:authorize access="hasAuthority('veterinarian')">
 		<a class="btn btn-default" href='<spring:url value="/announcement/new" htmlEscape="true"/>'>Create announcement</a>
 	</sec:authorize>

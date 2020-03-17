@@ -2,9 +2,12 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Announcement;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.AnnouncementRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +35,15 @@ public class AnnouncementService {
 	public Collection<? extends Announcement> findOldAnnouncements() {
 		
 		return annrepository.findOld();
+	}
+	public void saveAnnouncement(@Valid Announcement announcement) {
+		
+		 annrepository.save(announcement);
+		
+	}
+	public Vet findVetByUser(String user) {
+		
+		return annrepository.findVetByUserId(user);
 	}	
 
 	

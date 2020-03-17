@@ -31,6 +31,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -98,6 +99,11 @@ public class Vet extends Person {
 	@ElementCollection
 	@Column(name = "shifts")
 	private List<Shift> shifts;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "username", referencedColumnName = "username")
+	private User user;
+	
 	
 	
 	public List<Shift>  getShifts() {

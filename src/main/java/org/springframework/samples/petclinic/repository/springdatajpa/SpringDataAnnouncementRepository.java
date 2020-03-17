@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Announcement;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.AnnouncementRepository;
 
 public interface SpringDataAnnouncementRepository extends AnnouncementRepository, Repository<Announcement, Integer>{
@@ -20,10 +21,15 @@ public interface SpringDataAnnouncementRepository extends AnnouncementRepository
 	Announcement findById(@Param("id") int id);
 	
 	@Override
-	@Query("SELECT announcement FROM Announcement announcement WHERE announcement.date >= current_date - 7")
+	@Query("SELECT announcement FROM Announcement announcement WHERE announcement.date >= current_date - 7 ORDER BY announcement.likes DESC")
 	Collection<Announcement> findAll();
 	
 	@Override
-	@Query("SELECT announcement FROM Announcement announcement WHERE announcement.date < current_date - 7")
+	@Query("SELECT announcement FROM Announcement announcement WHERE announcement.date < current_date - 7 ORDER BY announcement.likes DESC")
 	Collection<Announcement> findOld();
+	
+	@Query("SELECT vet FROM Vet vet WHERE vet.user.username=?1")
+	Vet findVetByUserId(@Param("user") String user);
+	
+	
 }

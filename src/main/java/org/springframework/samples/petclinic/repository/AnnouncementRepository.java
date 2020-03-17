@@ -3,10 +3,11 @@ package org.springframework.samples.petclinic.repository;
 import java.util.Collection;
 
 import org.springframework.samples.petclinic.model.Announcement;
+import org.springframework.samples.petclinic.model.Vet;
 
 public interface AnnouncementRepository {
 	
-	Announcement findAnnouncementById(int id);
+	
 	
 	void save(Announcement announcement);
 	
@@ -17,5 +18,7 @@ public interface AnnouncementRepository {
 	Announcement findById(int id);
 
 	Collection<Announcement> findOld();
+
+	Vet findVetByUserId(String user);
 
 }

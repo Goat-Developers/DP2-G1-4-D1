@@ -10,23 +10,23 @@
     <h2>
         <c:if test="${announcement['new']}">New </c:if> Announcement
     </h2>
-    <form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form">
+   
+    <form:form modelAttribute="announcement" class="form-horizontal" id="add-announcement-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Header" name="firstName"/>
-            <petclinic:inputField label="Body" name="lastName"/>
-            <petclinic:inputField label="Tag" name="address"/>
+            <petclinic:inputField label="Header" name="header"/>
+            <petclinic:inputField label="Body" name="body"/>
+            <petclinic:inputField label="Tag" name="tag"/>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <c:choose>
-                    <c:when test="${owner['new']}">
-                        <button class="btn btn-default" type="submit">Add Owner</button>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="btn btn-default" type="submit">Update Owner</button>
-                    </c:otherwise>
-                </c:choose>
-            </div>
+        
+             <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+
+                <button class="btn btn-default" type="submit">Add Announcement</button>
+                   <a href="/announcements" class="btn btn-default">Cancel</a>
+                 </div>
         </div>
+          
     </form:form>
+    
+   
 </petclinic:layout>
