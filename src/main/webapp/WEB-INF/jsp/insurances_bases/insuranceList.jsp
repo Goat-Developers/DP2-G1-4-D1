@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${insurances_bases.insuranceList}" var="insuranceBase">
+        <c:forEach items="${insurances_bases.insuranceBaseList}" var="insuranceBase">
             <tr>
             	<td>
             		<spring:url value="/insurances_bases/{insuranceBaseId}" var="insBaseUrl">

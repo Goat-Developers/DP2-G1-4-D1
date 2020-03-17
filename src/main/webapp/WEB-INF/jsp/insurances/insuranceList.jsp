@@ -13,9 +13,11 @@
     <table id="insurancesTable" class="table table-striped">
         <thead>
         <tr>
+        	<th>Name</th>
         	<th>Conditions</th>
             <th>Vaccines</th>
             <th>Treatment</th>
+            <th>Total price</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +27,9 @@
             		<spring:url value="/insurances/{insuranceId}" var="insUrl">
                     <spring:param name="insuranceId" value="${insurance.id}"/>
                     </spring:url>
+                    <c:out value="${insurance.id}"/>
+            	</td>
+            	<td>
                     <c:out value="${insurance.insuranceBase.conditions}"/>
                 </td>
 	            <td>
@@ -37,6 +42,9 @@
                 	<c:forEach items="${insurance.treatments}" var="treatment">
 	            		<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
 	            	</c:forEach>
+                </td>
+                <td>
+                	<c:out value="${insurance.insurancePrice} Euros"/>
                 </td>
             </tr>
            
