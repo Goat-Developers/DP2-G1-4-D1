@@ -13,7 +13,7 @@
     <table id="insurancesTable" class="table table-striped">
         <thead>
         <tr>
-        	<th>Name</th>
+        	<th>Num</th>
         	<th>Conditions</th>
             <th>Vaccines</th>
             <th>Treatment</th>
