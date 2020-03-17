@@ -22,6 +22,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 
 public interface SpringDataInsuranceRepository extends InsuranceRepository, Repository<Insurance, Integer> {
@@ -33,4 +35,10 @@ public interface SpringDataInsuranceRepository extends InsuranceRepository, Repo
 	@Override
 	@Query("SELECT insurance FROM Insurance insurance")
 	Collection<Insurance> findAll();
+	
+	@Query("SELECT vaccine from Vaccine vaccine")
+	Collection<Vaccine> findVaccines();
+	
+	@Query("SELECT treatment from Treatment treatment")
+	Collection<Treatment> findTreatments();
 }

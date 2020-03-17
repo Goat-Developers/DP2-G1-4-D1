@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -24,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Insurances;
+import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.PetService;
@@ -72,8 +75,11 @@ public class InsuranceController {
 	@GetMapping(value ="/insurance/new")
 	public String initAnnouncementCreationForm(Map<String,Object>model) {
 		Insurance insurance = new Insurance();
-		Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
-		
+		List<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
+		Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
+		Collection<Treatment> treatments = this.insuranceService.findTreatments();
+		model.put("treatments", treatments);
+		model.put("vaccines", vaccines);
 		model.put("insurance", insurance);
 		model.put("insurancebase", insuranceBase);
 		return "insurances/createOrUpdateInsuranceForm";
@@ -84,7 +90,6 @@ public class InsuranceController {
 		if (result.hasErrors()){
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
-			this.petService.saveInsurance(insurance);
 			this.insuranceService.saveInsurance(insurance);
 			return "redirect:/insurances";
 		}

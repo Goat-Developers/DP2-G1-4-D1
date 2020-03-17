@@ -18,6 +18,8 @@ package org.springframework.samples.petclinic.repository;
 import java.util.Collection;
 
 import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.model.Vaccine;
 
 public interface InsuranceRepository {
 
@@ -26,6 +28,11 @@ public interface InsuranceRepository {
 	Collection<Insurance> findAll();
 	
 	Insurance findById(int id);
+	
+	Collection<Vaccine> findVaccines();
+	
+	Collection<Treatment> findTreatments();
+
 
 
 }

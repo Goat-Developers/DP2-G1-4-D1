@@ -12,9 +12,22 @@
     </h2>
 	<form:form modelAttribute="insurance" class="form-horizontal" id="add-insurance-form">
         <div class="form-group has-feedback">
-           	<petclinic:selectField name ="insuranceBase" label ="Seguro base" names ="${insurancebase}" size = "5"/>
-            <petclinic:selectField name="vaccines" label="Vacunas" names="${insurance.vaccines}" size="5"/> 
-     		<petclinic:selectField name="treatments" label="Tratamientos" names="${treatments}" size="5"/> 
+           	<select name="insuranceBase">
+    			<c:forEach items="${insurancebase}" var="option">
+        			<option value="${option.conditions}">"${option.conditions}"</option>
+    			</c:forEach>
+			</select>
+            <select name="vaccine" multiple>
+    			<c:forEach items="${vaccines}" var="option">
+        			<option value="${option.name}">"${option.name}"</option>
+    			</c:forEach>
+			</select>
+			
+			<select name="treatment" multiple>
+    			<c:forEach items="${treatments}" var="option">
+        			<option value="${option.description}">"${option.description}"</option>
+    			</c:forEach>
+			</select> 
         </div>
     	<div class="form=group">
     		<div class="col-sm-offset-2 col-sm-10">
