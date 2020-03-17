@@ -62,15 +62,15 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (1,'VaccinePrueba1','Para ratas',32.3,'Chema','2022-06-08',3);
-INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (2,'VaccinePrueba2','Para ratas',332,'Chema','2001-06-06',0);
+INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',3);
+INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (2,'Vacuna del coronavirus','Para ratas',332,'Chema','2001-06-06',0);
 
 INSERT INTO treatments(id,type,price,description) VALUES (2,'Dientes',65.7,'Limpieza de dientes');
-INSERT INTO treatments(id,type,price,description) VALUES (4,'Pelo',0,'Corte de pelo');
+INSERT INTO treatments(id,type,price,description) VALUES (4,'Pelo',10,'Corte de pelo');
 
-INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (1,1,'Cond1');
-INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (2,2,'Cond2');
-INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (3,3,'Cond3');
+INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (1,1,'Higuiene de la mascota. Tenga mas de un mes de vida. Sin alergias');
+INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (2,2,'Higuiene de la mascota. Tenga mas de un mes de vida.');
+INSERT INTO insurances_bases(id,pet_type_id,conditions) VALUES (3,3,'Higuiene de la mascota. Tenga mas de un mes de vida. Desparasitado');
 
 INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (1,'2013-01-03',1);
 INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (2,'2013-01-04',2);

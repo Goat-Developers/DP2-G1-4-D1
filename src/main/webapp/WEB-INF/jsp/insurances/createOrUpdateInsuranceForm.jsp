@@ -13,7 +13,7 @@
 	<form:form modelAttribute="insurance" class="form-horizontal" id="add-insurance-form">
         <div class="form-group has-feedback">
            	<petclinic:selectField name ="insuranceBase" label ="Seguro base" names ="${insurancebase}" size = "5"/>
-            <petclinic:selectField name="vaccines" label="Vacunas" names="${vaccines}" size="5"/> 
+            <petclinic:selectField name="vaccines" label="Vacunas" names="${insurance.vaccines}" size="5"/> 
      		<petclinic:selectField name="treatments" label="Tratamientos" names="${treatments}" size="5"/> 
         </div>
     	<div class="form=group">

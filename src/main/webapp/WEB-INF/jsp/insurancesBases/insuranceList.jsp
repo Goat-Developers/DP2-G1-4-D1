@@ -7,10 +7,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<petclinic:layout pageName="insurances">
-    <h2>Insurances</h2>
+<petclinic:layout pageName="insurances_bases">
+    <h2>Insurances Bases</h2>
 
-    <table id="insurancesTable" class="table table-striped">
+    <table id="insurances_basesTable" class="table table-striped">
         <thead>
         <tr>
         	<th>Conditions</th>
@@ -19,23 +19,22 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${insurances.insuranceList}" var="insurance">
+        <c:forEach items="${insurances_bases.insuranceList}" var="insuranceBase">
             <tr>
             	<td>
-            		<spring:url value="/insurances/{insuranceId}" var="insUrl">
-                    <spring:param name="insuranceId" value="${insurance.id}"/>
+            		<spring:url value="/insurances_bases/{insuranceBaseId}" var="insBaseUrl">
+                    <spring:param name="insuranceBaseId" value="${insuranceBase.id}"/>
                     </spring:url>
-                    <c:out value="${insurance.insuranceBase.conditions}"/>
+                    <c:out value="${insuranceBase.conditions}"/>
                 </td>
 	            <td>
-	            	<c:forEach items="${insurance.vaccines}" var="vaccine">
-	            		<c:out value="${vaccine.name} (${vaccine.price} Euros)"/>
-	            		<br/>
+	            	<c:forEach items="${insuranceBase.vaccines}" var="vaccine">
+	            		<c:out value="${vaccine.name}"/><br/>
 	            	</c:forEach>
 	            </td>
                 <td>
-                	<c:forEach items="${insurance.treatments}" var="treatment">
-	            		<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
+                	<c:forEach items="${insuranceBase.treatments}" var="treatment">
+	            		<c:out value="${treatment.description}"/><br/>
 	            	</c:forEach>
                 </td>
             </tr>
@@ -43,13 +42,5 @@
         </c:forEach>
         </tbody>
     </table>
-    	
-    	<a class="btn btn-default" href='<spring:url value="/insurance/new" htmlEscape="true"/>'>Create insurance</a>
-    	
     <br/> 
 </petclinic:layout>
-
-<!-- Descomentar cuando este acabado (HU9) -->
-<!-- <sec:authorize access="hasAuthority('veterinarian')"> -->
-
-<!-- </sec:authorize> -->

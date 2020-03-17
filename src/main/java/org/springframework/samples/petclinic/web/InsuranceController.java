@@ -54,6 +54,7 @@ public class InsuranceController {
 	public String showInsuranceList(Map<String,Object> model) {
 		Insurances insurances = new Insurances();
 		insurances.getInsuranceList().addAll(insuranceService.findInsurances());
+		//Collection<Double> totalPrice = insurances.getInsuranceList().stream().mapToDouble(x -> x.getInsurancePrice()).collect(Collectors.toList());
 		Insurance insurance = new Insurance();
 		model.put("insurances",insurances);
 		model.put("insurance",insurance);
@@ -63,8 +64,8 @@ public class InsuranceController {
 	
 	@GetMapping("/insurances/{insuranceId}")
 	public String ShowInsuranceDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object> model) {
-		Insurance a = insuranceService.findInsuranceById(insuranceId);
-		model.put("insurance",a);
+		Insurance insurance = insuranceService.findInsuranceById(insuranceId);
+		model.put("insurance",insurance);
 		return "insurances/insuranceDetails";
 	}
 	

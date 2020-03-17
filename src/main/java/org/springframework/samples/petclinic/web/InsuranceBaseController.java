@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class InsuranceBaseController {
 
-private final InsuranceBaseService insuranceBaseService;
+	private final InsuranceBaseService insuranceBaseService;
 	
 	private static final String URL_INSURANCES_BASES ="insurances_bases/insuranceList"; 
 
@@ -40,19 +40,18 @@ private final InsuranceBaseService insuranceBaseService;
 
 	@GetMapping("/insurances_bases")
 	public String showInsuranceBaseList(Map<String,Object> model) {
-		InsurancesBases insurances = new InsurancesBases();
-		insurances.getInsuranceBaseList().addAll(insuranceBaseService.findInsurancesBases());
-		InsuranceBase insurance = new InsuranceBase();
-		model.put("insurances_bases",insurances);
-		model.put("insurance_base",insurance);
+		InsurancesBases insurancesBases = new InsurancesBases();
+		insurancesBases.getInsuranceBaseList().addAll(insuranceBaseService.findInsurancesBases());
+		InsuranceBase insuranceBase = new InsuranceBase();
+		model.put("insurances_bases",insurancesBases);
+		model.put("insurance_base",insuranceBase);
 		return URL_INSURANCES_BASES;
-		
 	}
 	
 	@GetMapping("/insurances_bases/{insuranceBaseId}")
-	public String ShowAInsuranceBaseDetail(@PathVariable("insuranceBaseId")  int insuranceId, Map<String,Object>  model ) {
-		InsuranceBase a = insuranceBaseService.findInsuranceBaseById(insuranceId);
-		model.put("insurance_base",a);
+	public String ShowAInsuranceBaseDetail(@PathVariable("insuranceBaseId")  int insuranceBaseId, Map<String,Object>  model) {
+		InsuranceBase insuranceBase = insuranceBaseService.findInsuranceBaseById(insuranceBaseId);
+		model.put("insurance_base",insuranceBase);
 		return "insurances_bases/insuranceDetails";
 	}
 
