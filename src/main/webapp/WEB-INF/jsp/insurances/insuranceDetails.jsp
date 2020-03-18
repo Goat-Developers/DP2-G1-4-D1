@@ -5,18 +5,67 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="insurances">
+	
+	<h2>Insurance Information</h2>
+    <table class="table table-striped">
+    <tr>
+        <th>Date</th>
+        <td><c:out value="${insurance.insuranceDate}"/></td>
+    </tr>
+    <tr>
+        <th>Vaccines</th>
+        <td>
+	    	<c:forEach items="${insurance.vaccines}" var="vaccine">
+	        	<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
+	        </c:forEach>
+	    </td>
+    </tr>
+    <tr>
+        <th>Treatments</th>
+        <td>
+        	<c:forEach items="${insurance.treatments}" var="treatment">
+	        	<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
+	        </c:forEach>
+        </td>
+    </tr>
+    <tr>
+    	<th>Total price</th>
+    	<td><c:out value="${insurance.insurancePrice} Euros"/></td>
+    </tr>
+    </table>
+    <br/>
+    <h2>Insurance Base Information</h2>
+    <table class="table table-striped">
+    <tr>
+        <th>Pet Type</th>
+        <td><c:out value="${insurance.insuranceBase.petType.name}"/></td>
+    </tr>
+    <tr>
+        <th>Vaccines</th>
+        <td>
+	    	<c:forEach items="${insurance.insuranceBase.vaccines}" var="vaccine">
+	        	<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
+	        </c:forEach>
+	    </td>
+    </tr>
+    <tr>
+        <th>Treatments</th>
+        <td>
+        	<c:forEach items="${insurance.insuranceBase.treatments}" var="treatment">
+	        	<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
+	        </c:forEach>
+        </td>
+    </tr>
+    <tr>
+        <th>Conditions</th>
+        <td><c:out value="${insurance.insuranceBase.conditions}"/></td>
+    </tr>
+    <tr>
+    	<th>Base price</th>
+    	<td><c:out value="${insurance.insuranceBase.price} Euros"/></td>
+    </tr>
+    </table>
 
-	<section>
-	<c:forEach items="${insurance.vaccines}" var="insurance">
-	<c:out value="${insurance.name}" ></c:out>
-	</c:forEach>
-<%-- 	<h1><c:out value="${announcement.header}"/></h1> --%>
-<!-- 	<hr> -->
-<%-- 	<div class="xd-container2"><c:out value="${announcement.body }" ></c:out></div> --%>
-           
-<%--             <p>#<c:out value="${announcement.tag }" ></c:out></p> --%>
-<!--             <hr> -->
-<%--              <p>Created by <c:out value="${announcement.vet.firstName } ${announcement.vet.lastName }" ></c:out></p> --%>
-	</section>
-
+	<a class="btn btn-default" href='<spring:url value="/insurances" htmlEscape="true"/>'>Return</a>
+    <br/>
 </petclinic:layout>

@@ -14,9 +14,9 @@
         <thead>
         <tr>
         	<th>Num</th>
-        	<th>Conditions</th>
             <th>Vaccines</th>
             <th>Treatment</th>
+            <th>Conditions</th>
             <th>Total price</th>
         </tr>
         </thead>
@@ -27,21 +27,20 @@
             		<spring:url value="/insurances/{insuranceId}" var="insUrl">
                     <spring:param name="insuranceId" value="${insurance.id}"/>
                     </spring:url>
-                    <c:out value="${insurance.id}"/>
+                    <a href="${fn:escapeXml(insUrl)}"><c:out value="${insurance.id}"/></a>
             	</td>
-            	<td>
-                    <c:out value="${insurance.insuranceBase.conditions}"/>
-                </td>
 	            <td>
 	            	<c:forEach items="${insurance.vaccines}" var="vaccine">
-	            		<c:out value="${vaccine.name} (${vaccine.price} Euros)"/>
-	            		<br/>
+	            		<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
 	            	</c:forEach>
 	            </td>
                 <td>
                 	<c:forEach items="${insurance.treatments}" var="treatment">
 	            		<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
 	            	</c:forEach>
+                </td>
+                <td>
+                    <c:out value="${insurance.insuranceBase.conditions}"/>
                 </td>
                 <td>
                 	<c:out value="${insurance.insurancePrice} Euros"/>

@@ -49,7 +49,7 @@ public class InsuranceBaseController {
 	}
 	
 	@GetMapping("/insurances_bases/{insuranceBaseId}")
-	public String ShowAInsuranceBaseDetail(@PathVariable("insuranceBaseId")  int insuranceBaseId, Map<String,Object>  model) {
+	public String ShowAInsuranceBaseDetail(@PathVariable("insuranceBaseId")  int insuranceBaseId, Map<String,Object> model) {
 		InsuranceBase insuranceBase = insuranceBaseService.findInsuranceBaseById(insuranceBaseId);
 		model.put("insurance_base",insuranceBase);
 		return "insurances_bases/insuranceDetails";
