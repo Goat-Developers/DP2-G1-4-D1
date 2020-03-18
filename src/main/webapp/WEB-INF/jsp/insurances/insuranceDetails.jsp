@@ -64,8 +64,16 @@
     	<th>Base price</th>
     	<td><c:out value="${insurance.insuranceBase.price} Euros"/></td>
     </tr>
-    </table>
+   </table>
 
-	<a class="btn btn-default" href='<spring:url value="/insurances" htmlEscape="true"/>'>Return</a>
+	 <button onclick="goBack()">Return</button>
+
+	
     <br/>
 </petclinic:layout>
+
+<script>
+		function goBack() {
+ 		 window.history.back();
+		}
+	</script> 

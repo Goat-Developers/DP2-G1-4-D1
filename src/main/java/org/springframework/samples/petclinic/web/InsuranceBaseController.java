@@ -31,14 +31,14 @@ public class InsuranceBaseController {
 
 	private final InsuranceBaseService insuranceBaseService;
 	
-	private static final String URL_INSURANCES_BASES ="insurances_bases/insuranceList"; 
+	private static final String URL_INSURANCES_BASES ="insurancesbases/insuranceList"; 
 
 	@Autowired
 	public InsuranceBaseController(InsuranceBaseService insuranceBaseService) {
 		this.insuranceBaseService = insuranceBaseService;
 	}
 
-	@GetMapping("/insurances_bases")
+	@GetMapping("/insurancesbases")
 	public String showInsuranceBaseList(Map<String,Object> model) {
 		InsurancesBases insurancesBases = new InsurancesBases();
 		insurancesBases.getInsuranceBaseList().addAll(insuranceBaseService.findInsurancesBases());
@@ -48,11 +48,11 @@ public class InsuranceBaseController {
 		return URL_INSURANCES_BASES;
 	}
 	
-	@GetMapping("/insurances_bases/{insuranceBaseId}")
+	@GetMapping("/insurancesbases/{insuranceBaseId}")
 	public String ShowAInsuranceBaseDetail(@PathVariable("insuranceBaseId")  int insuranceBaseId, Map<String,Object> model) {
 		InsuranceBase insuranceBase = insuranceBaseService.findInsuranceBaseById(insuranceBaseId);
 		model.put("insurance_base",insuranceBase);
-		return "insurances_bases/insuranceDetails";
+		return "insurancesbases/insuranceDetails";
 	}
 
 }

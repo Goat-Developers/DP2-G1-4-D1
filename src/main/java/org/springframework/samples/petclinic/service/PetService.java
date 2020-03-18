@@ -85,11 +85,4 @@ public class PetService {
 		return visitRepository.findByPetId(petId);
 	}
 
-	@Transactional
-	public void saveInsurance(@Valid Insurance insurance) {
-		
-		insuranceRepository.save(insurance);
-		
-	}
-
 }

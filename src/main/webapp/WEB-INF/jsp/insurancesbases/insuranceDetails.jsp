@@ -38,6 +38,6 @@
     	<td><c:out value="${insurance_base.price} Euros"/></td>
     </tr>
     </table>
-	<a class="btn btn-default" href='<spring:url value="/insurances_bases" htmlEscape="true"/>'>Return</a>
+	<a class="btn btn-default" href='<spring:url value="/insurancesbases" htmlEscape="true"/>'>Return</a>
     <br/>
 </petclinic:layout>

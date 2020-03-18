@@ -79,7 +79,7 @@ public class Pet extends NamedEntity {
 	private Treatment treatment;
 	
 	///Revisar multiplicidad
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "insurance_id")
 	private Insurance insurance;
 

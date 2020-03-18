@@ -23,17 +23,22 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Insurances;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +52,15 @@ public class InsuranceController {
 	private final PetService petService;	
 	
 	private static final String URL_INSURANCES ="insurances/insuranceList"; 
+	
+	
+	@InitBinder("insurance")
+    public void initInsuranceBinder(WebDataBinder dataBinder) {
+        dataBinder.setValidator(new InsuranceValidator());
+        
+    }
+	
+	
 	
 	@Autowired
 	public InsuranceController(InsuranceService insuranceService, InsuranceBaseService insuranceBaseService, PetService petService) {
@@ -74,12 +88,14 @@ public class InsuranceController {
 		return "insurances/insuranceDetails";
 	}
 	
-	@GetMapping(value ="/insurance/new")
-	public String initAnnouncementCreationForm(Map<String,Object>model) {
+	@GetMapping(value ="/insurance/new/{petId}")
+	public String initInsuranceCreationForm(Map<String,Object>model, @PathVariable("petId") int id) {
 		Insurance insurance = new Insurance();
-		List<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
+		Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(id);
 		Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
 		Collection<Treatment> treatments = this.insuranceService.findTreatments();
+		Pet pet = this.petService.findPetById(id);
+		model.put("pet", pet);
 		model.put("treatments", treatments);
 		model.put("vaccines", vaccines);
 		model.put("insurance", insurance);
@@ -87,15 +103,18 @@ public class InsuranceController {
 		return "insurances/createOrUpdateInsuranceForm";
 	}
 	
-	@PostMapping(value ="/insurance/new")
-	public String initAnnouncementCreationForm(@Valid final Insurance insurance, BindingResult result) {
+	@PostMapping(value ="/insurance/new/{petId}")
+	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")int pet) throws DataAccessException, DuplicatedPetNameException {
 		if (result.hasErrors()){
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
-			
 			this.insuranceService.saveInsurance(insurance);
+			Pet peta =this.petService.findPetById(pet);
+			peta.setInsurance(insurance);
+			this.petService.savePet(peta);
 			return "redirect:/insurances";
 		}
 	}
 
+	
 }
