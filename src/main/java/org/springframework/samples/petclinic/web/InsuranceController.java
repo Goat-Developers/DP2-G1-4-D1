@@ -16,7 +16,9 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -24,12 +26,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Insurances;
+import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -72,19 +77,22 @@ public class InsuranceController {
 	@GetMapping(value ="/insurance/new")
 	public String initAnnouncementCreationForm(Map<String,Object>model) {
 		Insurance insurance = new Insurance();
-		Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
-		
+		List<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
+		Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
+		Collection<Treatment> treatments = this.insuranceService.findTreatments();
+		model.put("treatments", treatments);
+		model.put("vaccines", vaccines);
 		model.put("insurance", insurance);
 		model.put("insurancebase", insuranceBase);
 		return "insurances/createOrUpdateInsuranceForm";
 	}
 	
 	@PostMapping(value ="/insurance/new")
-	public String initAnnouncementCreationForm(@Valid Insurance insurance, BindingResult result) {
+	public String initAnnouncementCreationForm(@Valid final Insurance insurance, BindingResult result) {
 		if (result.hasErrors()){
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
-			this.petService.saveInsurance(insurance);
+			
 			this.insuranceService.saveInsurance(insurance);
 			return "redirect:/insurances";
 		}

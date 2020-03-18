@@ -20,6 +20,8 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
@@ -48,4 +50,14 @@ public class InsuranceService {
 	public void saveInsurance(Insurance insurance) throws DataAccessException {
         insuranceRepository.save(insurance);                
 	}
+	
+	public Collection<Vaccine> findVaccines() throws DataAccessException {
+		return insuranceRepository.findVaccines();
+	}
+	
+	public Collection<Treatment> findTreatments() throws DataAccessException {
+		return insuranceRepository.findTreatments();
+	}
+	
+
 }

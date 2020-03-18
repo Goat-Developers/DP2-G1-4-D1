@@ -58,6 +58,12 @@ public class Insurance extends BaseEntity {
 	protected void setTreatmentsInternal(Set<Treatment> treatments) {
 		this.treatments = treatments;
 	}
+	public Set<Treatment> getTreatments(){
+		return this.getTreatmentsInternal();
+	}
+	public void setTreatments(Set<Treatment> treatments) {
+		this.setTreatmentsInternal(treatments);
+	}
 	
 	public Insurance() {
 		this.insuranceDate = LocalDate.now();

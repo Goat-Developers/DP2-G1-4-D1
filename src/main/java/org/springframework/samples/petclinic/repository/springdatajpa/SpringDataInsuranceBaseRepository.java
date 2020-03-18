@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
@@ -30,9 +31,11 @@ public interface SpringDataInsuranceBaseRepository extends InsuranceBaseReposito
 	InsuranceBase findById(@Param("id") int id);
 	
 	@Query("SELECT insurance_base FROM InsuranceBase insurance_base")
-	Collection<InsuranceBase> findAll();
+	List<InsuranceBase> findAll();
 	
 	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.petType.id =:id")
 	Collection<InsuranceBase> findByPetTypeId(@Param("id") int id);
 	
+
 }
+
