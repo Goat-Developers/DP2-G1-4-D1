@@ -37,6 +37,10 @@
             <th>Stock</th>
             <td><c:out value="${vaccine.stock}"/></td>
         </tr>
+        <tr>
+            <th>Efectos secundarios</th>
+            <td><c:out value="${vaccine.sideEffects}"/></td>
+        </tr>
     </table>
     
     <spring:url value="/vaccine" var="addUrl">

@@ -16,8 +16,8 @@
         <tr>
             <th>Nombre</th>
             <th>Fecha de expiracion</th>
-         	<th>Expiracion cercana</th>
-            
+         	
+            <th></th>
             
         </tr>
         </thead>
@@ -35,10 +35,13 @@
                 <td>
                     <c:out value="${vaccine.expiration}"/>
                 </td>
+               
                <td>
-               		<c:out value="${vaccine.expirationSoon}"/>
+                     <spring:url value="/vaccine/{vaccineId}/delete" var="deleteVaccineUrl">
+                     <spring:param name="vaccineId" value="${vaccine.id}"/>
+                     </spring:url>
+                     <a href="${fn:escapeXml(deleteVaccineUrl)}"> Eliminar vacuna</a>
                </td>
-                
   
                 
             </tr>
@@ -46,12 +49,9 @@
         </tbody>
     </table>
     
-    <sec:authorize access="hasAuthority('veterinarian')">
-        <a class="btn btn-default" href='<spring:url value="/vaccine/new" htmlEscape="true"/>'>Crear nueva vacuna</a>
-    </sec:authorize>
-   <sec:authorize access="hasAuthority('veterinarian')">
-        <a class="btn btn-default" href='<spring:url value="/vaccine/expirated" htmlEscape="true"/>'>Vacunas caducadas</a>
-    </sec:authorize>
-    
+    <spring:url value="/vaccine" var="addUrl">
+ 
+    </spring:url>
+     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Volver</a>
     
 </petclinic:layout>

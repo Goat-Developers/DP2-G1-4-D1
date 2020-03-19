@@ -31,8 +31,20 @@ public class VaccineService {
 	}
 	
 	@Transactional
+	public List<Vaccine> findAllExpirated(){
+		return vaccineRepo.findAll().stream().filter(v -> v.getExpirated()).collect(Collectors.toList());
+		
+	}
+	
+	@Transactional
 	public void saveVaccine(@Valid Vaccine vaccine) {
 		vaccineRepo.save(vaccine);
+		
+	}
+	
+	@Transactional
+	public void deleteVaccine(@Valid Vaccine vaccine) {
+		vaccineRepo.delete(vaccine);;
 		
 	}
 
