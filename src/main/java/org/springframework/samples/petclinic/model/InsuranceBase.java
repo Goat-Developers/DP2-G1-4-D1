@@ -29,7 +29,7 @@ public class InsuranceBase extends BaseEntity {
 	
 	@ManyToOne
 	@NotNull
-	@JoinColumn(name = "pet_type_id")
+	@JoinColumn(name = "type_id")
 	private PetType petType;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -33,7 +33,7 @@ public interface SpringDataInsuranceBaseRepository extends InsuranceBaseReposito
 	@Query("SELECT insurance_base FROM InsuranceBase insurance_base")
 	List<InsuranceBase> findAll();
 	
-	@Query("SELECT insurancebase FROM InsuranceBase insurancebase WHERE insurancebase.petType.id =?1")
+	@Query("SELECT insurancebase FROM InsuranceBase insurancebase WHERE insurancebase.petType.id =:id")
 	Collection<InsuranceBase> findByPetTypeId(@Param("id") int id);
 	
 

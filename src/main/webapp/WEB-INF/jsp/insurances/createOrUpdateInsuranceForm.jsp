@@ -19,7 +19,7 @@
     	<div class="form=group">
     		<div class="col-sm-offset-2 col-sm-10">
     			<button class="btn btn-default" type="submit">Create Insurance</button>
-    			<input type ="hidden" value = "${pet.id}" name = "pet">
+    			<input type ="hidden" value = "${pet}" name = "pet">
     		</div>
     	</div>
     </form:form>
