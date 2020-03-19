@@ -37,13 +37,19 @@ public class Announcement extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate date;
 	
+	@Column(name= "likes")
+	private Integer likes; 
+	
 	@ManyToOne
 	@JoinColumn(name = "vet_id")
 	private Vet vet;
 
 	public Announcement() {
 		this.date = LocalDate.now();
+		this.likes=0;
 	}
+	
+	
 	
 	
 }
