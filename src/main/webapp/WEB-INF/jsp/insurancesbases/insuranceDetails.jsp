@@ -6,7 +6,7 @@
 
 <petclinic:layout pageName="insurance_base">
 
-	<h2>Insurance Base Information</h2>
+	<h2>Insurance Base <c:out value="${insurance_base.name}"/> Information</h2>
 
     <table class="table table-striped">
     <tr>

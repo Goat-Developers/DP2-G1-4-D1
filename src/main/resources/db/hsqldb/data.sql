@@ -50,12 +50,12 @@ INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES
 INSERT INTO treatments(id,type,price,description) VALUES (2,'Dientes',65.7,'Limpieza de dientes');
 INSERT INTO treatments(id,type,price,description) VALUES (4,'Pelo',10,'Corte de pelo');
 
-INSERT INTO insurances_bases(id,type_id,conditions) VALUES (1,1,'Tiene que ser gato');
-INSERT INTO insurances_bases(id,type_id,conditions) VALUES (2,2,'Tiene que ser perro.');
-INSERT INTO insurances_bases(id,type_id,conditions) VALUES (3,3,'Tiene que ser lizard');
-INSERT INTO insurances_bases(id,type_id,conditions) VALUES (4,4,'Tiene que ser snake.');
-INSERT INTO insurances_bases(id,type_id,conditions) VALUES (5,5,'Tiene que ser bird');
-INSERT INTO insurances_bases(id,type_id,conditions) VALUES (6,6,'Tiene que ser hamster.');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (1,'MIGUEEEEEEEEEEEEEEEEEEEEEL',1,'Tiene que ser gato');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (2,'MIGUEEEEEEEEEEEEEEEEEEEEEEL 1',2,'Tiene que ser perro.');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (3,'MIGUEEEEEEEEEEEEEEEEEEEEL 2',3,'Tiene que ser lizard');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (4,'MIGUEEEEEEEEEEEEEEEEEEEL 3',4,'Tiene que ser snake.');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (5,'MIGUEEEEEEEEEEEEEEEEEEEEEEL 4',5,'Tiene que ser bird');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,' MIGUEEEEEEEEEEEEEEEEEEEEEEEL 5',6,'Tiene que ser hamster.');
 
 
 INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (1,'2013-01-03',1);

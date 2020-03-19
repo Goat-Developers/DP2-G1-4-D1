@@ -63,7 +63,7 @@
                         <tr>
                             <th>Visit Date</th>
                             <th>Description</th>
-                            <th> Insurance </th>
+                            <c:if test ="${ pet.insurance ==null}"> <th> Insurance </th></c:if>
                         </tr>
                         </thead>
                         <c:forEach var="visit" items="${pet.visits}">
@@ -87,12 +87,14 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
                             </td>
+                            <c:if test ="${ pet.insurance ==null}">
                             <td>    
                                  <spring:url value="/insurance/new/{petId}" var="insuranceUrl">
                                     <spring:param name="petId" value="${pet.id}"/>
                                 </spring:url>
                                 <a href="${fn:escapeXml(insuranceUrl)}">Add Insurance</a>
                             </td>
+                            </c:if>
                         </tr>
                     </table>
                 </td>
@@ -100,9 +102,8 @@
 
         </c:forEach>
     </table>
-
+ <c:if test="${numberIns >0 }">
 <h2>Pets and Insurances</h2>
-
 <table id="insurancesTable" class="table table-striped">
         <tr>
         	<th>Num</th>
@@ -114,6 +115,7 @@
         </tr>
         <tbody>
         <c:forEach items="${owner.pets}" var="pets">
+        	<c:if test="${pets.insurance!=null}"> 
             <tr>
             	<td>
             		<spring:url value="/insurances/{insuranceId}" var="insUrl">
@@ -123,12 +125,12 @@
             	</td>
 	            <td>
 	            	<c:forEach items="${pets.insurance.vaccines}" var="vaccine">
-	            		<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
+	            		<c:out value="${vaccine.name}"/><br/>
 	            	</c:forEach>
 	            </td>
                 <td>
                 	<c:forEach items="${pets.insurance.treatments}" var="treatment">
-	            		<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
+	            		<c:out value="${treatment.description}"/><br/>
 	            	</c:forEach>
                 </td>
                 <td>
@@ -139,7 +141,9 @@
                 </td>
     			<td><c:out value="${pets.name}"/></td>             
             </tr>
+            </c:if>
         </c:forEach>
         </tbody>
     </table>
+    </c:if>
 </petclinic:layout>

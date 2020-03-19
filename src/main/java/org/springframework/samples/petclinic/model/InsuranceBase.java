@@ -32,6 +32,10 @@ public class InsuranceBase extends BaseEntity {
 	@JoinColumn(name = "type_id")
 	private PetType petType;
 	
+	@NotBlank
+	@Column(name="name")
+	private String name;
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "insurance_base_vaccines", joinColumns = @JoinColumn(name = "insurance_base_id"),
 			inverseJoinColumns = @JoinColumn(name = "vaccine_id"))
@@ -53,6 +57,7 @@ public class InsuranceBase extends BaseEntity {
 		Double res = 0.;
 		res += vaccines.stream().mapToDouble(v -> v.getPrice()).sum();
 		res += treatments.stream().mapToDouble(t -> t.getPrice()).sum();
+		res = res - 0.30*res;
 		return res;
 	}
 	

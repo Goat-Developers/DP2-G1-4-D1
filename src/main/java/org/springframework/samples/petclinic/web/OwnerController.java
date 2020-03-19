@@ -141,6 +141,14 @@ public class OwnerController {
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
+		int b =0;
+		List<Pet> pets = this.ownerService.findOwnerById(ownerId).getPets();
+		for (Pet a: pets) {
+			if (a.getInsurance()!=null) {
+				b++;
+			}
+		}
+		mav.addObject("numberIns", b);
 		return mav;
 	}
 

@@ -19,14 +19,14 @@ public class InsuranceBaseFormatter implements Formatter<InsuranceBase>{
 	@Override
 	public String print(InsuranceBase object, Locale locale) {
 		
-		return object.getConditions();
+		return object.getName();
 	}
 
 	@Override
 	public InsuranceBase parse(String text, Locale locale) throws ParseException {
 		List<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBases();
 		for (InsuranceBase type : insuranceBase) {
-			if (type.getConditions().equals(text)) {
+			if (type.getName().equals(text)) {
 				return type;
 			}
 		}

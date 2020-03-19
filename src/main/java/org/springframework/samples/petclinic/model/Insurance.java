@@ -77,6 +77,8 @@ public class Insurance extends BaseEntity {
 		res += insuranceBase.getPrice();
 		res += vaccines.stream().mapToDouble(v -> v.getPrice()).sum();
 		res += treatments.stream().mapToDouble(t -> t.getPrice()).sum();
+		
+		
 		return res;
 	}
 	

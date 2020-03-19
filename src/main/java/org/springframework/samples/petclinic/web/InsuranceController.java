@@ -99,7 +99,7 @@ public class InsuranceController {
 	@PostMapping(value ="/insurance/new/{petId}")
 	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException {
 		if (result.hasErrors()){
-			Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getId());
+			Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
 			Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
 			Collection<Treatment> treatments = this.insuranceService.findTreatments();
 			model.put("treatments", treatments);
@@ -111,7 +111,7 @@ public class InsuranceController {
 			this.insuranceService.saveInsurance(insurance);
 			pet.setInsurance(insurance);
 			this.petService.savePet(pet);
-			return "redirect:/insurances";
+			return "redirect:/owners/"+ pet.getOwner().getId();
 		}
 	}
 
