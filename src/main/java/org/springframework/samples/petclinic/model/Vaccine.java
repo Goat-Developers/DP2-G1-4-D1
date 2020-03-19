@@ -1,9 +1,12 @@
 package org.springframework.samples.petclinic.model;
 
+import java.beans.Transient;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -47,10 +50,33 @@ public class Vaccine extends BaseEntity {
 	@Column(name="stock")
 	private Integer stock;
 
+	
+	@ManyToOne
+    @NotNull
+    @JoinColumn(name = "pet_type_id")
+    private PetType petType;
 
 	
-	/**
-	 * Creates a new instance of Visit for the current date
-	 */
-	
+	@Column(name = "side_effects")
+	private String sideEffects;
+
+	@Transient
+	public String getExpirationSoon() {
+		String res = "No expira pronto";
+		LocalDate ahora= LocalDate.now();
+        LocalDate umbral = expiration.minusDays(7);
+        if (ahora.equals(umbral) || ahora.isAfter(expiration) || ahora.isAfter(umbral)) {
+            res = "Expira pronto";	        
+        }
+        	return res;
+	}
+	@Transient
+	public Boolean getExpirated() {
+		Boolean res = false;
+		LocalDate ahora= LocalDate.now();
+            if (ahora.isAfter(expiration)) {
+            res = true;	        
+        }
+        	return res;
+	}
 }

@@ -51,6 +51,22 @@
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span>Error</span>
 				</petclinic:menuItem>
+				
+				<sec:authorize access="isAuthenticated()">
+				<petclinic:menuItem active="${name eq 'vacunas'}" url="/vaccine"
+					title="vacunas">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Vacunas</span>
+				</petclinic:menuItem>
+				</sec:authorize>
+				
+				<sec:authorize access="isAuthenticated()">
+				<petclinic:menuItem active="${name eq 'tratamientos'}" url="/treatment"
+					title="tratamientos">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Tratamientos</span>
+				</petclinic:menuItem>
+				</sec:authorize>
 
 			</ul>
 
