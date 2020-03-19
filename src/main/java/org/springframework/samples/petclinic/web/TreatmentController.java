@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
-import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -54,8 +53,10 @@ public class TreatmentController {
 	}
 
 	@PostMapping(value = "/treatment/new")
-	public String processTreatmentForm(@Valid Treatment treatment, BindingResult result) {
+	public String processTreatmentForm(@Valid Treatment treatment, BindingResult result, Map<String,Object>  model) {
 		if (result.hasErrors()) {
+			List<PetType> types = treatmentService.findPetTypes();
+			model.put("types",types);
 			return "treatment/treatmentCreate";
 		}
 		else {

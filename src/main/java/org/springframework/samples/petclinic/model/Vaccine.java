@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.javamoney.moneta.Money;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -34,7 +33,7 @@ public class Vaccine extends BaseEntity {
 	private String information;
 
 	
-
+	@NotNull
 	@Column(name ="price")
 	private Double price;
 	
