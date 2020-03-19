@@ -18,5 +18,7 @@ public interface VaccineRepository  {
 	
 	List<PetType> findPetTypes() throws DataAccessException;
 	
+	void delete(@Valid Vaccine vaccine);
+	
 
 }

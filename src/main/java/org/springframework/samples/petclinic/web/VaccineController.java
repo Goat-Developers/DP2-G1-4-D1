@@ -65,7 +65,22 @@ public class VaccineController {
 		}
 	}
 
-	
-
+	@GetMapping(value = "/vaccine/expirated")
+	public String showExpiratedVaccine(ModelMap modelMap) {
+		String vista="vaccine/vaccineExpirated";
+		
+		List<Vaccine> vaccine=vaccineService.findAllExpirated();
+		modelMap.addAttribute("vaccine",vaccine);
+		
+		return vista;
+	}
+	@GetMapping(value= "/vaccine/{vaccineId}/delete")
+    public String delete(@PathVariable("vaccineId") int vaccineId, ModelMap model) {
+        Vaccine vaccine = this.vaccineService.findById(vaccineId);
+        
+       this.vaccineService.deleteVaccine(vaccine);
+      
+        return "redirect:/vaccine/";
+    }
 
 }

@@ -70,4 +70,13 @@ public class Vaccine extends BaseEntity {
         }
         	return res;
 	}
+	@Transient
+	public Boolean getExpirated() {
+		Boolean res = false;
+		LocalDate ahora= LocalDate.now();
+            if (ahora.isAfter(expiration)) {
+            res = true;	        
+        }
+        	return res;
+	}
 }
