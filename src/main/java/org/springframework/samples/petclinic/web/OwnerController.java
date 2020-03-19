@@ -16,12 +16,14 @@ r< * Copyright 2002-2013 the original author or authors.
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UserService;
@@ -44,6 +46,7 @@ public class OwnerController {
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
 	private final OwnerService ownerService;
+	
 
 	@Autowired
 	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
@@ -137,6 +140,14 @@ public class OwnerController {
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
+		int b =0;
+		List<Pet> pets = this.ownerService.findOwnerById(ownerId).getPets();
+		for (Pet a: pets) {
+			if (a.getInsurance()!=null) {
+				b++;
+			}
+		}
+		mav.addObject("numberIns", b);
 		return mav;
 	}
 

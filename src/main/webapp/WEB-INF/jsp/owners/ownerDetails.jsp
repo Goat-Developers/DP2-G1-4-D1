@@ -41,7 +41,7 @@
     <br/>
     <br/>
     <br/>
-    <h2>Pets and Visits</h2>
+    <h2>Pets</h2>
 
     <table class="table table-striped">
         <c:forEach var="pet" items="${owner.pets}">
@@ -63,6 +63,7 @@
                         <tr>
                             <th>Visit Date</th>
                             <th>Description</th>
+                            <c:if test ="${ pet.insurance ==null}"> <th> Insurance </th></c:if>
                         </tr>
                         </thead>
                         <c:forEach var="visit" items="${pet.visits}">
@@ -86,6 +87,14 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(visitUrl)}">Add Visit</a>
                             </td>
+                            <c:if test ="${ pet.insurance ==null}">
+                            <td>    
+                                 <spring:url value="/insurance/new/{petId}" var="insuranceUrl">
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(insuranceUrl)}">Add Insurance</a>
+                            </td>
+                            </c:if>
                         </tr>
                     </table>
                 </td>
@@ -93,5 +102,48 @@
 
         </c:forEach>
     </table>
-
+ <c:if test="${numberIns >0 }">
+<h2>Pets and Insurances</h2>
+<table id="insurancesTable" class="table table-striped">
+        <tr>
+        	<th>Num</th>
+            <th>Vaccines</th>
+            <th>Treatment</th>
+            <th>Conditions</th>
+            <th>Total price</th>
+            <th> Pet </th>
+        </tr>
+        <tbody>
+        <c:forEach items="${owner.pets}" var="pets">
+        	<c:if test="${pets.insurance!=null}"> 
+            <tr>
+            	<td>
+            		<spring:url value="/insurances/{insuranceId}" var="insUrl">
+                    <spring:param name="insuranceId" value="${pets.insurance.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(insUrl)}"><c:out value="${pets.insurance.id}"/></a>
+            	</td>
+	            <td>
+	            	<c:forEach items="${pets.insurance.vaccines}" var="vaccine">
+	            		<c:out value="${vaccine.name}"/><br/>
+	            	</c:forEach>
+	            </td>
+                <td>
+                	<c:forEach items="${pets.insurance.treatments}" var="treatment">
+	            		<c:out value="${treatment.description}"/><br/>
+	            	</c:forEach>
+                </td>
+                <td>
+                    <c:out value="${pets.insurance.insuranceBase.conditions}"/>
+                </td>
+                <td>
+                	<c:out value="${pets.insurance.insurancePrice} Euros"/>
+                </td>
+    			<td><c:out value="${pets.name}"/></td>             
+            </tr>
+            </c:if>
+        </c:forEach>
+        </tbody>
+    </table>
+    </c:if>
 </petclinic:layout>

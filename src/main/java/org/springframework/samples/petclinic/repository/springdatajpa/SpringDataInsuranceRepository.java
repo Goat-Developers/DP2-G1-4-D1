@@ -15,33 +15,30 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import java.util.Collection;
-import java.util.List;
 
-import org.springframework.dao.DataAccessException;
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.model.Vaccine;
+import org.springframework.samples.petclinic.repository.InsuranceRepository;
 
-/**
- * Spring Data JPA specialization of the {@link PetRepository} interface
- *
- * @author Michael Isvy
- * @since 15.1.2013
- */
-public interface SpringDataPetRepository extends PetRepository, Repository<Pet, Integer> {
+public interface SpringDataInsuranceRepository extends InsuranceRepository, Repository<Insurance, Integer> {
 
 	@Override
-	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
-	List<PetType> findPetTypes() throws DataAccessException;
+	@Query("SELECT insurance FROM Insurance insurance WHERE insurance.id =?1")
+	Insurance findById(@Param("id") int id);
 	
-	@Query("SELECT pet FROM Pet pet WHERE pet.id=?1")
-	Pet findById(@Param("id")int id) throws DataAccessException;
+	@Override
+	@Query("SELECT insurance FROM Insurance insurance")
+	Collection<Insurance> findAll();
 	
-	@Query("SELECT pet FROM Pet pet")
-	Collection<Pet> findPets();
-
+	@Query("SELECT vaccine from Vaccine vaccine WHERE vaccine.expiration > current_date")
+	Collection<Vaccine> findVaccines();
+	
+	@Query("SELECT treatment from Treatment treatment")
+	Collection<Treatment> findTreatments();
 }

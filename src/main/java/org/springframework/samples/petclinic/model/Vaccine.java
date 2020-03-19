@@ -28,7 +28,6 @@ public class Vaccine extends BaseEntity {
 	@Column(name = "name")        
 	private String name;
 
-	
 	@NotEmpty
 	@Column(name = "information")
 	private String information;
@@ -50,11 +49,13 @@ public class Vaccine extends BaseEntity {
 	@NotNull
 	@Column(name="stock")
 	private Integer stock;
+
 	
 	@ManyToOne
     @NotNull
     @JoinColumn(name = "pet_type_id")
     private PetType petType;
+
 	
 	@Column(name = "side_effects")
 	private String sideEffects;

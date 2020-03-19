@@ -15,33 +15,27 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
+
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.model.InsuranceBase;
+import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
 
-/**
- * Spring Data JPA specialization of the {@link PetRepository} interface
- *
- * @author Michael Isvy
- * @since 15.1.2013
- */
-public interface SpringDataPetRepository extends PetRepository, Repository<Pet, Integer> {
+public interface SpringDataInsuranceBaseRepository extends InsuranceBaseRepository, Repository<InsuranceBase, Integer> {
 
-	@Override
-	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
-	List<PetType> findPetTypes() throws DataAccessException;
+	@Query("SELECT insurance_base FROM InsuranceBase insurance_base WHERE insurance_base.id =:id")
+	InsuranceBase findById(@Param("id") int id);
 	
-	@Query("SELECT pet FROM Pet pet WHERE pet.id=?1")
-	Pet findById(@Param("id")int id) throws DataAccessException;
+	@Query("SELECT insurance_base FROM InsuranceBase insurance_base")
+	List<InsuranceBase> findAll();
 	
-	@Query("SELECT pet FROM Pet pet")
-	Collection<Pet> findPets();
+	@Query("SELECT insurancebase FROM InsuranceBase insurancebase WHERE insurancebase.petType.id =:id")
+	Collection<InsuranceBase> findByPetTypeId(@Param("id") int id);
+	
 
 }
+

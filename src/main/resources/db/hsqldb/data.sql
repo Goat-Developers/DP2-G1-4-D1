@@ -37,6 +37,7 @@ INSERT INTO types VALUES (4, 'snake');
 INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
+
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
 INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');
@@ -47,6 +48,49 @@ INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085
 INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
+
+INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',3);
+INSERT INTO vaccines(id,name,information,price,provider,expiration,stock) VALUES (2,'Vacuna del coronavirus','Para ratas',332,'Chema','2001-06-06',0);
+
+INSERT INTO treatments(id,type,price,description) VALUES (2,'Dientes',65.7,'Limpieza de dientes');
+INSERT INTO treatments(id,type,price,description) VALUES (4,'Pelo',10,'Corte de pelo');
+
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (1,'MIGUEEEEEEEEEEEEEEEEEEEEEL',1,'Tiene que ser gato');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (2,'MIGUEEEEEEEEEEEEEEEEEEEEEEL 1',2,'Tiene que ser perro.');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (3,'MIGUEEEEEEEEEEEEEEEEEEEEL 2',3,'Tiene que ser lizard');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (4,'MIGUEEEEEEEEEEEEEEEEEEEL 3',4,'Tiene que ser snake.');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (5,'MIGUEEEEEEEEEEEEEEEEEEEEEEL 4',5,'Tiene que ser bird');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,' MIGUEEEEEEEEEEEEEEEEEEEEEEEL 5',6,'Tiene que ser hamster.');
+
+
+INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (1,'2013-01-03',1);
+INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (2,'2013-01-04',2);
+
+INSERT INTO insurance_vaccines VALUES (1, 1);
+INSERT INTO insurance_vaccines VALUES (1, 2);
+INSERT INTO insurance_vaccines VALUES (2, 2);
+
+INSERT INTO insurance_treatments VALUES (1, 2);
+INSERT INTO insurance_treatments VALUES (1, 4);
+INSERT INTO insurance_treatments VALUES (2, 2);
+INSERT INTO insurance_treatments VALUES (2, 4);
+
+INSERT INTO insurance_base_vaccines VALUES (1, 2);
+INSERT INTO insurance_base_vaccines VALUES (2, 1);
+INSERT INTO insurance_base_vaccines VALUES (2, 2);
+INSERT INTO insurance_base_vaccines VALUES (3, 2);
+INSERT INTO insurance_base_vaccines VALUES (4, 1);
+INSERT INTO insurance_base_vaccines VALUES (5, 2);
+INSERT INTO insurance_base_vaccines VALUES (6, 2);
+
+INSERT INTO insurance_base_treatments VALUES (1, 2);
+INSERT INTO insurance_base_treatments VALUES (1, 4);
+INSERT INTO insurance_base_treatments VALUES (2, 2);
+INSERT INTO insurance_base_treatments VALUES (2, 4);
+INSERT INTO insurance_base_treatments VALUES (3, 2);
+INSERT INTO insurance_base_treatments VALUES (4, 4);
+INSERT INTO insurance_base_treatments VALUES (5, 2);
+INSERT INTO insurance_base_treatments VALUES (6, 4);
 
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);

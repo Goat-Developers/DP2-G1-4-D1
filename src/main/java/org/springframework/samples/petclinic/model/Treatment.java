@@ -11,7 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.javamoney.moneta.Money;
+import lombok.Getter;
+import lombok.Setter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +43,8 @@ public class Treatment extends BaseEntity {
     private PetType petType;
 
 
-	
+
+  
 	
 
 
