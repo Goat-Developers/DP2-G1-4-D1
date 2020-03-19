@@ -1,5 +1,6 @@
 	package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,15 @@ public class VaccineController {
 	
 	@GetMapping("/vaccine")
 	public String listadoVaccine(ModelMap modelMap) {
-		String vista="vaccine/vaccineList";
-		
-		List<Vaccine> vaccine=vaccineService.findAll();
-		modelMap.addAttribute("vaccine",vaccine);
+		String vista="vaccine/vaccineList";		
+		List<Vaccine>vaccine=vaccineService.findAll();	
+		List<Vaccine> vaccines = new ArrayList();
+		for (Vaccine v: vaccine) {
+			if(v.getExpirated().equals(false)) {
+				vaccines.add(v);
+			}
+		}
+		modelMap.addAttribute("vaccine",vaccines);
 		
 		return vista;
 	}
@@ -80,7 +86,7 @@ public class VaccineController {
         
        this.vaccineService.deleteVaccine(vaccine);
       
-        return "redirect:/vaccine/";
+        return "redirect:/vaccine";
     }
 
 }

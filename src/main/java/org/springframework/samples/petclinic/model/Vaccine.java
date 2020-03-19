@@ -61,12 +61,12 @@ public class Vaccine extends BaseEntity {
 	private String sideEffects;
 
 	@Transient
-	public Boolean getExpirationSoon() {
-		Boolean res = false;
+	public String getExpirationSoon() {
+		String res = "No expira pronto";
 		LocalDate ahora= LocalDate.now();
         LocalDate umbral = expiration.minusDays(7);
         if (ahora.equals(umbral) || ahora.isAfter(expiration) || ahora.isAfter(umbral)) {
-            res = true;	        
+            res = "Expira pronto";	        
         }
         	return res;
 	}

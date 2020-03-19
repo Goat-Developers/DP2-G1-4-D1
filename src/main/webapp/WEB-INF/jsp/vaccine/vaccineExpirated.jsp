@@ -16,7 +16,7 @@
         <tr>
             <th>Nombre</th>
             <th>Fecha de expiracion</th>
-         	<th>Expirado</th>
+         	
             <th></th>
             
         </tr>
@@ -35,9 +35,7 @@
                 <td>
                     <c:out value="${vaccine.expiration}"/>
                 </td>
-               <td>
-               		<c:out value="${vaccine.expirated}"/>
-               </td>
+               
                <td>
                      <spring:url value="/vaccine/{vaccineId}/delete" var="deleteVaccineUrl">
                      <spring:param name="vaccineId" value="${vaccine.id}"/>
