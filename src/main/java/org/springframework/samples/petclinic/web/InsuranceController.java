@@ -85,8 +85,8 @@ public class InsuranceController {
 		Insurance insurance = new Insurance();
 		Pet pet = this.petService.findPetById(id);
 		Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
-		Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
-		Collection<Treatment> treatments = this.insuranceService.findTreatments();
+		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(pet.getType().getId());
+		Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(pet.getType().getId());
 		pet.setInsurance(insurance);
 		model.put("pet", pet);
 		model.put("treatments", treatments);
@@ -100,8 +100,8 @@ public class InsuranceController {
 	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException {
 		if (result.hasErrors()){
 			Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
-			Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
-			Collection<Treatment> treatments = this.insuranceService.findTreatments();
+			Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(pet.getType().getId());
+			Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(pet.getType().getId());			
 			model.put("treatments", treatments);
 			model.put("vaccines", vaccines);
 			model.put("insurance", insurance);

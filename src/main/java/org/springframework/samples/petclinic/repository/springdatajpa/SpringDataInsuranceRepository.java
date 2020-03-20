@@ -39,6 +39,12 @@ public interface SpringDataInsuranceRepository extends InsuranceRepository, Repo
 	@Query("SELECT vaccine from Vaccine vaccine WHERE vaccine.expiration > current_date")
 	Collection<Vaccine> findVaccines();
 	
+	@Query("SELECT vaccine from Vaccine vaccine WHERE vaccine.expiration > current_date AND vaccine.petType.id=?1")
+	Collection<Vaccine> findVaccinesByPetTypeId(int id);
+	
 	@Query("SELECT treatment from Treatment treatment")
 	Collection<Treatment> findTreatments();
+	
+	@Query("SELECT treatment from Treatment treatment WHERE treatment.petType.id=?1")
+	Collection<Treatment> findTreatmentsByPetTypeId(int id);
 }
