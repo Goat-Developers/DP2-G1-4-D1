@@ -44,7 +44,7 @@ public class VaccineService {
 	
 	@Transactional
 	public void deleteVaccine(@Valid Vaccine vaccine) {
-		vaccineRepo.delete(vaccine);;
+		vaccineRepo.delete(vaccine);
 		
 	}
 
