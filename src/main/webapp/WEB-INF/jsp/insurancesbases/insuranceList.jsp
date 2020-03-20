@@ -13,8 +13,9 @@
     <table id="insurances_basesTable" class="table table-striped">
         <thead>
         <tr>
-        	<th>Name</th>
-            <th>Total price</th>
+        	<th>Nombre del Seguro</th>
+        	<th>Tipo de mascota</th>
+            <th>Precio</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,9 @@
                     </spring:url>
                     <a href="${fn:escapeXml(insBaseUrl)}"><c:out value="${insuranceBase.name}"/></a>
             	</td>	
+            	<td>
+                	<c:out value="${insuranceBase.petType}"/>
+                </td>
                 <td>
                 	<c:out value="${insuranceBase.price} Euros"/>
                 </td>

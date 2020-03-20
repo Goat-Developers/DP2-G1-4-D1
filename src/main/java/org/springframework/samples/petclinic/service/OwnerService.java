@@ -67,6 +67,11 @@ public class OwnerService {
 		userService.saveUser(owner.getUser());
 		//creating authorities
 		authoritiesService.saveAuthorities(owner.getUser().getUsername(), "owner");
+	}
+
+	public Owner findOwnerByPrincipal(String currentUsername) {
+		
+		return ownerRepository.findByPrincipal(currentUsername);
 	}		
 
 }

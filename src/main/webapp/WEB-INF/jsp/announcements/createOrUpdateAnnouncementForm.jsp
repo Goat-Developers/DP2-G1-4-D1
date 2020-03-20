@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="owners">
     <h2>
@@ -21,9 +22,11 @@
              <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
 
+ 				<sec:authorize access="hasAuthority('veterinarian')">
                 <button class="btn btn-default" type="submit">Add Announcement</button>
                    <a href="/announcements" class="btn btn-default">Cancel</a>
                  </div>
+                 </sec:authorize>
         </div>
           
     </form:form>

@@ -56,7 +56,7 @@ public class Vaccine extends BaseEntity {
     @JoinColumn(name = "pet_type_id")
     private PetType petType;
 
-	
+	@NotEmpty
 	@Column(name = "side_effects")
 	private String sideEffects;
 
