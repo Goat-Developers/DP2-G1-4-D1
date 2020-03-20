@@ -28,7 +28,7 @@
             <petclinic:inputField label="Fecha de caducidad" name="expiration"/>
             <petclinic:inputField label="Stock" name="stock"/>
             <petclinic:selectField  label="Tipo " name="petType" names="${types}" size="5"/>
-            
+            <petclinic:inputField label="Efectos secundarios" name="sideEffects"/>
              
                    
           

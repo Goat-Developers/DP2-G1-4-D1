@@ -17,6 +17,8 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
@@ -58,6 +60,7 @@ public class InsuranceService {
 	public Collection<Treatment> findTreatments() throws DataAccessException {
 		return insuranceRepository.findTreatments();
 	}
+	
 	
 
 }

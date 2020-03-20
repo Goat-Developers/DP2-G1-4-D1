@@ -40,7 +40,9 @@ public class VaccineValidator implements Validator {
 		if(vaccine.getPetType()==null) {
 			errors.rejectValue("petType", VaccineValidator.REQUIRED + " debe elegir un tipo de mascota", VaccineValidator.REQUIRED + " debe elegir un tipo de mascota");
 		}
-		
+		if(vaccine.getSideEffects()=="") {
+			errors.rejectValue("sideEffects", VaccineValidator.REQUIRED + "el campo los efectos secundarios no puede ser vacio", VaccineValidator.REQUIRED + " el campo los efectos secundarios no puede ser vacio");
+		}
 		
 	}
 

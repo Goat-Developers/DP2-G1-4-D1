@@ -1,14 +1,19 @@
 	package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
+import org.springframework.samples.petclinic.service.InsuranceBaseService;
+import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +30,10 @@ public class VaccineController {
 	
 	@Autowired
 	private VaccineService vaccineService;
+	@Autowired
+	private InsuranceService insuranceService;
+	@Autowired
+	private InsuranceBaseService insuranceBaseService;
 	
 	@InitBinder
 	public void setAllowedFields(final WebDataBinder dataBinder) {
@@ -93,8 +102,20 @@ public class VaccineController {
 	}
 	@GetMapping(value= "/vaccine/{vaccineId}/delete")
     public String delete(@PathVariable("vaccineId") int vaccineId, ModelMap model) {
-        Vaccine vaccine = this.vaccineService.findById(vaccineId);
-        
+       Collection<Insurance> insurances = this.insuranceService.findInsurances();
+       List<InsuranceBase> insurancesBase= this.insuranceBaseService.findInsurancesBases();
+       Vaccine vaccine = this.vaccineService.findById(vaccineId);
+       for(Insurance i: insurances) {
+    	   if(i.getVaccines().contains(vaccine)) {
+    		   i.getVaccines().remove(vaccine);    		 
+    	   }
+       }
+       for(InsuranceBase i: insurancesBase) {
+    	   if(i.getVaccines().contains(vaccine)) {
+    		   i.getVaccines().remove(vaccine);   		      		   
+    	   }
+       }
+      
        this.vaccineService.deleteVaccine(vaccine);
       
         return "redirect:/vaccine";
