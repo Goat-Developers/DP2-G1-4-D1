@@ -31,7 +31,11 @@ public interface InsuranceRepository {
 	
 	Collection<Vaccine> findVaccines();
 	
+	Collection<Vaccine> findVaccinesByPetTypeId(int id);
+	
 	Collection<Treatment> findTreatments();
+	
+	Collection<Treatment> findTreatmentsByPetTypeId(int id);
 
 
 

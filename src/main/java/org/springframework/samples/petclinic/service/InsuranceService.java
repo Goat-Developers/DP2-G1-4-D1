@@ -57,10 +57,19 @@ public class InsuranceService {
 		return insuranceRepository.findVaccines();
 	}
 	
+	public Collection<Vaccine> findVaccinesByPetTypeId(int id) throws DataAccessException {
+		return insuranceRepository.findVaccinesByPetTypeId(id);
+	}
+	
 	public Collection<Treatment> findTreatments() throws DataAccessException {
 		return insuranceRepository.findTreatments();
 	}
 	
+
+	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
+		return insuranceRepository.findTreatmentsByPetTypeId(id);
+	}
+
 	
 
 }
