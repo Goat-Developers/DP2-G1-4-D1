@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.validation.constraints.NotNull;
+
 
 /**
  * Simple business object representing a pet.
@@ -79,7 +79,7 @@ public class Pet extends NamedEntity {
 	private Treatment treatment;
 	
 	///Revisar multiplicidad
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "insurance_id")
 	private Insurance insurance;
 

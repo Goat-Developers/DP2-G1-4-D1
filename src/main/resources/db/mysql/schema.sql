@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS vet_specialties (
   FOREIGN KEY (specialty_id) REFERENCES specialties(id),
   UNIQUE (vet_id,specialty_id)
 ) engine=InnoDB;
-
 CREATE TABLE IF NOT EXISTS types (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(80),
