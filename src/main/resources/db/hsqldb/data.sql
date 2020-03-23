@@ -1,7 +1,7 @@
--- One admin user, named admin1 with passwor 4dm1n and authority admin
+-- One admin user, named admin1 with password 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
 INSERT INTO authorities VALUES ('admin1','admin');
--- One owner user, named owner1 with passwor 0wn3r
+-- One owner user, named owner1 with password 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('owner2','0wn3r',TRUE);
@@ -22,7 +22,7 @@ INSERT INTO users(username,password,enabled) VALUES ('owner9','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner9','owner');
 INSERT INTO users(username,password,enabled) VALUES ('owner10','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner10','owner');
--- One vet user, named vet1 with passwor v3t
+-- One vet user, named vet1 with password v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet1','veterinarian');
 
@@ -48,12 +48,12 @@ INSERT INTO vet_specialties VALUES (3, 3);
 INSERT INTO vet_specialties VALUES (4, 2);
 INSERT INTO vet_specialties VALUES (5, 1);
 
-INSERT INTO types VALUES (1, 'Cat');
-INSERT INTO types VALUES (2, 'Dog');
-INSERT INTO types VALUES (3, 'Lizard');
-INSERT INTO types VALUES (4, 'Snake');
-INSERT INTO types VALUES (5, 'Bird');
-INSERT INTO types VALUES (6, 'Hamster');
+INSERT INTO types VALUES (1, 'cat');
+INSERT INTO types VALUES (2, 'dog');
+INSERT INTO types VALUES (3, 'lizard');
+INSERT INTO types VALUES (4, 'snake');
+INSERT INTO types VALUES (5, 'bird');
+INSERT INTO types VALUES (6, 'hamster');
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner2');
@@ -84,7 +84,7 @@ INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (6,2,'Uñas
 
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (1,'Seguro Base Felino',1,'Tiene que ser gato');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (2,'Seguro Base Canino ',2,'Tiene que ser perro.');
-INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (3,'Seguro Base Lagrto',3,'Tiene que ser lizard');
+INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (3,'Seguro Base Lagarto',3,'Tiene que ser lizard');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (4,'Seguro Base Reptil',4,'Tiene que ser snake.');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (5,'Seguro Base Aves ',5,'Tiene que ser bird');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,'Seguro Base Roedores',6,'Tiene que ser hamster.');

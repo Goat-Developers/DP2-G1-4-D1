@@ -33,7 +33,7 @@ public class TreatmentServiceTests {
 		assertThat(treatment.getPrice()).isNotEqualTo(40.2);
 		assertThat(treatment.getType()).isNotEqualTo("Pelo");
 		assertThat(treatment.getPetType()).isNotNull();
-		assertThat(treatment.getPetType().getName()).isEqualTo("Snake");
+		assertThat(treatment.getPetType().getName()).isEqualTo("snake");
 		assertThat(treatment.getPetType().getId()).isEqualTo(4);
 	}
 	
@@ -56,9 +56,9 @@ public class TreatmentServiceTests {
 		Collection<PetType> petTypes = this.treatmentService.findPetTypes();
 
 		PetType petType2 = EntityUtils.getById(petTypes, PetType.class, 2);
-		assertThat(petType2.getName()).isEqualTo("Dog");
+		assertThat(petType2.getName()).isEqualTo("dog");
 		PetType petType5 = EntityUtils.getById(petTypes, PetType.class, 5);
-		assertThat(petType5.getName()).isEqualTo("Bird");
+		assertThat(petType5.getName()).isEqualTo("bird");
 	}
 	
 	@Test
