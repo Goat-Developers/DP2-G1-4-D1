@@ -14,9 +14,12 @@ import org.springframework.samples.petclinic.repository.TreatmentRepository;
 public interface SpringDataTreatmentRepository  extends TreatmentRepository, Repository<Treatment, Integer>{
 	
 	@Query("SELECT t FROM Treatment t WHERE t.id=?1")
-	Treatment findById (@Param("id") int id);
+	Treatment findById (@Param("id") int id) throws DataAccessException;
 	
 	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
 	List<PetType> findPetTypes() throws DataAccessException;
+	
+	@Query("SELECT t FROM Treatment t ORDER BY t.id")
+	List<Treatment> findAll() throws DataAccessException;
 
 }

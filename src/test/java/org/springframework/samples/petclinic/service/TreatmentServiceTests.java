@@ -3,8 +3,15 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collection;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,6 +42,18 @@ public class TreatmentServiceTests {
 		assertThat(treatment.getPetType()).isNotNull();
 		assertThat(treatment.getPetType().getName()).isEqualTo("snake");
 		assertThat(treatment.getPetType().getId()).isEqualTo(4);
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints= {7,-6,100})
+	void shouldFailFindSingleTreatmentById(int argument) {
+		Assertions.assertThrows(NullPointerException.class, () -> {this.treatmentService.findById(argument).getDescription();});
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings= {"Dientes","Pelo","Uñas"})
+	void shouldFailSetTreatmentPriceByType(String argument) {
+		Assertions.assertThrows(NumberFormatException.class, () -> {this.treatmentService.findById(1).setPrice(Double.parseDouble(argument));;});
 	}
 	
 	@Test
@@ -80,6 +99,30 @@ public class TreatmentServiceTests {
 		assertThat(treatments.size()).isEqualTo(found + 1);
         // checks that id has been generated
         assertThat(treatment.getId()).isNotNull();
+	}
+	
+	public void shouldFailInsertTreatmentIntoDatabaseAndGenerateId() {
+		Treatment treatment = new Treatment();
+		treatment.setId(1);
+		treatment.setDescription("Esta es la descripcion");
+		treatment.setPrice(null);
+		treatment.setType("Este es el tipo");
+			PetType dog = new PetType();
+			dog.setId(6);
+			dog.setName("dog");
+		treatment.setPetType(dog);
+		
+		Validator v = createValidator();
+		Set<ConstraintViolation<Treatment>> constraintViolations = v.validate(treatment);
+		assertThat(constraintViolations.size()).isEqualTo(1);
+		ConstraintViolation<Treatment> violation = constraintViolations.iterator().next();
+		assertThat(violation.getMessage()).isEqualTo("no puede ser nulo");
+		assertThat(violation.getPropertyPath().toString()).isEqualTo("price");
+	}
+
+	private Validator createValidator() {
+		
+		return null;
 	}
 
 }
