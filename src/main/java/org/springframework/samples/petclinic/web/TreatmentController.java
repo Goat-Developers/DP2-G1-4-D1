@@ -60,7 +60,6 @@ public class TreatmentController {
 			return "treatment/treatmentCreate";
 		}
 		else {
-		
 			this.treatmentService.saveTreatment(treatment);
 			
 			return "redirect:/treatment/" + treatment.getId();

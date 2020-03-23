@@ -14,10 +14,6 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import lombok.Getter;
-import lombok.Setter;
-
-
 @Entity
 @Getter
 @Setter
@@ -41,12 +37,5 @@ public class Treatment extends BaseEntity {
     @NotNull
     @JoinColumn(name = "pet_type_id")
     private PetType petType;
-
-
-
-  
-	
-
-
 
 }
