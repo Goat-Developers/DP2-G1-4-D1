@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class TreatmentServiceTests {
@@ -45,15 +46,15 @@ public class TreatmentServiceTests {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(ints= {7,-6,100})
+	@ValueSource(ints= {9,-6,100})
 	void shouldFailFindSingleTreatmentById(int argument) {
 		Assertions.assertThrows(NullPointerException.class, () -> {this.treatmentService.findById(argument).getDescription();});
 	}
 	
 	@ParameterizedTest
-	@ValueSource(strings= {"Dientes","Pelo","Uñas"})
+	@ValueSource(strings= {"Dientes","Pelo","null"})
 	void shouldFailSetTreatmentPriceByType(String argument) {
-		Assertions.assertThrows(NumberFormatException.class, () -> {this.treatmentService.findById(1).setPrice(Double.parseDouble(argument));;});
+		Assertions.assertThrows(NumberFormatException.class, () -> {this.treatmentService.findById(1).setPrice(Double.parseDouble(argument));});
 	}
 	
 	@Test
@@ -101,28 +102,52 @@ public class TreatmentServiceTests {
         assertThat(treatment.getId()).isNotNull();
 	}
 	
-	public void shouldFailInsertTreatmentIntoDatabaseAndGenerateId() {
+	@Test
+	void shouldFailInsertTreatmentIntoDatabaseWithPriceNull() {
 		Treatment treatment = new Treatment();
 		treatment.setId(1);
 		treatment.setDescription("Esta es la descripcion");
-		treatment.setPrice(null);
-		treatment.setType("Este es el tipo");
+		treatment.setPrice(null); //The price cannot be null
+		treatment.setType("Este es el tipo de tratamiento");
 			PetType dog = new PetType();
 			dog.setId(6);
 			dog.setName("dog");
 		treatment.setPetType(dog);
 		
-		Validator v = createValidator();
-		Set<ConstraintViolation<Treatment>> constraintViolations = v.validate(treatment);
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Treatment>> constraintViolations = validator.validate(treatment);
 		assertThat(constraintViolations.size()).isEqualTo(1);
+		
 		ConstraintViolation<Treatment> violation = constraintViolations.iterator().next();
-		assertThat(violation.getMessage()).isEqualTo("no puede ser nulo");
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("price");
+		assertThat(violation.getMessage()).isEqualTo("no puede ser null");
+	}
+	
+	@Test
+	void shouldFailInsertTreatmentIntoDatabaseWithTypeEmpty() {
+		Treatment treatment = new Treatment();
+		treatment.setId(1);
+		treatment.setDescription("Esta es la descripcion");
+		treatment.setPrice(40.34);
+		treatment.setType(""); //The type cannot be empty
+			PetType dog = new PetType();
+			dog.setId(6);
+			dog.setName("dog");
+		treatment.setPetType(dog);
+		
+		Validator validator = createValidator();
+		Set<ConstraintViolation<Treatment>> constraintViolations = validator.validate(treatment);
+		assertThat(constraintViolations.size()).isEqualTo(1);
+		
+		ConstraintViolation<Treatment> violation = constraintViolations.iterator().next();
+		assertThat(violation.getPropertyPath().toString()).isEqualTo("type");
+		assertThat(violation.getMessage()).isEqualTo("no puede estar vacío");
 	}
 
 	private Validator createValidator() {
-		
-		return null;
+		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+		localValidatorFactoryBean.afterPropertiesSet();
+		return localValidatorFactoryBean;
 	}
 
 }
