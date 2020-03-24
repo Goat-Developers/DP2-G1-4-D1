@@ -15,8 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TreatmentService {
 	
-	@Autowired
 	private TreatmentRepository treatmentRepo;
+	
+	@Autowired
+	public TreatmentService(TreatmentRepository treatmentRepository) {
+		this.treatmentRepo = treatmentRepository;
+	}
 	
 	@Transactional
 	public Treatment findById(int id) {

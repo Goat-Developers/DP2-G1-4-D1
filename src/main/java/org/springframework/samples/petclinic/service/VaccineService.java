@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.service;
 
-
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,8 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VaccineService {
-	@Autowired
+	
 	private VaccineRepository vaccineRepo;
+	
+	@Autowired
+	public VaccineService(VaccineRepository vaccineRepository) {
+		this.vaccineRepo = vaccineRepository;
+	}
 	
 	@Transactional
 	public Vaccine findById(int id) {
