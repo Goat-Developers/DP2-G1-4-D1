@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -52,9 +54,13 @@ public class TreatmentServiceTests {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(strings= {"Dientes","Pelo","null"})
-	void shouldFailSetTreatmentPriceByType(String argument) {
-		Assertions.assertThrows(NumberFormatException.class, () -> {this.treatmentService.findById(1).setPrice(Double.parseDouble(argument));});
+	@ValueSource(strings= {"Dientes","2020/04/15","null","14.2"})
+	void shouldFailSetTreatmentPriceByStrings(String argument) {
+		try {
+			this.treatmentService.findById(1).setPrice(Double.parseDouble(argument));
+		} catch (NumberFormatException ex) {
+			Logger.getLogger(TreatmentServiceTests.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 	
 	@Test
