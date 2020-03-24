@@ -70,7 +70,7 @@ public class TreatmentControllerTests {
 		given(this.treatmentService.findById(TEST_TREATMENT_ID)).willReturn(treatment);
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "vet1")
     @Test
     void testInitCreationTreatmentForm() throws Exception {
 		mockMvc.perform(get("/treatment/new")).andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class TreatmentControllerTests {
 				.andExpect(view().name("treatment/treatmentCreate"));
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "vet1")
     @Test
     void testProcessCreationTreatmentFormSuccess() throws Exception {
 		mockMvc.perform(post("/treatment/new")
@@ -91,7 +91,7 @@ public class TreatmentControllerTests {
 				.andExpect(status().isOk());
 	}
 	
-	@WithMockUser(value = "spring")
+	@WithMockUser(value = "vet1")
     @Test
     void testProcessCreationTreatmentFormFail() throws Exception {
 		mockMvc.perform(post("/treatment/new")
