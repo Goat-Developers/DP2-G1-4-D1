@@ -41,6 +41,10 @@
             <th>Efectos secundarios</th>
             <td><c:out value="${vaccine.sideEffects}"/></td>
         </tr>
+         <tr>
+            <th>Fecha de expiración</th>
+            <td><c:out value="${vaccine.expiration}"/></td>
+        </tr>
     </table>
     
     <spring:url value="/vaccine" var="addUrl">
