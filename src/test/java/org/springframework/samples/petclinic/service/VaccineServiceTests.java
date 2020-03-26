@@ -22,9 +22,14 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -126,8 +131,9 @@ class VaccineServiceTests {
         vaccineCoronavirus.setProvider("China");
         vaccineCoronavirus.setSideEffects("Puede provocar crisis nerviosas");
         vaccineCoronavirus.setStock(235);
-        	Collection<PetType> petTypes = this.petService.findPetTypes();
-        	vaccineCoronavirus.setPetType(EntityUtils.getById(petTypes, PetType.class, 4));
+        
+        Collection<PetType> petTypes = this.petService.findPetTypes();
+        vaccineCoronavirus.setPetType(EntityUtils.getById(petTypes, PetType.class, 4));
 
 		this.vaccineService.saveVaccine(vaccineCoronavirus);
 
@@ -142,21 +148,17 @@ class VaccineServiceTests {
 	void shouldDeleteVaccine() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
 		int found = vaccines.size();
-
 		Vaccine vaccine = this.vaccineService.findById(8);
 		this.vaccineService.deleteVaccine(vaccine);
-
 		int numIns = this.insuranceService.findInsurances().size();
 		int numInsBas = this.insuranceBaseService.findInsurancesBases().size();
+		compruebaNoHayVacunaEliminadaEnSeguro(numIns);
+		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
+		vaccines = this.vaccineService.findAll();
+		assertThat(vaccines.size()).isEqualTo(found - 1);
+	}
 
-		for(int i = 0; i < numIns; i++) {
-			int z = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> v = this.insuranceService.findInsuranceById(z).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < v.size(); j++) {
-				Boolean res1 = v.get(j).getId() == 8;
-				assertThat(res1).isEqualTo(false);
-			}
-		}
+	private void compruebaNoHayVacunaEliminadaEnSeguroBase(int numInsBas) {
 		for(int i = 0; i < numInsBas; i++) {
 			int z = this.insuranceBaseService.findInsurancesBases().stream().collect(Collectors.toList()).get(i).getId();
 			List<Vaccine> v = this.insuranceBaseService.findInsuranceBaseById(z).getVaccines().stream().collect(Collectors.toList());
@@ -165,9 +167,35 @@ class VaccineServiceTests {
 				assertThat(res2).isEqualTo(false);
 			}
 		}
+		
+	}
 
-		vaccines = this.vaccineService.findAll();
-		assertThat(vaccines.size()).isEqualTo(found - 1);
+	private void compruebaNoHayVacunaEliminadaEnSeguro(int numIns) {
+		for(int i = 0; i < numIns; i++) {
+			int z = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
+			List<Vaccine> v = this.insuranceService.findInsuranceById(z).getVaccines().stream().collect(Collectors.toList());
+			for(int j = 0; j < v.size(); j++) {
+				Boolean res1 = v.get(j).getId() == 8;
+				assertThat(res1).isEqualTo(false);
+			}
+		}
+		
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints= {12,-6,100})
+	void shouldFailFindSingleVaccineById(int argument) {
+		Assertions.assertThrows(NullPointerException.class, () -> {this.vaccineService.findById(argument).getInformation();});
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings= {"Dientes","2020/04/15","null","14.2"})
+	void shouldFailSetTreatmentPriceByStrings(String argument) {
+		try {
+			this.vaccineService.findById(1).setPrice(Double.parseDouble(argument));
+		} catch (NumberFormatException ex) {
+			Logger.getLogger(VaccineServiceTests.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 }

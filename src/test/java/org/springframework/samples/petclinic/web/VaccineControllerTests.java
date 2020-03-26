@@ -47,6 +47,8 @@ class VaccineControllerTests {
 
 	private static final int TEST_VACCINE_ID = 1;
 	
+	
+	
 	private static final int TEST_PET_TYPE_ID = 8;
 
 	@Autowired
@@ -93,6 +95,8 @@ class VaccineControllerTests {
 		vaccineCoronavirus.setProvider("China");
 		vaccineCoronavirus.setSideEffects("Puede provocar crisis nerviosas");
 		vaccineCoronavirus.setStock(235);
+		
+		
 		given(this.clinicService.findById(TEST_VACCINE_ID)).willReturn(vaccineCoronavirus);
 	}
 
@@ -149,5 +153,14 @@ class VaccineControllerTests {
 				.andExpect(model().attribute("vaccine", hasProperty("stock",is(235))))
 				.andExpect(view().name("vaccine/vaccineDetails"));
 	}
+        
+        @WithMockUser(value = "spring")
+    @Test
+    void testListVaccineExpirated() throws Exception {
+       mockMvc.perform(get("/vaccine/expirated")).andExpect(status().isOk()).andExpect(model().attributeExists("vaccine"))
+       			.andExpect(view().name("vaccine/vaccineExpirated"));
+    }	
+    
+
 
 }
