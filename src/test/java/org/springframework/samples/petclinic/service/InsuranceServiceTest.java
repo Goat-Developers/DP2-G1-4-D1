@@ -6,13 +6,17 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Treatment;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -199,6 +203,29 @@ public class InsuranceServiceTest {
 		assertThat(treatment.size()).isEqualTo(1);
 		
     }
+	
+	
+	@ParameterizedTest
+	@ValueSource(ints= {-3,0,230})
+	void shouldFailFindSingleInsureById(int argument) {
+		Assertions.assertThrows(NullPointerException.class, () -> {this.insuranceService.findInsuranceById(argument).getInsurancePrice();});
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints= {-4,0,760})
+	void shouldFailFindVaccinesByPetTypeId(Integer argument) {
+		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(argument);
+		assertThat(vaccines);
+
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints= {-49,0,123})
+	void shouldFailFindTreatmentsByPetTypeId(Integer argument) {
+		Collection<Treatment> treatment = this.insuranceService.findTreatmentsByPetTypeId(argument);
+		assertThat(treatment);
+
+	}
 	
 
 }

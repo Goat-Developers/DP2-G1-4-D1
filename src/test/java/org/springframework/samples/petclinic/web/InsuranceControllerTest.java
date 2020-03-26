@@ -41,6 +41,8 @@ import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 
 @WebMvcTest(value = InsuranceController.class,
 includeFilters = @ComponentScan.Filter(value = PetTypeFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
@@ -263,13 +265,14 @@ public class InsuranceControllerTest {
 			tratamientosBase.add(treatmentParaNada);
 			Set<InsuranceBase> seguroBase = new HashSet<InsuranceBase>();
 			seguroBase.add(insuranceBaseCalvo);
+			
     mockMvc.perform(post("/insurance/new/{petId}", TEST_PET_ID)
                         .with(csrf())
                         .param("insuranceBase", "")
 						.param("vaccines",vacunasBase.toString() )
 						.param("treatments", tratamientosBase.toString()))
                         
-            .andExpect(model().attributeHasErrors("insurance"))
+            .andExpect(model().attributeHasErrors(("insuranceBase")))
             .andExpect(model().attributeHasFieldErrors("insurance", "insuranceBase"))
             
             .andExpect(view().name("insurances/createOrUpdateInsuranceForm"));
