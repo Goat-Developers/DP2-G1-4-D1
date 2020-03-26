@@ -79,8 +79,8 @@ INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dient
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,5,'Pelo',10,'Corte de pelo');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (3,1,'Dientes',65.7,'Limpieza de dientes');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (4,3,'Pelo',0,'Corte de pelo');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (5,6,'Uñas',65.7,'Corte de uñas');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (6,2,'Uñas',0,'Corte de uñas');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (5,6,'Garra',65.7,'Corte de uñas');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (6,2,'Garra',0,'Corte de uñas');
 
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (1,'Seguro Base Felino',1,'Tiene que ser gato');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (2,'Seguro Base Canino ',2,'Tiene que ser perro.');
