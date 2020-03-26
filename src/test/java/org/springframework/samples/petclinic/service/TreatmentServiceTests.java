@@ -38,9 +38,7 @@ public class TreatmentServiceTests {
 		Treatment treatment = this.treatmentService.findById(1);
 		assertThat(treatment.getDescription()).isNotEmpty();
 		assertThat(treatment.getDescription()).isEqualTo("Limpieza de dientes");
-		assertThat(treatment.getPrice()).isNotNull();
 		assertThat(treatment.getPrice()).isEqualTo(65.7);
-		assertThat(treatment.getPrice()).isNotEqualTo(40.2);
 		assertThat(treatment.getType()).isNotEqualTo("Pelo");
 		assertThat(treatment.getPetType()).isNotNull();
 		assertThat(treatment.getPetType().getName()).isEqualTo("snake");

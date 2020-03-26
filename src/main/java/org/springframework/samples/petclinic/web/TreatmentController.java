@@ -25,7 +25,7 @@ public class TreatmentController {
 	
 	
 	@GetMapping("/treatment")
-	public String listadoTreatment(ModelMap modelMap) {
+	public String listTreatment(ModelMap modelMap) {
 		String vista="treatment/treatmentList";
 		
 		List<Treatment> treatment= treatmentService.findAll();

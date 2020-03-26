@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 import static org.mockito.BDDMockito.given;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -70,7 +72,26 @@ public class TreatmentControllerTests {
 		given(this.treatmentService.findById(TEST_TREATMENT_ID)).willReturn(treatment);
 	}
 	
-	@WithMockUser(value = "vet1")
+	@WithMockUser(value = "spring")
+    @Test
+    void testListTreatments() throws Exception {
+       mockMvc.perform(get("/treatment")).andExpect(status().isOk()).andExpect(model().attributeExists("treatment"))
+       			.andExpect(view().name("treatment/treatmentList"));
+    }
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testShowTreatment() throws Exception {
+		mockMvc.perform(get("/treatment/{treatmentId}", TEST_TREATMENT_ID))
+				.andExpect(status().isOk())
+				.andExpect(model().attribute("treatment", hasProperty("type", is("Este es el tipo"))))
+				.andExpect(model().attribute("treatment", hasProperty("petType", is(treatment.getPetType()))))
+				.andExpect(model().attribute("treatment", hasProperty("price", is(40.0))))
+				.andExpect(model().attribute("treatment", hasProperty("description", is("Esta es la descripcion"))))
+				.andExpect(view().name("treatment/treatmentDetails"));
+	}
+	
+	@WithMockUser(value = "spring")
     @Test
     void testInitCreationTreatmentForm() throws Exception {
 		mockMvc.perform(get("/treatment/new")).andExpect(status().isOk())
@@ -79,7 +100,7 @@ public class TreatmentControllerTests {
 				.andExpect(view().name("treatment/treatmentCreate"));
 	}
 	
-	@WithMockUser(value = "vet1")
+	@WithMockUser(value = "spring")
     @Test
     void testProcessCreationTreatmentFormSuccess() throws Exception {
 		mockMvc.perform(post("/treatment/new")
@@ -91,9 +112,9 @@ public class TreatmentControllerTests {
 				.andExpect(status().isOk());
 	}
 	
-	@WithMockUser(value = "vet1")
+	@WithMockUser(value = "spring")
     @Test
-    void testProcessCreationTreatmentFormFail() throws Exception {
+    void testProcessCreationTreatmentFormHasError() throws Exception {
 		mockMvc.perform(post("/treatment/new")
 						.with(csrf())
 						.param("type", "Dientes")
