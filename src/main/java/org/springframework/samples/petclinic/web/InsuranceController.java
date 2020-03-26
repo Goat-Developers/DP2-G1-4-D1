@@ -15,10 +15,13 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 import java.util.Map;
 
-
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +100,7 @@ public class InsuranceController {
 	}
 	
 	@PostMapping(value ="/insurance/new/{petId}")
-	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException {
+	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException, GeneralSecurityException, IOException, MessagingException, URISyntaxException {
 		if (result.hasErrors()){
 			Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
 			Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(pet.getType().getId());
@@ -108,6 +111,7 @@ public class InsuranceController {
 			model.put("insurancebase", insuranceBase);
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
+			this.insuranceService.sendMessage(insurance,pet);
 			this.insuranceService.saveInsurance(insurance);
 			pet.setInsurance(insurance);
 			this.petService.savePet(pet);
