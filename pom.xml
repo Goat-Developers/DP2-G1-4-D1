@@ -250,6 +250,17 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!--  <plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-surefire-plugin</artifactId>
+            	<version>...</version>
+            	<configuration>
+            		<excludes>
+            			<exclude>**/*UITest.java</exclude>
+            			<exclude>**/*APITest.java</exclude>
+            		</excludes>
+            	</configuration>
+            </plugin>-->
         </plugins>
     </build>
 
