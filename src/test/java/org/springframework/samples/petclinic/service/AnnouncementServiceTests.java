@@ -2,24 +2,28 @@ package org.springframework.samples.petclinic.service;
 
 
 
-
+import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Announcement;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.repository.AnnouncementRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +34,10 @@ public class AnnouncementServiceTests {
 	
 	@Autowired
 	protected  AnnouncementService annService;
+	
+	@Mock
+	private AnnouncementRepository annRepository;
+	
 	
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean(); 
@@ -110,6 +118,7 @@ public class AnnouncementServiceTests {
 		ConstraintViolation<Announcement> violation =   constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()) .isEqualTo("body"); 
 		assertThat(violation.getMessage()).isEqualTo("no puede estar vacío"); 
+		Assertions.assertThrows(Exception.class, () -> {this.annService.saveAnnouncement(a);});
 		
 	}
 
@@ -119,6 +128,27 @@ public class AnnouncementServiceTests {
 	public void shouldFindOnlyOneVetForAnnouncements(int argument) {
 		Announcement a = this.annService.findAnnouncementById(argument);
 		assertThat(a.getVet().getFirstName()).startsWith("James");
+	}
+	@Test
+	public void shouldFindAnnouncements() {
+		AnnouncementService annServices = new AnnouncementService(annRepository);
+		Vet sampleVet = new Vet();
+		sampleVet.setFirstName("James");
+		Announcement a = new Announcement();
+		a.setBody("test body");
+		a.setHeader("test header");
+		a.setTag("test tag");
+		a.setDate(LocalDate.of(2020, 3, 27));
+		a.setId(1);
+		a.setLikes(0);
+		a.setVet(sampleVet);
+		Collection<Announcement> announcements = new ArrayList<Announcement>();
+		announcements.add(a);
+		when(annRepository.findAll()).thenReturn(announcements);
+		Collection<Announcement> anns = annServices.findAnnouncements();
+		assertThat(anns).hasSize(1);
+		Announcement aN= anns.iterator().next();
+		assertThat(aN.getBody()).isEqualTo("test body");
 	}
 	
 }
