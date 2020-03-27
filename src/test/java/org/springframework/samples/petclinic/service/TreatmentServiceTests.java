@@ -1,8 +1,14 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,11 +20,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
+import org.springframework.samples.petclinic.repository.TreatmentRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +37,9 @@ public class TreatmentServiceTests {
 	
 	@Autowired
 	protected TreatmentService treatmentService;
+	
+	@Mock
+	private TreatmentRepository treatmentRepository;
 	
 	@Autowired
 	protected PetService petService;
@@ -104,6 +115,38 @@ public class TreatmentServiceTests {
 		assertThat(treatments.size()).isEqualTo(found + 1);
         // checks that id has been generated
         assertThat(treatment.getId()).isNotNull();
+	}
+	
+	@Test
+	public void addNullTreatment() {
+		Treatment dummy = null;
+		assertThrows(Exception.class, () -> this.treatmentService.saveTreatment(dummy));
+	}
+	
+	@Test
+	public void testInvalidTreatment() throws Exception {
+		Treatment treatment = new Treatment();
+		treatment.setId(-2);
+		TreatmentRepository treatmentRepository = mock(TreatmentRepository.class);
+		when(treatmentRepository.findById(-2)).thenThrow(new RuntimeException());
+		TreatmentService treatmentService = new TreatmentService(treatmentRepository);
+		assertThrows(RuntimeException.class, () -> treatmentService.findById(treatment.getId()));
+	}
+	
+	@Test
+	void shouldFindPetTypes() {
+		PetType samplePetType = new PetType();
+		samplePetType.setId(1);
+		samplePetType.setName("Prueba");
+		List<PetType> samplePets = new ArrayList<PetType>();
+		samplePets.add(samplePetType);
+		when(treatmentRepository.findPetTypes()).thenReturn(samplePets);
+		TreatmentService treatmentService = new TreatmentService(treatmentRepository);
+		Collection<PetType> petTypes = treatmentService.findPetTypes();
+		assertThat(petTypes).hasSize(1);
+		PetType pet = petTypes.iterator().next();
+		assertThat(pet.getId()).isEqualTo(1);
+		assertThat(pet.getName()).isEqualTo("Prueba");
 	}
 	
 	/*@Test
