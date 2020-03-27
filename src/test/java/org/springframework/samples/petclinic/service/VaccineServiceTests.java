@@ -16,6 +16,9 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -30,12 +33,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Vaccine;
+import org.springframework.samples.petclinic.repository.VaccineRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,6 +83,13 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 class VaccineServiceTests {      
 
+	private static final int TEST_VACCINE_DELETE = 8;
+	private static final int TEST_VACCINE_EXPIRATED_ID1 = 2;
+	private static final int TEST_VACCINE_EXPIRATED_ID2 = 4;
+	private static final int TEST_VACCINE_EXPIRATED_ID3 = 8;
+
+	@Mock
+	private VaccineRepository vaccineRepository;
     @Autowired
 	protected VaccineService vaccineService;
 
@@ -100,9 +118,9 @@ class VaccineServiceTests {
 
 	@Test
 	void shouldFindAllExpirated() {
-		Vaccine vaccine2 = this.vaccineService.findById(2);
-		Vaccine vaccine4 = this.vaccineService.findById(4);
-		Vaccine vaccine8 = this.vaccineService.findById(8);
+		Vaccine vaccine2 = this.vaccineService.findById(TEST_VACCINE_EXPIRATED_ID1);
+		Vaccine vaccine4 = this.vaccineService.findById(TEST_VACCINE_EXPIRATED_ID2);
+		Vaccine vaccine8 = this.vaccineService.findById(TEST_VACCINE_EXPIRATED_ID3);
 		List<Vaccine> vaccinesList1 = this.vaccineService.findAllExpirated();
 		List<Vaccine> vaccinesList2 = new ArrayList<>();
 		vaccinesList2.add(vaccine2);
@@ -148,7 +166,7 @@ class VaccineServiceTests {
 	void shouldDeleteVaccine() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
 		int found = vaccines.size();
-		Vaccine vaccine = this.vaccineService.findById(8);
+		Vaccine vaccine = this.vaccineService.findById(TEST_VACCINE_DELETE);
 		this.vaccineService.deleteVaccine(vaccine);
 		int numIns = this.insuranceService.findInsurances().size();
 		int numInsBas = this.insuranceBaseService.findInsurancesBases().size();
@@ -156,6 +174,7 @@ class VaccineServiceTests {
 		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
 		vaccines = this.vaccineService.findAll();
 		assertThat(vaccines.size()).isEqualTo(found - 1);
+		assertThat(this.vaccineService.findById(TEST_VACCINE_DELETE)).isEqualTo(null);
 	}
 
 	private void compruebaNoHayVacunaEliminadaEnSeguroBase(int numInsBas) {
@@ -163,7 +182,7 @@ class VaccineServiceTests {
 			int z = this.insuranceBaseService.findInsurancesBases().stream().collect(Collectors.toList()).get(i).getId();
 			List<Vaccine> v = this.insuranceBaseService.findInsuranceBaseById(z).getVaccines().stream().collect(Collectors.toList());
 			for(int j = 0; j < v.size(); j++) {
-				Boolean res2 = v.get(j).getId() == 8;
+				Boolean res2 = v.get(j).getId() == TEST_VACCINE_DELETE;
 				assertThat(res2).isEqualTo(false);
 			}
 		}
@@ -175,7 +194,7 @@ class VaccineServiceTests {
 			int z = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
 			List<Vaccine> v = this.insuranceService.findInsuranceById(z).getVaccines().stream().collect(Collectors.toList());
 			for(int j = 0; j < v.size(); j++) {
-				Boolean res1 = v.get(j).getId() == 8;
+				Boolean res1 = v.get(j).getId() == TEST_VACCINE_DELETE;
 				assertThat(res1).isEqualTo(false);
 			}
 		}
@@ -198,4 +217,36 @@ class VaccineServiceTests {
 		}
 	}
 
+	@Test
+	public void addNullVaccineTest() {
+		Vaccine dummy = null;
+		assertThrows(Exception.class, () -> this.vaccineService.saveVaccine(dummy));
+	} 
+	 
+	@Test
+	public void testInvalidVaccine() throws Exception {
+       Vaccine vaccine = new Vaccine();
+       vaccine.setId(-3);
+       VaccineRepository vaccineRepository = mock(VaccineRepository.class);
+       when(vaccineRepository.findById(-3)).thenThrow(new RuntimeException());
+       VaccineService vaccineService = new VaccineService(vaccineRepository);
+       assertThrows(RuntimeException.class, () -> vaccineService.findById((vaccine.getId())));   
+	}
+	
+	@Test
+    void shouldFindPetTypes() {
+        PetType samplePetType = new PetType();
+        samplePetType.setId(1);
+        samplePetType.setName("Test");
+        List<PetType> samplePets = new ArrayList<PetType>();
+        samplePets.add(samplePetType);
+        when(vaccineRepository.findPetTypes()).thenReturn(samplePets);
+        VaccineService vacService = new VaccineService(vaccineRepository);
+        Collection<PetType> petTypes = vacService.findPetTypes();
+        assertThat(petTypes).hasSize(1);
+        PetType pet = petTypes.iterator().next();
+        assertThat(pet.getId()).isEqualTo(1);
+        assertThat(pet.getName()).isEqualTo("Test");
+    }
+	
 }
