@@ -85,8 +85,8 @@ class VetServiceTests {
 		Vet vet = EntityUtils.getById(vets, Vet.class, 3);
 		assertThat(vet.getLastName()).isEqualTo("Douglas");
 		assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
-		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
-		assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
+		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("Dentistry");
+		assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("Surgery");
 	}
 
 

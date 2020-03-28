@@ -20,5 +20,7 @@ public interface VaccineRepository  {
 	
 	void delete(@Valid Vaccine vaccine);
 	
+	List<Vaccine> findVaccinesWithLowStock() throws DataAccessException;;
+	
 
 }

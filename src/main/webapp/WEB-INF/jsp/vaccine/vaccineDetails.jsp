@@ -9,20 +9,20 @@
 
 <petclinic:layout pageName="vaccine">
 
-    <h2>Informacion de las vacunas</h2>
+    <h2>Información de las vacunas</h2>
 
 
     <table class="table table-striped">
     <tr>
             <th>Nombre</th>
-            <td><b><c:out value="${vaccine.name} "/></b></td>
+            <td><c:out value="${vaccine.name} "/></td>
         </tr>
         <tr>
             <th>Tipo de Mascota</th>
-            <td><b><c:out value="${vaccine.petType} "/></b></td>
+            <td><c:out value="${vaccine.petType} "/></td>
         </tr>
         <tr>
-            <th>Informacion</th>
+            <th>Información</th>
             <td><c:out value="${vaccine.information}"/></td>
         </tr>
         <tr>
@@ -40,6 +40,10 @@
         <tr>
             <th>Efectos secundarios</th>
             <td><c:out value="${vaccine.sideEffects}"/></td>
+        </tr>
+         <tr>
+            <th>Fecha de expiración</th>
+            <td><c:out value="${vaccine.expiration}"/></td>
         </tr>
     </table>
     

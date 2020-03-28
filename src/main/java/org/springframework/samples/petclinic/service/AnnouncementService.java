@@ -25,23 +25,23 @@ public class AnnouncementService {
 	public Collection<Announcement> findAnnouncements() throws DataAccessException {
 		return annrepository.findAll();
 	}
-	public Collection<Announcement> findAnnouncementsByTag(String tag) {
+	public Collection<Announcement> findAnnouncementsByTag(String tag)  throws DataAccessException{
 		return annrepository.findByTag(tag);
 	}
 	public Announcement findAnnouncementById(int id) {
 		
 		return annrepository.findById(id);
 	}
-	public Collection<? extends Announcement> findOldAnnouncements() {
+	public Collection<? extends Announcement> findOldAnnouncements()  throws DataAccessException{
 		
 		return annrepository.findOld();
 	}
-	public void saveAnnouncement(@Valid Announcement announcement) {
+	public void saveAnnouncement(@Valid Announcement announcement)  throws DataAccessException{
 		
 		 annrepository.save(announcement);
 		
 	}
-	public Vet findVetByUser(String user) {
+	public Vet findVetByUser(String user){
 		
 		return annrepository.findVetByUserId(user);
 	}	

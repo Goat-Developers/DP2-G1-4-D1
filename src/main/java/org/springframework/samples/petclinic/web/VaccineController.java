@@ -48,7 +48,7 @@ public class VaccineController {
 	public String listadoVaccine(ModelMap modelMap) {
 		String vista="vaccine/vaccineList";		
 		List<Vaccine>vaccine=vaccineService.findAll();	
-		List<Vaccine> vaccines = new ArrayList();
+		List<Vaccine> vaccines = new ArrayList<Vaccine>();
 		for (Vaccine v: vaccine) {
 			if(v.getExpirated().equals(false)) {
 				vaccines.add(v);
@@ -98,6 +98,15 @@ public class VaccineController {
 		List<Vaccine> vaccine=vaccineService.findAllExpirated();
 		modelMap.addAttribute("vaccine",vaccine);
 		
+		return vista;
+	}
+	
+	@GetMapping(value = "/vaccine/stock")
+	public String showLowStockVaccine(ModelMap modelMap) {
+		String vista="vaccine/vaccineStock";
+		
+		List<Vaccine> vaccine=vaccineService.findVaccinesWithLowStock();
+		modelMap.addAttribute("vaccine",vaccine);
 		return vista;
 	}
 	@GetMapping(value= "/vaccine/{vaccineId}/delete")

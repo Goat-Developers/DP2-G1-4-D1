@@ -31,7 +31,7 @@
      
      </div>
      <div class="contenedor">
-    <a href="/announcements" class="btn btn-default">Return</a>
+    <a href="/announcements" class="btn btn-default">Volver</a>
      </div>
  </jsp:body>
 </petclinic:layout>

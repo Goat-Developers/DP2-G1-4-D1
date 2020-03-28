@@ -9,24 +9,24 @@
 
 <petclinic:layout pageName="vaccine">
 
-    <h2>Informacion de los tratamientos</h2>
+    <h2>Información de los tratamientos</h2>
 
 
     <table class="table table-striped">
     <tr>
             <th>Tipo</th>
-            <td><b><c:out value="${treatment.type} "/></b></td>
+            <td><c:out value="${treatment.type} "/></td>
         </tr>
         <tr>
             <th>Tipo de Mascota</th>
-            <td><b><c:out value="${treatment.petType} "/></b></td>
+            <td><c:out value="${treatment.petType} "/></td>
         </tr>
         <tr>
             <th>Precio</th>
             <td><c:out value="${treatment.price}"/></td>
         </tr>
         <tr>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <td><c:out value="${treatment.description}"/></td>
         </tr>
         

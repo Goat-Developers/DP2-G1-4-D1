@@ -15,17 +15,25 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.util.GmailQuickstart;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,6 +76,10 @@ public class InsuranceService {
 
 	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findTreatmentsByPetTypeId(id);
+	}
+	public void sendMessage(@Valid Insurance insurance, Pet pet) throws GeneralSecurityException, IOException, MessagingException, URISyntaxException {
+		GmailQuickstart.SendingEmail(insurance,pet);
+		
 	}
 
 	

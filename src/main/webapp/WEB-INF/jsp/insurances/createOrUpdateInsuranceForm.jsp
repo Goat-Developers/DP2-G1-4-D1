@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="insurances">
     <h2>
-        <c:if test="${insurance['new']}">New </c:if> Insurance
+        <c:if test="${insurance['new']}">Nuevo </c:if> Seguro
     </h2>
 	<form:form modelAttribute="insurance" class="form-horizontal" id="add-insurance-form">
         <div class="form-group has-feedback">
@@ -18,7 +18,7 @@
         </div>
     	<div class="form=group">
     		<div class="col-sm-offset-2 col-sm-10">
-    			<button class="btn btn-default" type="submit">Create Insurance</button>
+    			<button class="btn btn-default" type="submit">Crear Seguro</button>
     			<input type ="hidden" value = "${pet}" name = "pet">
     		</div>
     	</div>

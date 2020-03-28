@@ -6,14 +6,14 @@
 
 <petclinic:layout pageName="insurances">
 	
-	<h2>Insurance Information</h2>
+	<h2>Información del Seguro</h2>
     <table class="table table-striped">
     <tr>
-        <th>Date</th>
+        <th>Fecha</th>
         <td><c:out value="${insurance.insuranceDate}"/></td>
     </tr>
     <tr>
-        <th>Vaccines</th>
+        <th>Vacunas</th>
         <td>
 	    	<c:forEach items="${insurance.vaccines}" var="vaccine">
 	        	<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
@@ -21,7 +21,7 @@
 	    </td>
     </tr>
     <tr>
-        <th>Treatments</th>
+        <th>Tratamientos</th>
         <td>
         	<c:forEach items="${insurance.treatments}" var="treatment">
 	        	<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
@@ -29,19 +29,19 @@
         </td>
     </tr>
     <tr>
-    	<th>Total price</th>
+    	<th>Precio Total</th>
     	<td><c:out value="${insurance.insurancePrice} Euros"/></td>
     </tr>
     </table>
     <br/>
-    <h2>Insurance Base Information</h2>
+    <h2>Información del Seguro Base</h2>
     <table class="table table-striped">
     <tr>
-        <th>Pet Type</th>
+        <th>Tipo de Mascota</th>
         <td><c:out value="${insurance.insuranceBase.petType.name}"/></td>
     </tr>
     <tr>
-        <th>Vaccines</th>
+        <th>Vacunas</th>
         <td>
 	    	<c:forEach items="${insurance.insuranceBase.vaccines}" var="vaccine">
 	        	<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
@@ -49,7 +49,7 @@
 	    </td>
     </tr>
     <tr>
-        <th>Treatments</th>
+        <th>Tratamientos</th>
         <td>
         	<c:forEach items="${insurance.insuranceBase.treatments}" var="treatment">
 	        	<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
@@ -57,16 +57,16 @@
         </td>
     </tr>
     <tr>
-        <th>Conditions</th>
+        <th>Condiciones</th>
         <td><c:out value="${insurance.insuranceBase.conditions}"/></td>
     </tr>
     <tr>
-    	<th>Base price</th>
+    	<th>Precio Base</th>
     	<td><c:out value="${insurance.insuranceBase.price} Euros"/></td>
     </tr>
    </table>
 
-	 <button onclick="goBack()">Return</button>
+	 <button onclick="goBack()">Volver</button>
 
 	
     <br/>

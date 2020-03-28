@@ -6,15 +6,15 @@
 
 <petclinic:layout pageName="insurance_base">
 
-	<h2>Insurance Base <c:out value="${insurance_base.name}"/> Information</h2>
+	<h2>Seguro Base <c:out value="${insurance_base.name}"/> Información</h2>
 
     <table class="table table-striped">
     <tr>
-        <th>Pet Type</th>
+        <th>Tipo de mascota</th>
         <td><c:out value="${insurance_base.petType.name}"/></td>
     </tr>
     <tr>
-        <th>Vaccines</th>
+        <th>Vacunas</th>
         <td>
 	    	<c:forEach items="${insurance_base.vaccines}" var="vaccine">
 	        	<c:out value="${vaccine.name} (${vaccine.price} Euros)"/><br/>
@@ -22,7 +22,7 @@
 	    </td>
     </tr>
     <tr>
-        <th>Treatments</th>
+        <th>Tratamientos</th>
         <td>
         	<c:forEach items="${insurance_base.treatments}" var="treatment">
 	        	<c:out value="${treatment.description} (${treatment.price} Euros)"/><br/>
@@ -30,14 +30,14 @@
         </td>
     </tr>
     <tr>
-        <th>Conditions</th>
+        <th>Condiciones</th>
         <td><c:out value="${insurance_base.conditions}"/></td>
     </tr>
     <tr>
-    	<th>Total price</th>
+    	<th>Precio total</th>
     	<td><c:out value="${insurance_base.price} Euros"/></td>
     </tr>
     </table>
-	<a class="btn btn-default" href='<spring:url value="/insurancesbases" htmlEscape="true"/>'>Return</a>
+	<a class="btn btn-default" href='<spring:url value="/insurancesbases" htmlEscape="true"/>'>Volver</a>
     <br/>
 </petclinic:layout>
