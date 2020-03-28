@@ -32,6 +32,7 @@ import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,7 @@ public class InsuranceController {
 
 	private final InsuranceService insuranceService;
 	private final InsuranceBaseService insuranceBaseService;
+	private final VaccineService vaccineService;
 	private final PetService petService;	
 	
 	private static final String URL_INSURANCES ="insurances/insuranceList"; 
@@ -55,10 +57,11 @@ public class InsuranceController {
 	
 	
 	@Autowired
-	public InsuranceController(InsuranceService insuranceService, InsuranceBaseService insuranceBaseService, PetService petService) {
+	public InsuranceController(InsuranceService insuranceService, InsuranceBaseService insuranceBaseService, PetService petService,VaccineService vaccineService) {
 		this.insuranceService = insuranceService;
 		this.insuranceBaseService = insuranceBaseService;
 		this.petService = petService;
+		this.vaccineService= vaccineService;
 	}
 	
 	@GetMapping("/insurances")
@@ -109,6 +112,11 @@ public class InsuranceController {
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
 			this.insuranceService.saveInsurance(insurance);
+			for (Vaccine a: insurance.getVaccines()) {
+				Vaccine vac =this.vaccineService.findById(a.getId());
+				vac.setStock(vac.getStock()-1);
+				this.vaccineService.saveVaccine(vac);
+			}
 			pet.setInsurance(insurance);
 			this.petService.savePet(pet);
 			return "redirect:/owners/"+ pet.getOwner().getId();

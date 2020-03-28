@@ -19,6 +19,7 @@ public class VaccineService {
 	@Autowired
 	private VaccineRepository vaccineRepo;
 	
+	
 	@Transactional
 	public Vaccine findById(int id) {
 		return vaccineRepo.findById(id);	
@@ -53,6 +54,11 @@ public class VaccineService {
 		return vaccineRepo.findPetTypes();
 	}
 	
+	@Transactional
+	public List<Vaccine> findVaccinesWithLowStock(){
+		
+		return vaccineRepo.findVaccinesWithLowStock();
+	}
 
 	
 

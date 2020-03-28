@@ -100,6 +100,15 @@ public class VaccineController {
 		
 		return vista;
 	}
+	
+	@GetMapping(value = "/vaccine/stock")
+	public String showLowStockVaccine(ModelMap modelMap) {
+		String vista="vaccine/vaccineStock";
+		
+		List<Vaccine> vaccine=vaccineService.findVaccinesWithLowStock();
+		modelMap.addAttribute("vaccine",vaccine);
+		return vista;
+	}
 	@GetMapping(value= "/vaccine/{vaccineId}/delete")
     public String delete(@PathVariable("vaccineId") int vaccineId, ModelMap model) {
        Collection<Insurance> insurances = this.insuranceService.findInsurances();

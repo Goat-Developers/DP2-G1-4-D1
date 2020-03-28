@@ -15,11 +15,9 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Fecha de expiracion</th>
-         	  <sec:authorize access="hasAuthority('veterinarian')">
-         	<th>Expiracion cercana</th>
-         	 </sec:authorize>
-            
+            <th>Stock</th>
+         	
+            <th></th>
             
         </tr>
         </thead>
@@ -35,29 +33,17 @@
                 </td>
                
                 <td>
-                    <c:out value="${vaccine.expiration}"/>
+                    <c:out value="${vaccine.stock}"/>
                 </td>
-               <sec:authorize access="hasAuthority('veterinarian')">
-               <td>
-               		<c:out value="${vaccine.expirationSoon}"/>
-               </td>
-                 </sec:authorize>
-  
                 
             </tr>
         </c:forEach>
         </tbody>
     </table>
     
-    <sec:authorize access="hasAuthority('veterinarian')">
-        <a class="btn btn-default" href='<spring:url value="/vaccine/new" htmlEscape="true"/>'>Crear nueva vacuna</a>
-    </sec:authorize>
-   <sec:authorize access="hasAuthority('veterinarian')">
-        <a class="btn btn-default" href='<spring:url value="/vaccine/expirated" htmlEscape="true"/>'>Vacunas caducadas</a>
-    </sec:authorize>
-    <sec:authorize access="hasAuthority('veterinarian')">
-        <a class="btn btn-default" href='<spring:url value="/vaccine/stock" htmlEscape="true"/>'>Vacunas con poco stock</a>
-    </sec:authorize>
-    
+    <spring:url value="/vaccine" var="addUrl">
+ 
+    </spring:url>
+     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Volver</a>
     
 </petclinic:layout>
