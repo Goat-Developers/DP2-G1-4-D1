@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -21,6 +22,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.samples.petclinic.model.Announcement;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.AnnouncementRepository;
@@ -103,7 +105,7 @@ public class AnnouncementServiceTests {
 	public void failureInsertAnnouncement() {
 		Vet vetAdin = this.annService.findVetByUser("vet1");
 		
-
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Announcement a = new Announcement();
 		a.setHeader("Testing header");
 		a.setBody("");
@@ -117,7 +119,7 @@ public class AnnouncementServiceTests {
 		assertThat(constraintViolations.size()).isEqualTo(1); 
 		ConstraintViolation<Announcement> violation =   constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()) .isEqualTo("body"); 
-		assertThat(violation.getMessage()).isEqualTo("no puede estar vacío"); 
+		assertThat(violation.getMessage()).isEqualTo("must not be empty"); 
 		Assertions.assertThrows(Exception.class, () -> {this.annService.saveAnnouncement(a);});
 		
 	}

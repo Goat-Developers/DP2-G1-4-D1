@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.repository.TreatmentRepository;
@@ -149,8 +151,9 @@ public class TreatmentServiceTests {
 		assertThat(pet.getName()).isEqualTo("Prueba");
 	}
 	
-	/*@Test
+	@Test
 	void shouldFailInsertTreatmentIntoDatabaseWithPriceNull() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Treatment treatment = new Treatment();
 		treatment.setId(1);
 		treatment.setDescription("Esta es la descripcion");
@@ -167,11 +170,12 @@ public class TreatmentServiceTests {
 		
 		ConstraintViolation<Treatment> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("price");
-		assertThat(violation.getMessage()).isEqualTo("no puede ser null");
+		assertThat(violation.getMessage()).isEqualTo("must not be null");
 	}
 	
 	@Test
 	void shouldFailInsertTreatmentIntoDatabaseWithTypeEmpty() {
+		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Treatment treatment = new Treatment();
 		treatment.setId(1);
 		treatment.setDescription("Esta es la descripcion");
@@ -188,13 +192,13 @@ public class TreatmentServiceTests {
 		
 		ConstraintViolation<Treatment> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("type");
-		assertThat(violation.getMessage()).isEqualTo("no puede estar vacío");
+		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
 
 	private Validator createValidator() {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
 		localValidatorFactoryBean.afterPropertiesSet();
 		return localValidatorFactoryBean;
-	}*/
+	}
 
 }
