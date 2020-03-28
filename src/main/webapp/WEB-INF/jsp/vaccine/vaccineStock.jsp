@@ -16,8 +16,6 @@
         <tr>
             <th>Nombre</th>
             <th>Stock</th>
-         	
-            <th></th>
             
         </tr>
         </thead>
@@ -25,7 +23,7 @@
         <c:forEach items="${vaccine}" var="vaccine">
         
             <tr>
-            <td>
+           		 <td>
                     <spring:url value="/vaccine/{vaccineId}" var="vaccineUrl">
                         <spring:param name="vaccineId" value="${vaccine.id}"/>
                     </spring:url>

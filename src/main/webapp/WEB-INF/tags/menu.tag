@@ -24,14 +24,14 @@
 	
 				<sec:authorize access="!isAuthenticated()">
 				<petclinic:menuItem active="${name eq 'home'}" url="/"
-					title="home page">
+					title="Página de inicio">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					<span>Home</span>
+					<span>Inicio</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 				<petclinic:menuItem active="${name eq 'announcements'}" url="/announcements"
-					title="announcements">
+					title="Anuncios">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Anuncios</span>
 				</petclinic:menuItem>
@@ -39,33 +39,33 @@
 
 				<sec:authorize  access="hasAuthority('owner')">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/myInfo"
-					title="find my data">
+					title="Buscar mis datos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>My Information</span>
+					<span>Mi Información</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 				
 				<sec:authorize  access="hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="find owners">
+					title="Buscar Propietarios">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Find owners</span>
+					<span>Buscar Propietarios</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 				
 				<sec:authorize  access="hasAuthority('admin')">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="find owners">
+					title="Buscar Propietarios">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Find owners</span>
+					<span>Buscar Propietarios</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 
 				<sec:authorize access="hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
-					title="veterinarians">
+					title="Veterinarios">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Veterinarians</span>
+					<span>Veterinarios</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 				
@@ -85,7 +85,7 @@
 				
 				<sec:authorize access="isAuthenticated()">
 				<petclinic:menuItem active="${name eq 'vacunas'}" url="/vaccine"
-					title="vacunas">
+					title="Vacunas">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Vacunas</span>
 				</petclinic:menuItem>
@@ -93,7 +93,7 @@
 				
 				<sec:authorize access="isAuthenticated()">
 				<petclinic:menuItem active="${name eq 'tratamientos'}" url="/treatment"
-					title="tratamientos">
+					title="Tratamientos">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Tratamientos</span>
 				</petclinic:menuItem>
@@ -106,8 +106,8 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
-					<li><a href="<c:url value="/login" />">Login</a></li>
-					<li><a href="<c:url value="/users/new" />">Register</a></li>
+					<li><a href="<c:url value="/login" />">Iniciar Sesión</a></li>
+					<li><a href="<c:url value="/users/new" />">Registrarse</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -130,7 +130,7 @@
 											</p>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
-													class="btn btn-primary btn-block btn-sm">Logout</a>
+													class="btn btn-primary btn-block btn-sm">Cerrar Sesión</a>
 											</p>
 										</div>
 									</div>

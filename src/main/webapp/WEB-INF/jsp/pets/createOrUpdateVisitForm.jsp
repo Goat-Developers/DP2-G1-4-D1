@@ -14,16 +14,16 @@
         </script>
     </jsp:attribute>
     <jsp:body>
-        <h2><c:if test="${visit['new']}">New </c:if>Visit</h2>
+        <h2><c:if test="${visit['new']}">Nueva </c:if>Visita</h2>
 
-        <b>Pet</b>
+        <b>Mascota</b>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Birth Date</th>
-                <th>Type</th>
-                <th>Owner</th>
+                <th>Nombre</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Tipo</th>
+                <th>Propietario</th>
             </tr>
             </thead>
             <tr>
@@ -36,24 +36,24 @@
 
         <form:form modelAttribute="visit" class="form-horizontal">
             <div class="form-group has-feedback">
-                <petclinic:inputField label="Date" name="date"/>
-                <petclinic:inputField label="Description" name="description"/>
+                <petclinic:inputField label="Fecha" name="date"/>
+                <petclinic:inputField label="Descripción" name="description"/>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="petId" value="${visit.pet.id}"/>
-                    <button class="btn btn-default" type="submit">Add Visit</button>
+                    <button class="btn btn-default" type="submit">Añadir visita</button>
                 </div>
             </div>
         </form:form>
 
         <br/>
-        <b>Previous Visits</b>
+        <b>Visitas previas</b>
         <table class="table table-striped">
             <tr>
-                <th>Date</th>
-                <th>Description</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
             </tr>
             <c:forEach var="visit" items="${visit.pet.visits}">
                 <c:if test="${!visit['new']}">

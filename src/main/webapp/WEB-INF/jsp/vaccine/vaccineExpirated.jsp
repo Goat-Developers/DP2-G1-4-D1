@@ -15,7 +15,7 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Fecha de expiracion</th>
+            <th>Fecha de expiración</th>
          	
             <th></th>
             

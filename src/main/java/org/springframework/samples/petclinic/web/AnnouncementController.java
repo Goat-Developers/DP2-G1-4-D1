@@ -59,7 +59,11 @@ public class AnnouncementController {
 			announcements.getAnnouncementList().addAll(annService.findAnnouncements());
 		}else {
 			announcements.getAnnouncementList().addAll(annService.findAnnouncementsByTag(announcement.getTag().toLowerCase()));
+			if (announcements.getAnnouncementList().size()==0) {
+				model.put("vacio", true);
+			}
 		}
+		
 		model.put("announcements",announcements);
 		model.put("announcement",announcement);
 		return URL_ANNOUNCEMENTS;

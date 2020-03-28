@@ -8,13 +8,13 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="insurances">
-    <h2>Insurances</h2>
+    <h2>Seguros</h2>
 
     <table id="insurancesTable" class="table table-striped">
         <thead>
         <tr>
-        	<th>Num</th>
-            <th>Total price</th>
+        	<th>Número</th>
+            <th>PrecioTotal</th>
         </tr>
         </thead>
         <tbody>
@@ -35,12 +35,7 @@
         </tbody>
     </table>
     	
-    	<a class="btn btn-default" href='<spring:url value="/insurance/new" htmlEscape="true"/>'>Create insurance</a>
+    	<a class="btn btn-default" href='<spring:url value="/insurance/new" htmlEscape="true"/>'>Crear Seguro</a>
     	
     <br/> 
 </petclinic:layout>
-
-<!-- Descomentar cuando este acabado (HU9) -->
-<!-- <sec:authorize access="hasAuthority('veterinarian')"> -->
-
-<!-- </sec:authorize> -->

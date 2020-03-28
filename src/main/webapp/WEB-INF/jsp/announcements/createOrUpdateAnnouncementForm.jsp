@@ -9,13 +9,13 @@
 
 <petclinic:layout pageName="owners">
     <h2>
-        <c:if test="${announcement['new']}">New </c:if> Announcement
+        <c:if test="${announcement['new']}">Nuevo </c:if> Anuncio
     </h2>
    
     <form:form modelAttribute="announcement" class="form-horizontal" id="add-announcement-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Header" name="header"/>
-            <petclinic:inputField label="Body" name="body"/>
+            <petclinic:inputField label="Cabecera" name="header"/>
+            <petclinic:inputField label="Cuerpo" name="body"/>
             <petclinic:inputField label="Tag" name="tag"/>
         </div>
         
@@ -23,10 +23,11 @@
     <div class="col-sm-offset-2 col-sm-10">
 
  				<sec:authorize access="hasAuthority('veterinarian')">
-                <button class="btn btn-default" type="submit">Add Announcement</button>
-                   <a href="/announcements" class="btn btn-default">Cancel</a>
+                <button class="btn btn-default" type="submit">Añadir Anuncio</button>
+                   <a href="/announcements" class="btn btn-default">Cancelar</a>
+                </sec:authorize>
                  </div>
-                 </sec:authorize>
+                
         </div>
           
     </form:form>

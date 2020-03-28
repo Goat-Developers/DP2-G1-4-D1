@@ -8,7 +8,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="insurances_bases">
-    <h2>Insurances Bases</h2>
+    <h2>Seguros Base</h2>
 
     <table id="insurances_basesTable" class="table table-striped">
         <thead>

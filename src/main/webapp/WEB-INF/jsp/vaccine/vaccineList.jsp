@@ -15,9 +15,9 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Fecha de expiracion</th>
+            <th>Fecha de expiración</th>
          	  <sec:authorize access="hasAuthority('veterinarian')">
-         	<th>Expiracion cercana</th>
+         	<th>Expiración cercana</th>
          	 </sec:authorize>
             
             

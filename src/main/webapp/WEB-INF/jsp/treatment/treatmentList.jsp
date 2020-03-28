@@ -9,7 +9,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <petclinic:layout pageName="treatment">
-    <h2>Treatment</h2>
+    <h2>Tratamiento</h2>
 
     <table id="treatmentTable" class="table table-striped">
         <thead>
