@@ -22,10 +22,12 @@ public class VaccineService {
 	
 	@Autowired
 	private VaccineRepository vaccineRepo;
+
 	@Autowired
 	public VaccineService(VaccineRepository vacRepository) {
 		this.vaccineRepo = vacRepository;
 	}
+
 
 	@Transactional
 	public Vaccine findById(int id) {
@@ -61,6 +63,11 @@ public class VaccineService {
 		return vaccineRepo.findPetTypes();
 	}
 	
+	@Transactional
+	public List<Vaccine> findVaccinesWithLowStock(){
+		
+		return vaccineRepo.findVaccinesWithLowStock();
+	}
 
 	
 
