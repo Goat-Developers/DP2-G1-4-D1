@@ -90,10 +90,7 @@ public class InsuranceBaseTests {
 	dameDinero.setTreatments(tratamientos);
 	dameDinero.setConditions("Ser rico");	
 	
-	given(this.treatmentService.findById(TEST_TREATMENT_ID)).willReturn(tratamientoParaAburrimiento);
-	given(this.vaccineService.findById(TEST_VACCINE_ID)).willReturn(vaccineCoronavirus);
-	given(this.insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID)).willReturn(dameDinero);
-
+	
 	}
 	
 	@Test
