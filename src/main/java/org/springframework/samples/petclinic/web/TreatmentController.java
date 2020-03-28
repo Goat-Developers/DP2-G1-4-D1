@@ -25,7 +25,7 @@ public class TreatmentController {
 	
 	
 	@GetMapping("/treatment")
-	public String listadoTreatment(ModelMap modelMap) {
+	public String listTreatment(ModelMap modelMap) {
 		String vista="treatment/treatmentList";
 		
 		List<Treatment> treatment= treatmentService.findAll();
@@ -60,7 +60,6 @@ public class TreatmentController {
 			return "treatment/treatmentCreate";
 		}
 		else {
-		
 			this.treatmentService.saveTreatment(treatment);
 			
 			return "redirect:/treatment/" + treatment.getId();

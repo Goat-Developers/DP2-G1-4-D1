@@ -78,6 +78,7 @@ public class AnnouncementController {
 		model.put("announcement",announcement);
 		return URL_ANNOUNCEMENTS;
 	}
+	
 	@GetMapping("/announcement/new")
 	public String initAnnouncementCreationForm(Map<String,Object> model) {
 		Announcement announcement = new Announcement();
@@ -96,7 +97,7 @@ public class AnnouncementController {
 			String currentUsername = authentication.getName();
 			Vet vet = this.annService.findVetByUser(currentUsername);
 			announcement.setVet(vet);
-			announcement.setTag(announcement.getTag().toLowerCase());;
+			announcement.setTag(announcement.getTag().toLowerCase().replaceAll("[\\s+,,]","").trim());;
 			this.annService.saveAnnouncement(announcement);
 			this.vetService.saveVet(vet);
 			

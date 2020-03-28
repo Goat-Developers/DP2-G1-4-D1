@@ -46,6 +46,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
+
 public class InsuranceController {
 
 	private final InsuranceService insuranceService;
@@ -103,14 +104,17 @@ public class InsuranceController {
 	}
 	
 	@PostMapping(value ="/insurance/new/{petId}")
+
 	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException, GeneralSecurityException, IOException, MessagingException, URISyntaxException {
+
 		if (result.hasErrors()){
+			model.put("insurance", insurance);
+
 			Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
 			Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(pet.getType().getId());
 			Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(pet.getType().getId());			
 			model.put("treatments", treatments);
 			model.put("vaccines", vaccines);
-			model.put("insurance", insurance);
 			model.put("insurancebase", insuranceBase);
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {

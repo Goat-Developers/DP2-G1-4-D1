@@ -1,8 +1,6 @@
 
 package org.springframework.samples.petclinic.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,10 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import lombok.Getter;
-import lombok.Setter;
-
 
 @Entity
 @Getter
@@ -41,12 +35,5 @@ public class Treatment extends BaseEntity {
     @NotNull
     @JoinColumn(name = "pet_type_id")
     private PetType petType;
-
-
-
-  
-	
-
-
 
 }
