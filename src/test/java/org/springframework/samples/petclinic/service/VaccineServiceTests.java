@@ -87,6 +87,10 @@ class VaccineServiceTests {
 	private static final int TEST_VACCINE_EXPIRATED_ID1 = 2;
 	private static final int TEST_VACCINE_EXPIRATED_ID2 = 4;
 	private static final int TEST_VACCINE_EXPIRATED_ID3 = 8;
+	private static final int TEST_VACCINE_STOCK_ID1 = 8;
+	private static final int TEST_VACCINE_STOCK_ID2 = 7;
+	private static final int TEST_VACCINE_STOCK_ID3 = 3;
+	private static final int TEST_VACCINE_STOCK_ID4 = 2;
 
 	@Mock
 	private VaccineRepository vaccineRepository;
@@ -134,7 +138,23 @@ class VaccineServiceTests {
 		assertThat(vaccinesList1.get(2)).isEqualTo(vaccinesList2.get(2));
 		assertThat(vaccinesList1.size()).isEqualTo(3);
 	}
+	
+	@ParameterizedTest
+	@ValueSource(ints= {8,7,3,2})
+	void shouldFindVaccinesWithLowStock(int argument) {
+		Vaccine test = this.vaccineService.findById(argument);
+		List<Vaccine> listaStock = this.vaccineService.findVaccinesWithLowStock();
+		assertThat(listaStock).contains(test);
+	}
 
+	
+	@ParameterizedTest
+	@ValueSource(ints= {1,5})
+	void shouldNotFindVaccinesWithLowStock(int argument) {
+		Vaccine test = this.vaccineService.findById(argument);
+		List<Vaccine> listaStock = this.vaccineService.findVaccinesWithLowStock();
+		Assertions.assertFalse(listaStock.contains(test));
+	}
 	@Test
 	@Transactional
 	public void shouldInsertVaccine() {

@@ -255,7 +255,7 @@ public class InsuranceControllerTest {
 							
 				.andExpect(status().isOk());
 	}
-// No hay manera de sacarla, mirar la siguiente entrega. NO PUEDO HACER MAS PRUEBAS PORQUE ES QUE NO TENGEO MAS COSAS QUE PROBAR
+// No hay manera de sacarla, mirar la siguiente entrega.
 //		@WithMockUser(value = "spring")
 //    @Test
 //    void testProcessCreationFormHasErrors() throws Exception {

@@ -175,6 +175,13 @@ class VaccineControllerTests {
        			.andExpect(view().name("vaccine/vaccineExpirated"));
     }	
         
+        @WithMockUser(value = "spring")
+    @Test
+    void testListVaccineLowStock() throws Exception {
+       mockMvc.perform(get("/vaccine/stock")).andExpect(status().isOk()).andExpect(model().attributeExists("vaccine"))
+       			.andExpect(view().name("vaccine/vaccineStock"));
+    }	       
+        
 
 
 }

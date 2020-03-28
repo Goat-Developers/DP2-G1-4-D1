@@ -178,21 +178,26 @@ public class InsuranceServiceTest {
 	public void  shouldSaveInsurance() {
 		Collection<Insurance> insurance = this.insuranceService.findInsurances();
 		int total = insurance.size();
-		
-	
-				
-				
-				
-				 this.insuranceService.saveInsurance(insuranceParaMamporreo);
+		this.insuranceService.saveInsurance(insuranceParaMamporreo);
 
-				 insurance = this.insuranceService.findInsurances();
-				
-				assertThat(insurance.size()).isEqualTo(total + 1);
-		        assertThat(insuranceParaMamporreo.getId()).isNotNull();
-
-		
+		insurance = this.insuranceService.findInsurances();
+		Set<Vaccine> vacunas = insuranceParaMamporreo.getVaccines();
+		comprueboQueDecrementaElStockEn1(vacunas);
+		assertThat(insurance.size()).isEqualTo(total + 1);
+		assertThat(insuranceParaMamporreo.getId()).isNotNull();
 	}
 	
+	private void comprueboQueDecrementaElStockEn1(Set<Vaccine> vacunas) {
+		for (Vaccine a: vacunas) {
+			a.setStock(a.getStock()-1);
+			this.vaccineService.saveVaccine(a);
+			assertThat(a.getStock()).isEqualTo(this.vaccineService.findById(a.getId()).getStock());
+		}
+	}
+
+
+
+
 	@Test
     void shouldFindVaccinesl() {
         Collection<Vaccine> vaccines = this.vaccineService.findAll();
