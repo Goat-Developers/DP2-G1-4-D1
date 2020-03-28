@@ -14,3 +14,4 @@ Para este primer entregable: aplicación y pruebas unitarias llegamos hasta el n
 2, realizando sus pruebas unitarias, automatizando con Travis CI, pruebas parametrizadas y la aplicación de un servicio externo mediante una API REST [API Gmail](https://developers.google.com/gmail/api).
 
 [Información más detallada del Entregable 1](https://github.com/DP2-G1-4/DP2-G1-4-D1/wiki/Entregable-1)
+![image](https://drive.google.com/uc?export=view&id=1913oZeBZPBNiUuk8gu3ZSbLBA2l_VQtG)
