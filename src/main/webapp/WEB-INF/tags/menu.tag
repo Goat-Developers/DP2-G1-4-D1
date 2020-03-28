@@ -52,6 +52,14 @@
 					<span>Find owners</span>
 				</petclinic:menuItem>
 				</sec:authorize>
+				
+				<sec:authorize  access="hasAuthority('admin')">
+				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
+					title="find owners">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Find owners</span>
+				</petclinic:menuItem>
+				</sec:authorize>
 
 				<sec:authorize access="hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"

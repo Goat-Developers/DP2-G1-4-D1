@@ -36,7 +36,7 @@ INSERT INTO vets(id,first_name,last_name) VALUES (6, 'Sharon', 'Jenkins');
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (3,'esto body CON MAYUS','esto header','gatos','2010-09-07',1,0);
-INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-14',1,0);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-22',1,0);
 
 INSERT INTO specialties VALUES (1, 'Radiology');
 INSERT INTO specialties VALUES (2, 'Surgery');
@@ -66,14 +66,16 @@ INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner9');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner10');
 
-INSERT INTO vaccines(id,name,information,price,provider,expiration,stock,pet_type_id,side_effects) VALUES (1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',3,1, 'Produce ardores');
-INSERT INTO vaccines(id,name,information,price,provider,expiration,stock,pet_type_id,side_effects) VALUES (2,'Vacuna del coronavirus','Para ratas',332,'Chema','2001-06-06',0,4, 'Hecha por chinos');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (3,1,'VaccinePrueba1','Para ratas',32.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (4,4,'VaccinePrueba2','Para polen',332,'Chema','2001-06-06',0,'Posibilidad de fiebre en los próximos 3 días');
-INSERT INTO vaccines(id,name,information,price,provider,expiration,stock,pet_type_id,side_effects) VALUES (5,'Vacuna de la uni','Para ratas',31.3,'Chema','2022-06-08',3,5,'Inútil');
-INSERT INTO vaccines(id,name,information,price,provider,expiration,stock,pet_type_id,side_effects) VALUES (6,'Vacuna del virus chino','Para ratas',3324,'Chema','2021-06-06',0,6,'Te puede entrar la rabia');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (7,2,'Vacuna contra niños','Para ratas',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'Vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',0,'Posibilidad de fiebre en los próximos 3 días');
+
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (1,1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',3, 'produce ardores');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,4,'Vacuna del coronavirus','Para ratas',332,'Chema','2001-06-06',0, 'hecha por chinos');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (3,1,'vaccinePrueba1','Para ratas',32.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (4,4,'vaccinePrueba2','Para polen',332,'Chema','2001-06-06',0,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (5,5,'Vacuna de la uni','Para ratas',31.3,'Chema','2022-06-08',3,'inútil');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (6,6,'Vacuna del virus chino','Para ratas',3324,'Chema','2021-06-06',0,'te puede entrar la rabia');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (7,2,'vacuna contra niños','Para ratas',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',0,'Posibilidad de fiebre en los próximos 3 días');
+
 
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes',65.7,'Limpieza de dientes');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,5,'Pelo',10,'Corte de pelo');
