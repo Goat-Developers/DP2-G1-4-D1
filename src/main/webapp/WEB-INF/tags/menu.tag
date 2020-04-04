@@ -45,6 +45,14 @@
 				</petclinic:menuItem>
 				</sec:authorize>
 				
+				<sec:authorize  access="hasAuthority('worker')">
+				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
+					title="Buscar Propietarios">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Buscar Propietarios</span>
+				</petclinic:menuItem>
+				</sec:authorize>
+				
 				<sec:authorize  access="hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="Buscar Propietarios">
@@ -98,6 +106,8 @@
 					<span>Tratamientos</span>
 				</petclinic:menuItem>
 				</sec:authorize>
+				
+				
 
 			</ul>
 

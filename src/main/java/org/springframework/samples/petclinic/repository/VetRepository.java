@@ -41,4 +41,6 @@ public interface VetRepository {
 
 	void save(Vet vet);
 
+	Vet findById(int id);
+
 }

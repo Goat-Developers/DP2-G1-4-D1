@@ -24,29 +24,18 @@ INSERT INTO users(username,password,enabled) VALUES ('owner10','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner10','owner');
 -- One vet user, named vet1 with password v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('vet2','v3t',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('vet3','v3t',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('vet4','v3t',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('vet5','v3t',TRUE);
+INSERT INTO users(username,password,enabled) VALUES ('vet6','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet1','veterinarian');
+INSERT INTO authorities VALUES ('vet2','worker');
+INSERT INTO authorities VALUES ('vet3','worker');
+INSERT INTO authorities VALUES ('vet4','worker');
+INSERT INTO authorities VALUES ('vet5','worker');
+INSERT INTO authorities VALUES ('vet6','worker');
 
-INSERT INTO vets(id,first_name,last_name,username) VALUES (1, 'James', 'Carter','vet1');
-INSERT INTO vets(id,first_name,last_name) VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets(id,first_name,last_name) VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets(id,first_name,last_name) VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets(id,first_name,last_name) VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets(id,first_name,last_name) VALUES (6, 'Sharon', 'Jenkins');
-
-INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
-INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);
-INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (3,'esto body CON MAYUS','esto header','gatos','2010-09-07',1,0);
-INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-22',1,0);
-
-INSERT INTO specialties VALUES (1, 'Radiology');
-INSERT INTO specialties VALUES (2, 'Surgery');
-INSERT INTO specialties VALUES (3, 'Dentistry');
-
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
-INSERT INTO vet_specialties VALUES (3, 3);
-INSERT INTO vet_specialties VALUES (4, 2);
-INSERT INTO vet_specialties VALUES (5, 1);
 
 INSERT INTO types VALUES (1, 'cat');
 INSERT INTO types VALUES (2, 'dog');
@@ -55,17 +44,12 @@ INSERT INTO types VALUES (4, 'snake');
 INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
-INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
-INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner2');
-INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner3');
-INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'owner4');
-INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'owner5');
-INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'owner6');
-INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'owner7');
-INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner8');
-INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner9');
-INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner10');
-
+INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (1, 'James', 'Carter','vet1', 4);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (2, 'Helen', 'Leary','vet2',5);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (3, 'Linda', 'Douglas','vet3',3);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (4, 'Rafael', 'Ortega','vet4',7);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (5, 'Henry', 'Stevens','vet5',8);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (6, 'Sharon', 'Jenkins','vet6',9);
 
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (1,1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',30, 'produce ardores');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,4,'Vacuna del coronavirus','Para ratas',332,'Chema','2001-06-06',10, 'hecha por chinos');
@@ -121,6 +105,17 @@ INSERT INTO insurance_base_treatments VALUES (4, 4);
 INSERT INTO insurance_base_treatments VALUES (5, 2);
 INSERT INTO insurance_base_treatments VALUES (6, 4);
 
+INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
+INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner2');
+INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner3');
+INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'owner4');
+INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'owner5');
+INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'owner6');
+INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'owner7');
+INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner8');
+INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner9');
+INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner10');
+
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (3, 'Rosy', '2011-04-17', 2, 3);
@@ -139,6 +134,97 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'Rabies shot');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'Neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'Spayed');
+
+
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (1, '08:00:00',TRUE, 3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (2, '09:00:00',TRUE,3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (3, '10:00:00',TRUE,3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (4, '11:00:00',TRUE,3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (5, '12:00:00',TRUE,3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (6, '13:00:00',TRUE,3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (7, '14:00:00',FALSE,3);
+INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (8, '15:00:00',FALSE,3);
+
+
+
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (1,'2010-09-07 08:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (2,'2010-09-07 09:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (3,'2010-09-07 10:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (4,'2010-09-07 11:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',4,2,2,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (5,'2010-09-07 12:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',5,2,4,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (6,'2010-09-07 13:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (7,'2010-09-07 14:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
+
+
+
+INSERT INTO vet_schedule(id, vet_id) VALUES (1,1);
+INSERT INTO vet_schedule(id, vet_id) VALUES (2,2);
+INSERT INTO vet_schedule(id, vet_id) VALUES (3,3);
+INSERT INTO vet_schedule(id, vet_id) VALUES (4,4);
+INSERT INTO vet_schedule(id, vet_id) VALUES (5,5);
+INSERT INTO vet_schedule(id, vet_id) VALUES (6,6);
+
+/*Id del calendario y el id de la cita*/
+INSERT INTO schedule_appointments VALUES (1, 1);
+INSERT INTO schedule_appointments VALUES (1, 2);
+INSERT INTO schedule_appointments VALUES (1, 3);
+INSERT INTO schedule_appointments VALUES (1, 4);
+INSERT INTO schedule_appointments VALUES (1, 5);
+
+
+INSERT INTO schedule_shifts(vet_schedule_id, shift_id) VALUES (1, 1);
+INSERT INTO schedule_shifts VALUES (1, 3);
+INSERT INTO schedule_shifts VALUES (1, 5);
+INSERT INTO schedule_shifts VALUES (1, 7);
+
+INSERT INTO schedule_shifts VALUES (2, 2);
+INSERT INTO schedule_shifts VALUES (2, 4);
+INSERT INTO schedule_shifts VALUES (2, 6);
+INSERT INTO schedule_shifts VALUES (2, 8);
+
+INSERT INTO schedule_shifts VALUES (3, 1);
+INSERT INTO schedule_shifts VALUES (3, 3);
+INSERT INTO schedule_shifts VALUES (3, 5);
+
+INSERT INTO schedule_shifts VALUES (4, 2);
+INSERT INTO schedule_shifts VALUES (4, 4);
+INSERT INTO schedule_shifts VALUES (4, 6);
+INSERT INTO schedule_shifts VALUES (4, 8);
+
+INSERT INTO schedule_shifts VALUES (5, 1);
+INSERT INTO schedule_shifts VALUES (5, 3);
+INSERT INTO schedule_shifts VALUES (5, 5);
+INSERT INTO schedule_shifts VALUES (5, 7);
+
+INSERT INTO schedule_shifts VALUES (6, 2);
+INSERT INTO schedule_shifts VALUES (6, 4);
+INSERT INTO schedule_shifts VALUES (6, 6);
+INSERT INTO schedule_shifts VALUES (6, 7);
+INSERT INTO schedule_shifts VALUES (6, 8);
+
+
+
+
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (3,'esto body CON MAYUS','esto header','gatos','2010-09-07',1,0);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-22',1,0);
+
+INSERT INTO specialties VALUES (1, 'Radiology');
+INSERT INTO specialties VALUES (2, 'Surgery');
+INSERT INTO specialties VALUES (3, 'Dentistry');
+
+INSERT INTO vet_specialties VALUES (2, 1);
+INSERT INTO vet_specialties VALUES (3, 2);
+INSERT INTO vet_specialties VALUES (3, 3);
+INSERT INTO vet_specialties VALUES (4, 2);
+INSERT INTO vet_specialties VALUES (5, 1);
+
+
+
+
+
+
 
 
 
