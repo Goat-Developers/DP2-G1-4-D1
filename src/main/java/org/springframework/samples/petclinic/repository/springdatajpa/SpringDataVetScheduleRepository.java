@@ -18,9 +18,9 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.VetRepository;
+import org.springframework.samples.petclinic.repository.VetScheduleRepository;
 
 /**
  * Spring Data JPA specialization of the {@link VetRepository} interface
@@ -28,13 +28,13 @@ import org.springframework.samples.petclinic.repository.VetRepository;
  * @author Michael Isvy
  * @since 15.1.2013
  */
-public interface SpringDataVetRepository extends VetRepository, Repository<Vet, Integer> {
+public interface SpringDataVetScheduleRepository extends VetScheduleRepository, Repository<VetSchedule, Integer> {
 	
 	@Override
-	@Query("SELECT vet FROM Vet vet WHERE vet.id =:id")
-	public Vet findById(@Param("id") int id);
+	@Query("SELECT vet FROM VetSchedule vet WHERE vet.id =:id")
+	public VetSchedule findById(@Param("id") int id);
+
 	
-	@Override
-	@Query("SELECT vet FROM Vet vet WHERE vet.user.username =:currentUsername")
-	Vet findByPrincipal(@Param("currentUsername") String currentUsername);
+	@Query("SELECT vetSchedule from VetSchedule vetSchedule WHERE vetSchedule.vet.id =?1")
+	public VetSchedule findScheduleByVetId(@Param("id") int id);
 }

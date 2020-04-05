@@ -147,13 +147,13 @@ INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (8, '15:00:0
 
 
 
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (1,'2010-09-07 08:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (2,'2010-09-07 09:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (3,'2010-09-07 10:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (4,'2010-09-07 11:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',4,2,2,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (5,'2010-09-07 12:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',5,2,4,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (6,'2010-09-07 13:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (7,'2010-09-07 14:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (1,'2010-09-07 ','8:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (2,'2010-09-07 ','9:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (3,'2010-09-07 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (4,'2010-09-07 ','11:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',4,2,2,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (5,'2010-09-07 ', '12:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',5,2,4,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (6,'2010-09-07 ', '13:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (7,'2010-09-07 ', '14:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
 
 
 

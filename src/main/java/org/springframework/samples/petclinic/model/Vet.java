@@ -101,10 +101,6 @@ public class Vet extends Person {
 	private Set<Announcement> announcements;
 	
 	
-	@ManyToOne
-	@JoinColumn(name = "vetschedule_id")
-	private VetSchedule vetSchedule;
-	
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 
@@ -24,9 +25,13 @@ import java.time.LocalDateTime;
 public class Appointment extends BaseEntity {
 
 
-	@Column(name = "appointment_date")        
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-	private LocalDateTime appointmentDate;
+	@Column(name = "appointment_date")
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDate appointmentDate;
+
+    @Column(name = "appointment_time")
+    @DateTimeFormat( pattern = "HH:mm:ss")
+    private LocalTime appointmentTime;
 
 
 	@NotEmpty
@@ -46,9 +51,12 @@ public class Appointment extends BaseEntity {
 	@JoinColumn(name = "vaccine_id")
 	private Vaccine vaccine;
 	
-	@JoinColumn(name="attended")
+	@Column(name="attended")
 	private boolean attended;
 
-	@JoinColumn(name="observations")
+	@Column(name="observations")
 	private String observations;
+	
+	@Column(name = "billing")
+	private Double billing;
 }

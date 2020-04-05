@@ -17,23 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        
-        <c:forEach items="${vetSchedule.shifts}" var="shift">
-            <tr>
-                <td>
-              	 <c:out value="${shft.picked}"/>
-                </td>
-               
-            </tr>
-        </c:forEach>
+      
         </tbody>
-    </table>
-
-    <table class="table-buttons">
-        <tr>
-            <td>
-                <a href="<spring:url value="/vets.xml" htmlEscape="true" />">Ver como XML</a>
-            </td>            
-        </tr>
     </table>
 </petclinic:layout>
