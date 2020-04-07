@@ -124,7 +124,6 @@ public class VetController {
 		
 		appointments = appointments.stream().filter(a->apps.contains(a)).collect(Collectors.toList());
 		
-		
 		//Ordeno los turnos
 		List<Shift> shifts= orderShifts(vetSchedule);
 		
