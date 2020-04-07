@@ -42,7 +42,5 @@ public interface VetScheduleRepository {
 	void save(VetSchedule vetSchedule);
 
 	VetSchedule findById(int id);
-	
-	VetSchedule findScheduleByVetId(int id);
 
 }

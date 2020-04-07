@@ -33,8 +33,4 @@ public interface SpringDataVetScheduleRepository extends VetScheduleRepository, 
 	@Override
 	@Query("SELECT vet FROM VetSchedule vet WHERE vet.id =:id")
 	public VetSchedule findById(@Param("id") int id);
-
-	
-	@Query("SELECT vetSchedule from VetSchedule vetSchedule WHERE vetSchedule.vet.id =?1")
-	public VetSchedule findScheduleByVetId(@Param("id") int id);
 }

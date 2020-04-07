@@ -57,6 +57,4 @@ public class Appointment extends BaseEntity {
 	@Column(name="observations")
 	private String observations;
 	
-	@Column(name = "billing")
-	private Double billing;
 }

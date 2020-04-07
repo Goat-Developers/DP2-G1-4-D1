@@ -15,10 +15,13 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Appointment;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.VetSchedule;
@@ -59,13 +62,15 @@ public class VetService {
 		return vetRepository.findById(id);
 	}
 	
-	public VetSchedule findVetScheduleByVetId(int id) throws DataAccessException {
-		return vetScheduleRepository.findScheduleByVetId(id);
-	}
 	
 	public Vet findVetByPrincipal(String currentUsername) {
 		
 		return vetRepository.findByPrincipal(currentUsername);
+	}
+
+	public List<Appointment> findAppointmentsByDay(LocalDate day) {
+		// TODO Auto-generated method stub
+		return vetRepository.findAppointmentsByDay(day);
 	}		
 
 }
