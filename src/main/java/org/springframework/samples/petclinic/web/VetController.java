@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -118,6 +119,11 @@ public class VetController {
 		String currentUsername = authentication.getName();
 		Vet vet = this.vetService.findVetByPrincipal(currentUsername);
 		VetSchedule vetSchedule = vet.getVetSchedule();
+		
+		Set<Appointment> apps= vetSchedule.getAppointments();
+		
+		appointments = appointments.stream().filter(a->apps.contains(a)).collect(Collectors.toList());
+		
 		
 		//Ordeno los turnos
 		List<Shift> shifts= orderShifts(vetSchedule);

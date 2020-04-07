@@ -166,6 +166,7 @@ INSERT INTO schedule_appointments VALUES (1, 2);
 INSERT INTO schedule_appointments VALUES (1, 3);
 INSERT INTO schedule_appointments VALUES (1, 4);
 INSERT INTO schedule_appointments VALUES (1, 5);
+INSERT INTO schedule_appointments VALUES (1, 8);
 
 
 INSERT INTO schedule_shifts(vet_schedule_id, shift_id) VALUES (1, 1);
