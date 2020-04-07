@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.web;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -134,6 +135,12 @@ public class VetController {
 	
 	@GetMapping(value = { "/vetSchedule" })
 	public String showVetSchedule(Map<String, Object> model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentUsername = authentication.getName();
+		Vet vet = this.vetService.findVetByPrincipal(currentUsername);
+		VetSchedule vetSchedule = vet.getVetSchedule();
+		
 		
 		Month month = LocalDate.now().getMonth();
 		List<LocalDate> listaDias = new ArrayList<>();
@@ -255,7 +262,12 @@ public class VetController {
 		model.put("dias", dias);
 		
 
+		List<LocalDate> coincidencias = new ArrayList<>();
+		List<LocalTime> shifts = vetSchedule.getShifts().stream().map(Shift::getShiftDate).collect(Collectors.toList());
 		
+		coincidencias = vetSchedule.getAppointments().stream().filter(x->shifts.contains(x.getAppointmentTime()) && x.getAppointmentDate().getYear() == LocalDate.now().getYear()).map(Appointment::getAppointmentDate).collect(Collectors.toList());
+		System.out.println(coincidencias);
+		model.put("coincidencias", coincidencias);
 		return "vets/vetSchedule";
 	}
 

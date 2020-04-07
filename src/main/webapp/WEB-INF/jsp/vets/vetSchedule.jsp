@@ -6,6 +6,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
+    <script>
+function hasAppointment() {
+	var td = document.getElementsByTagName("td");
+	td[td.length-1].style.backgroundColor ="#0cfe00";
+}
+
+function hasNotAppointment(){
+	
+	var td = document.getElementsByTagName("td");	
+	td[td.length-1].style.backgroundColor ="#f6948d";
+}
+</script>
 
 
     
@@ -13,7 +25,7 @@
 <petclinic:layout pageName="vet schedule">
 
 	<jsp:body>
-    	<h2>Veterinarios</h2>
+    	<h2>Horario del veterinario</h2>
 		<table class="table table-striped">
 		
 			<thead>
@@ -63,12 +75,27 @@
    			</c:if>
    			
    			<c:forEach items="${firstWeek}" var ="primer">
+   				
    				<td>
    				<spring:url value="/vetSchedule/{day}" var="dayUrl">
                         <spring:param name="day" value="${primer}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(dayUrl)}"> <c:out value ="${primer.getDayOfMonth()}"/></a>
    				</td>
+   				
+   			<c:if test="${coincidencias.contains(primer)}">
+   				<script lang="javascript">
+   					hasAppointment();
+   				</script>
+   			</c:if>
+   			
+   			<c:if test ="${!coincidencias.contains(primer) }">
+   			
+   				<script lang="javascript">
+   					hasNotAppointment();
+   				</script>
+   			
+   			</c:if>
    			
    			</c:forEach>
  			
@@ -84,6 +111,22 @@
    					 <a href="${fn:escapeXml(dayUrl)}"><c:out value ="${fecha1.getDayOfMonth()}"/></a>
    			
    				</td>
+   				
+   			<c:if test="${coincidencias.contains(fecha1)}">
+   				<script lang="javascript">
+   					hasAppointment();
+   				</script>
+   			</c:if>
+   			<c:if test ="${!coincidencias.contains(fecha1) }">
+   			
+   				<script lang="javascript">
+   					hasNotAppointment();
+   				</script>
+   			
+   			</c:if>
+   			
+   			
+   			
    				</c:forEach>
    			</tr>
    			<tr>
@@ -95,6 +138,22 @@
    					 <a href="${fn:escapeXml(dayUrl)}"><c:out value ="${fecha2.getDayOfMonth()}"/></a>
    			
    				</td>
+   				
+   				<c:if test="${coincidencias.contains(fecha2)}">
+   				<script lang="javascript">
+   					hasAppointment();
+   				</script>
+   			</c:if>
+   			
+   			<c:if test ="${!coincidencias.contains(fecha2) }">
+   			
+   				<script lang="javascript">
+   					hasNotAppointment();
+   				</script>
+   			
+   			</c:if>
+   			
+   			
    				</c:forEach>
    			</tr>
    			<tr>
@@ -106,6 +165,22 @@
    					 <a href="${fn:escapeXml(dayUrl)}"><c:out value ="${fecha3.getDayOfMonth()}"/></a>
    			
    				</td>
+   				
+   				<c:if test="${coincidencias.contains(fecha3)}">
+   				<script lang="javascript">
+   					hasAppointment();
+   				</script>
+   			</c:if>
+   			
+   			<c:if test ="${!coincidencias.contains(fecha3) }">
+   			
+   				<script lang="javascript">
+   					hasNotAppointment();
+   				</script>
+   			
+   			</c:if>
+   			
+   			
    				</c:forEach>
    			</tr>	
    			<tr>
@@ -119,6 +194,22 @@
    					 <a href="${fn:escapeXml(dayUrl)}"><c:out value ="${fecha4.getDayOfMonth()}"/></a>
    			
    				</td>
+   				
+   				<c:if test="${coincidencias.contains(fecha4)}">
+   				<script lang="javascript">
+   					hasAppointment();
+   				</script>
+   			</c:if>
+   			
+   			<c:if test ="${!coincidencias.contains(fecha4) }">
+   			
+   				<script lang="javascript">
+   					hasNotAppointment();
+   				</script>
+   			
+   			</c:if>
+   			
+   			
    				</c:forEach>
    			</tr>	
    			<tr>
@@ -132,6 +223,23 @@
    					 <a href="${fn:escapeXml(dayUrl)}"><c:out value ="${fecha5.getDayOfMonth()}"/></a>
    			
    				</td>
+   				
+   				<c:if test="${coincidencias.contains(fecha5)}">
+   				<script lang="javascript">
+   					hasAppointment();
+   				</script>
+   			</c:if>
+   			
+   			<c:if test ="${!coincidencias.contains(fecha5) }">
+   			
+   				<script lang="javascript">
+   					hasNotAppointment();
+   				</script>
+   			
+   			</c:if>
+   			
+   			
+   			
    				</c:forEach>
    			</tr>	
    			
@@ -140,8 +248,9 @@
    		</table>
 
 	</jsp:body>
-    
 </petclinic:layout>
+
+
 
 
 

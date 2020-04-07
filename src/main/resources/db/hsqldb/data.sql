@@ -150,6 +150,8 @@ INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,tre
 INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (6,'2010-09-07 ', '13:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
 INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (7,'2010-09-07 ', '14:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
 INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (8,'2020-04-01 ', '08:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (9,'2020-04-14 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (10,'2020-04-14 ', '11:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
 
 
 
@@ -167,7 +169,8 @@ INSERT INTO schedule_appointments VALUES (1, 3);
 INSERT INTO schedule_appointments VALUES (1, 4);
 INSERT INTO schedule_appointments VALUES (1, 5);
 INSERT INTO schedule_appointments VALUES (1, 8);
-
+INSERT INTO schedule_appointments VALUES (1, 9);
+INSERT INTO schedule_appointments VALUES (2, 10);
 
 INSERT INTO schedule_shifts(vet_schedule_id, shift_id) VALUES (1, 1);
 INSERT INTO schedule_shifts VALUES (1, 3);
