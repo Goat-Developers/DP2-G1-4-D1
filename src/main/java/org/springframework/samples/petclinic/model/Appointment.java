@@ -19,11 +19,13 @@ import lombok.Setter;
 
 
 
+
 @Entity
 @Getter
 @Setter
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
+
 
 
 	@Column(name = "appointment_date")        
@@ -33,6 +35,7 @@ public class Appointment extends BaseEntity {
 	@Column(name = "appointment_time")
 	@DateTimeFormat( pattern = "HH:mm:ss")
 	private LocalTime appointmentTime;
+
 
 
 	@NotEmpty
@@ -73,4 +76,5 @@ public class Appointment extends BaseEntity {
 	
 
 	
+
 }

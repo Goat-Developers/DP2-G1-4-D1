@@ -44,12 +44,7 @@ INSERT INTO types VALUES (4, 'snake');
 INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
-INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (1, 'James', 'Carter','vet1', 4);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (2, 'Helen', 'Leary','vet2',5);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (3, 'Linda', 'Douglas','vet3',3);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (4, 'Rafael', 'Ortega','vet4',7);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (5, 'Henry', 'Stevens','vet5',8);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts) VALUES (6, 'Sharon', 'Jenkins','vet6',9);
+
 
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (1,1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',30, 'produce ardores');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,1,'Vacuna del coronavirus','Para ratas',332,'Chema','2021-06-06',10, 'hecha por chinos');
@@ -147,6 +142,7 @@ INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (8, '15:00:0
 
 
 
+
 INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (1,'2010-09-07 ','8:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
 INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (2,'2010-09-07 ','9:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
 INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (3,'2010-09-07 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
@@ -157,12 +153,13 @@ INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reas
 
 
 
-INSERT INTO vet_schedule(id, vet_id) VALUES (1,1);
-INSERT INTO vet_schedule(id, vet_id) VALUES (2,2);
-INSERT INTO vet_schedule(id, vet_id) VALUES (3,3);
-INSERT INTO vet_schedule(id, vet_id) VALUES (4,4);
-INSERT INTO vet_schedule(id, vet_id) VALUES (5,5);
-INSERT INTO vet_schedule(id, vet_id) VALUES (6,6);
+
+INSERT INTO vet_schedule(id) VALUES (1);
+INSERT INTO vet_schedule(id) VALUES (2);
+INSERT INTO vet_schedule(id) VALUES (3);
+INSERT INTO vet_schedule(id) VALUES (4);
+INSERT INTO vet_schedule(id) VALUES (5);
+INSERT INTO vet_schedule(id) VALUES (6);
 
 /*Id del calendario y el id de la cita*/
 INSERT INTO schedule_appointments VALUES (1, 1);
@@ -170,7 +167,9 @@ INSERT INTO schedule_appointments VALUES (1, 2);
 INSERT INTO schedule_appointments VALUES (1, 3);
 INSERT INTO schedule_appointments VALUES (1, 4);
 INSERT INTO schedule_appointments VALUES (1, 5);
-
+INSERT INTO schedule_appointments VALUES (1, 8);
+INSERT INTO schedule_appointments VALUES (1, 9);
+INSERT INTO schedule_appointments VALUES (2, 10);
 
 INSERT INTO schedule_shifts(vet_schedule_id, shift_id) VALUES (1, 1);
 INSERT INTO schedule_shifts VALUES (1, 3);
@@ -203,7 +202,12 @@ INSERT INTO schedule_shifts VALUES (6, 7);
 INSERT INTO schedule_shifts VALUES (6, 8);
 
 
-
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (1, 'James', 'Carter','vet1', 4,1);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (2, 'Helen', 'Leary','vet2',5,2);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (3, 'Linda', 'Douglas','vet3',3,3);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (4, 'Rafael', 'Ortega','vet4',7,4);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (5, 'Henry', 'Stevens','vet5',8,5);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (6, 'Sharon', 'Jenkins','vet6',9,6);
 
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);

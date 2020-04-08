@@ -34,13 +34,5 @@ public class VetSchedule extends BaseEntity {
 	@JoinTable(name = "schedule_shifts", joinColumns = @JoinColumn(name = "vet_schedule_id"),
 			inverseJoinColumns = @JoinColumn(name = "shift_id"))
 	private Set<Shift> shifts;
-	
-	@OneToOne
-	@JoinColumn(name = "vet_id")
-	private Vet vet;
-	
-	
-	
-
 
 }

@@ -15,22 +15,20 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Appointment;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.repository.VetScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
@@ -42,6 +40,7 @@ import org.springframework.util.StringUtils;
 public class VetService {
 
 	private VetRepository vetRepository;
+	private VetScheduleRepository vetScheduleRepository;
 
 
 	@Autowired
@@ -62,5 +61,10 @@ public class VetService {
 	public Vet findVetById(int id) throws DataAccessException {
 		return vetRepository.findById(id);
 	}
-
+	
+	
+	public Vet findVetByPrincipal(String currentUsername) {
+		
+		return vetRepository.findByPrincipal(currentUsername);
+	}
 }

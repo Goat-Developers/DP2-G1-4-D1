@@ -22,7 +22,6 @@ import java.time.LocalTime;
 @Table(name = "shifts")
 public class Shift extends BaseEntity {
 
-
 	@Column(name = "shift_date")        
 	@DateTimeFormat(pattern = "HH:mm:ss")
 	private LocalTime shiftDate;

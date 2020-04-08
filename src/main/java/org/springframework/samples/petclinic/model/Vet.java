@@ -100,11 +100,9 @@ public class Vet extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vet")
 	private Set<Announcement> announcements;
 	
-	
 	@ManyToOne
-	@JoinColumn(name = "vetschedule_id")
-	private VetSchedule vetSchedule;
-	
+    @JoinColumn(name = "vet_schedule_id")
+    private VetSchedule vetSchedule;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")

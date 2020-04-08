@@ -15,12 +15,29 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.Appointment;
+import org.springframework.samples.petclinic.model.Shift;
+import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.VetService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,11 +46,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
 
 /**
  * @author Juergen Hoeller
@@ -80,13 +92,6 @@ public class VetController {
 		return mav;
 	}
 	
-	@GetMapping("/vets/{vetId}/schedule")
-	public ModelAndView showVetSchedule(@PathVariable("vetId") int vetId) {
-		ModelAndView mav = new ModelAndView("vets/vetSchedule");
-		mav.addObject("vetSchedule", this.vetService.findVetById(vetId).getVetSchedule());
-		return mav;
-	}
-	
 	@GetMapping(value = "/vets/{vetId}/edit")
 	public String initUpdateVetForm(@PathVariable("vetId") int vetId, Model model) {
 		Vet vet = this.vetService.findVetById(vetId);
@@ -106,4 +111,7 @@ public class VetController {
 			return "redirect:/vets/{vetId}";
 		}
 	}
+	
+	
+	
 }
