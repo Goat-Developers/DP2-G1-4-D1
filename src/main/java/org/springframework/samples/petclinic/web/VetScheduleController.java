@@ -110,45 +110,37 @@ public class VetScheduleController {
 		dias.add(DayOfWeek.WEDNESDAY);
 		dias.add(DayOfWeek.THURSDAY);
 		dias.add(DayOfWeek.FRIDAY);
-		dias.add(DayOfWeek.SATURDAY);
-		dias.add(DayOfWeek.SUNDAY);
 		
 		//Busco todos los días del mes
 		listaDias = findDates(dias, month);
+		
 		
 		DayOfWeek firstDay =listaDias.get(0).getDayOfWeek();
 		
 		
 		int z =0;
 		if (firstDay.equals(dias.get(0))) {
-			z=7;
-			week = addFirstDays(listaDias,z);
+			z=5;
+			week = addFirstDays(listaDias,dias,z);
 		}
 		if (firstDay.equals(dias.get(1))) {
-			z=6;
-			week = addFirstDays(listaDias,z);
+			z=4;
+			week = addFirstDays(listaDias,dias,z);
 		}
 		if (firstDay.equals(dias.get(2))) {
-			z=5;
-			week = addFirstDays(listaDias,z);
+			z=3;
+			week = addFirstDays(listaDias,dias,z);
 		}
 		if (firstDay.equals(dias.get(3))) {
-			z=4;
-			week = addFirstDays(listaDias,z);
+			z=2;
+			week = addFirstDays(listaDias,dias,z);
 		}
 		if (firstDay.equals(dias.get(4))) {
-			z=3;
-			week = addFirstDays(listaDias,z);
-		}
-		if (firstDay.equals(dias.get(5))) {
-			z=2;
-			week = addFirstDays(listaDias,z);
-		}
-		if (firstDay.equals(dias.get(6))) {
 			z=1;
-			week = addFirstDays(listaDias,z);
+			week = addFirstDays(listaDias,dias,z);
 		}
 		
+		System.out.println(week);
 		listaDias.removeAll(week);
 		
 		int numSemanas = (month.maxLength()-listaDias.get(0).getDayOfMonth())/7;
@@ -226,10 +218,12 @@ public class VetScheduleController {
 		return "vets/vetSchedule";
 	}
 
-	private List<LocalDate> addFirstDays(List<LocalDate> listaDias, int z) {
+	private List<LocalDate> addFirstDays(List<LocalDate> listaDias, List<DayOfWeek> dias, int z) {
 		List<LocalDate> week = new ArrayList<>();
 		for (int i =0; i<z;i++) {
-			week.add(listaDias.get(i));
+			if(dias.contains(listaDias.get(i).getDayOfWeek())) {
+				week.add(listaDias.get(i));
+			}
 		}
 		return week;
 	}
@@ -239,7 +233,7 @@ public class VetScheduleController {
 	private List<LocalDate> insertDays(List<LocalDate> listaDias, Month month) {
 		List<LocalDate> res = new ArrayList<>();
 		int i =0;
-		while(i<7) {
+		while(i<5) {
 			res.add(listaDias.get(i));
 			if (listaDias.get(i).getDayOfMonth()==month.maxLength()) {
 				break;
@@ -261,7 +255,9 @@ public class VetScheduleController {
 		List<LocalDate> fechas = new ArrayList<>();
 		for (int i=1; i<=month.maxLength(); i++) {
 			LocalDate fecha =LocalDate.of(LocalDate.now().getYear(), month, i);
-			fechas.add(fecha);
+			if (day.contains(fecha.getDayOfWeek())) {
+				fechas.add(fecha);
+			}
 		}
 		return fechas;
 		

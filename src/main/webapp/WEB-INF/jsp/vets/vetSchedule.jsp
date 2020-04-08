@@ -10,12 +10,29 @@
 function hasAppointment() {
 	var td = document.getElementsByTagName("td");
 	td[td.length-1].style.backgroundColor ="#0cfe00";
+	
 }
 
 function hasNotAppointment(){
 	
 	var td = document.getElementsByTagName("td");	
 	td[td.length-1].style.backgroundColor ="#f6948d";
+		
+}
+
+function changeStyleTd(){
+	var td = document.getElementsByTagName("td");
+	for(var i=0; i<td.length; i++){
+		td[i].style.border ="2px solid";	
+	}
+	var table = document.getElementsByTagName("table");
+	table[0].style.textAlign="center";
+	var head = document.getElementsByTagName("th");
+	for(var i=0; i<head.length; i++){
+		head[i].style.textAlign="center";
+	}
+	
+	
 }
 </script>
 
@@ -39,13 +56,8 @@ function hasNotAppointment(){
    				<td> </td>
    				<td> </td>
    				<td> </td>
-   				<td> </td>
-   				<td> </td>
-   			
    			</c:if>
    			<c:if test ="${z==2}">
-   				<td> </td>
-   				<td> </td>
    				<td> </td>
    				<td> </td>
    				<td> </td>
@@ -53,23 +65,12 @@ function hasNotAppointment(){
    			<c:if test ="${z==3}">
    				<td> </td>
    				<td> </td>
-   				<td> </td>
-   				<td> </td>
    			</c:if>
    			<c:if test ="${z==4}">
    				<td> </td>
-   				<td> </td>
-   				<td> </td>
-   			</c:if>
-   			<c:if test ="${z==5}">
-   				<td> </td>
-   				<td> </td>
-   			</c:if>
-   			<c:if test ="${z==6}">
-   				<td> </td>
    			
    			</c:if>
-   			<c:if test ="${z==7}">
+   			<c:if test ="${z==5}">
    				
    			
    			</c:if>
@@ -246,7 +247,9 @@ function hasNotAppointment(){
    			
    			
    		</table>
-
+			<script lang ="javascript">
+   				changeStyleTd();
+   			</script>
 	</jsp:body>
 </petclinic:layout>
 
