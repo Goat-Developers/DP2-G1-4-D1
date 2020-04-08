@@ -65,6 +65,7 @@
                             <th>Fecha de la visita</th>
                             <th>Descripción</th>
                             <c:if test ="${ pet.insurance ==null}"> <th> Seguro </th></c:if>
+                            <th> Citas </th>
                         </tr>
                         </thead>
                         <c:forEach var="visit" items="${pet.visits}">
@@ -100,6 +101,12 @@
                             </td>
                             
                             </c:if>
+                             <td>    
+                                 <spring:url value="/appointment/new/{petId}" var="appointmentUrl">
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(appointmentUrl)}">Crear cita</a>
+                            </td>
                         </tr>
                   
                     </table>
@@ -153,4 +160,48 @@
         </tbody>
     </table>
     </c:if>
+    <h2>Mis Citas</h2>
+    <table id="insurancesTable" class="table table-striped">
+        <tr>
+        <th>Número </th>
+        	<th>Fecha</th>
+            <th>Motivo</th>
+            <th> Mascota </th>
+            <th>Precio Total</th>
+        </tr>
+        <tbody>
+        <c:forEach items="${owner.pets}" var="pets">
+        
+        	<c:forEach items="${pets.appointments }" var="appointment">
+            <tr>
+            <td>
+            		<spring:url value="/appointment/{appointementId}" var="appUrl">
+                    <spring:param name="appointementId" value="${appointment.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(appUrl)}"><c:out value="${appointment.id}"/></a>
+            	</td>
+            	<td>
+            		<c:out value="${appointment.appointmentDate} ${appointment.appointmentTime }"/>
+            	</td>
+	            <td>
+	            	<c:out value="${appointment.reason} "/>
+	            </td>
+	            <td>
+	            	<c:out value="${appointment.pet}" />
+	            </td>
+                <td>
+             
+               
+           
+                	<c:out value="${appointment.billing} "/>
+                	
+                </td>
+                         
+            </tr>
+            </c:forEach>
+      
+        </c:forEach>
+        </tbody>
+    </table>
+    
 </petclinic:layout>

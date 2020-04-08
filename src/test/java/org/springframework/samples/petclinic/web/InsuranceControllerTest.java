@@ -65,7 +65,7 @@ public class InsuranceControllerTest {
 	
 	private static final int TEST_TREATMENT_SEGURO_BASE_ID = 11;
 	
-	private static final int TEST_PET_ID = 54;
+	private static final int TEST_PET_ID = 8;
 	
 	
 
@@ -270,14 +270,10 @@ public class InsuranceControllerTest {
 //			
 //    mockMvc.perform(post("/insurance/new/{petId}", TEST_PET_ID)
 //                        .with(csrf())
-//                        .param("insuranceBase", "")
+//                      
 //						.param("vaccines",vacunasBase.toString() )
-//						.param("treatments", tratamientosBase.toString()))
-//                        
-//            .andExpect(model().attributeHasErrors(("insurance")))
-//            .andExpect(model().attributeHasFieldErrors("insurance", "insuranceBase"))
-//            
-//            .andExpect(view().name("insurances/createOrUpdateInsuranceForm"));
+//						.param("treatments", tratamientosBase.toString()))        
+//            .andExpect();
 //}
 
 	
