@@ -40,4 +40,8 @@ public interface SpringDataVetScheduleRepository extends VetScheduleRepository, 
 	
 	@Query("SELECT app FROM Appointment app WHERE app.appointmentDate =:day")
 	List<Appointment> findAppointmentsByDay(@Param("day") LocalDate day);
+  
+  @Query("SELECT vt FROM VetSchedule vt")
+	Collection<VetSchedule> findAll();
 }
+

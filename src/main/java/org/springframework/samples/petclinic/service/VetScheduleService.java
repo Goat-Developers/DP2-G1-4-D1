@@ -53,5 +53,15 @@ public class VetScheduleService {
 		// TODO Auto-generated method stub
 		return vetScheduleRepository.findAppointmentsByDay(day);
 	}		
+  public Collection<VetSchedule> findAll() {
+		
+		return this.vetScheduleRepository.findAll();
+	}
+
+	public void saveVtSchedule(VetSchedule vtSchedule) {
+		 this.vetScheduleRepository.save(vtSchedule);
+		
+	}
+
 
 }

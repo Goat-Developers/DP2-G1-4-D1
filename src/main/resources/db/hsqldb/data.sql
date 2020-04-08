@@ -47,21 +47,21 @@ INSERT INTO types VALUES (6, 'hamster');
 
 
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (1,1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',30, 'produce ardores');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,4,'Vacuna del coronavirus','Para ratas',332,'Chema','2001-06-06',10, 'hecha por chinos');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,1,'Vacuna del coronavirus','Para ratas',332,'Chema','2021-06-06',10, 'hecha por chinos');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (3,1,'Vacuna de la peste','Para ratas',32.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (4,4,'Vacuna de cannabis','Para polen',332,'Chema','2001-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (5,5,'Vacuna de la uni','Para ratas',31.3,'Chema','2022-06-08',13,'inútil');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (6,6,'Vacuna del virus chino','Para ratas',3324,'Chema','2021-06-06',20,'te puede entrar la rabia');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (7,2,'vacuna contra bebes indefensos','Para ratas',34.3,'Chema','2022-06-08',1,'Te quedas como el Chema');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',4,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (7,2,'vacuna contra bebes indefensos','Para ratas',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',40,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (9,2,'vacuna perros 2','Para prevenir',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
 
-
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes',65.7,'Limpieza de dientes');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,5,'Pelo',10,'Corte de pelo');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (3,1,'Dientes',65.7,'Limpieza de dientes');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (4,3,'Pelo',0,'Corte de pelo');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (5,6,'Garra',65.7,'Corte de garras');
-INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (6,2,'Garra',0,'Corte de garras');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes serpiente',65.7,'Limpieza de dientes');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,1,'Pelo gatos',10,'Corte de pelo');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (3,1,'Dientes gatos',65.7,'Limpieza de dientes');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (4,1,'Garras gatos',0,'Corte de garras');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (5,6,'Garra hamsters',65.7,'Corte de garras');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (6,2,'Garra perros',0,'Corte de garras');
 
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (1,'Seguro Base Felino',1,'Tiene que ser gato');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (2,'Seguro Base Canino ',2,'Tiene que ser perro.');
@@ -142,16 +142,15 @@ INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (8, '15:00:0
 
 
 
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (1,'2010-09-07 ','8:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (2,'2010-09-07 ','9:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (3,'2010-09-07 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (4,'2010-09-07 ','11:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',4,2,2,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (5,'2010-09-07 ', '12:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',5,2,4,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (6,'2010-09-07 ', '13:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (7,'2010-09-07 ', '14:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (8,'2020-04-01 ', '08:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (9,'2020-04-14 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, reason,pet_id,treatment_id,vaccine_id, attended, observations) VALUES (10,'2020-04-14 ', '11:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
+
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (1,'2010-09-07 ','8:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (2,'2010-09-07 ','9:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (3,'2010-09-07 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (4,'2010-09-07 ','11:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',4,2,2,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (5,'2010-09-07 ', '12:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',5,2,4,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (6,'2010-09-07 ', '13:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
+INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (7,'2010-09-07 ', '14:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
+
 
 
 

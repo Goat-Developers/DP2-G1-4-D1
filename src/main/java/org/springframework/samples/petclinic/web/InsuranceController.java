@@ -94,6 +94,12 @@ public class InsuranceController {
 		Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
 		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(pet.getType().getId());
 		Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(pet.getType().getId());
+		for(InsuranceBase insurBase: insuranceBase) {
+			vaccines.removeAll(insurBase.getVaccines());
+			treatments.removeAll(insurBase.getTreatments());
+		}
+		
+		
 		pet.setInsurance(insurance);
 		model.put("pet", pet);
 		model.put("treatments", treatments);
@@ -103,28 +109,35 @@ public class InsuranceController {
 		return "insurances/createOrUpdateInsuranceForm";
 	}
 	
-	@PostMapping(value ="/insurance/new/{petId}")
+	@PostMapping(value ="/insurance/new/{petId}")	
 
-	public String initInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException, GeneralSecurityException, IOException, MessagingException, URISyntaxException {
+	public String postInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException, GeneralSecurityException, IOException, MessagingException, URISyntaxException {
 
 		if (result.hasErrors()){
-			model.put("insurance", insurance);
+
 
 			Collection<InsuranceBase> insuranceBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(pet.getType().getId());
 			Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(pet.getType().getId());
-			Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(pet.getType().getId());			
+			Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(pet.getType().getId());
+			for(InsuranceBase insurBase: insuranceBase) {
+				vaccines.removeAll(insurBase.getVaccines());
+				treatments.removeAll(insurBase.getTreatments());
+			}
 			model.put("treatments", treatments);
 			model.put("vaccines", vaccines);
 			model.put("insurancebase", insuranceBase);
 			return "insurances/createOrUpdateInsuranceForm";
 		}else {
-			this.insuranceService.sendMessage(insurance,pet);
-			this.insuranceService.saveInsurance(insurance);
 			for (Vaccine a: insurance.getVaccines()) {
 				Vaccine vac =this.vaccineService.findById(a.getId());
 				vac.setStock(vac.getStock()-1);
 				this.vaccineService.saveVaccine(vac);
 			}
+			//this.insuranceService.sendMessage(insurance,pet);
+			insurance.getVaccines().addAll(insurance.getInsuranceBase().getVaccines());
+			insurance.getTreatments().addAll(insurance.getInsuranceBase().getTreatments());
+			this.insuranceService.saveInsurance(insurance);
+			
 			pet.setInsurance(insurance);
 			this.petService.savePet(pet);
 			return "redirect:/owners/"+ pet.getOwner().getId();

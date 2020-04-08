@@ -1,10 +1,8 @@
 
 package org.springframework.samples.petclinic.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import lombok.Getter;
-import lombok.Setter;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Getter;
+import lombok.Setter;
+
 
 
 
@@ -25,17 +27,19 @@ import java.time.LocalTime;
 public class Appointment extends BaseEntity {
 
 
-	@Column(name = "appointment_date")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private LocalDate appointmentDate;
 
-    @Column(name = "appointment_time")
-    @DateTimeFormat( pattern = "HH:mm:ss")
-    private LocalTime appointmentTime;
+	@Column(name = "appointment_date")        
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private LocalDate appointmentDate;
+	
+	@Column(name = "appointment_time")
+	@DateTimeFormat( pattern = "HH:mm:ss")
+	private LocalTime appointmentTime;
+
 
 
 	@NotEmpty
-	@Column(name = "reason")
+	@Column(name ="appointement_reason")
 	private String reason;
 	
 	
@@ -43,18 +47,34 @@ public class Appointment extends BaseEntity {
 	@JoinColumn(name = "pet_id")
 	private Pet pet;
 	
+
 	@ManyToOne
 	@JoinColumn(name = "treatment_id")
 	private Treatment treatment;
 	
+
 	@ManyToOne
 	@JoinColumn(name = "vaccine_id")
 	private Vaccine vaccine;
 	
-	@Column(name="attended")
+	@Column(name="appointment_attended")
 	private boolean attended;
 
-	@Column(name="observations")
+	@Column(name="appointment_observations")
 	private String observations;
 	
+	@Column(name="appointment_billing")
+	private Double billing;
+	
+	
+	public Appointment() {
+		this.observations="";
+		this.attended = false;
+		this.billing = 0.;
+	}
+	
+	
+
+	
+
 }

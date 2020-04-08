@@ -48,6 +48,7 @@ public class Insurance extends BaseEntity {
 			inverseJoinColumns = @JoinColumn(name = "treatment_id"))
 	private Set<Treatment> treatments;
 	
+
 	protected Set<Treatment> getTreatmentsInternal() {
 		if (this.treatments == null) {
 			this.treatments = new HashSet<>();
@@ -67,16 +68,18 @@ public class Insurance extends BaseEntity {
 	
 	public Insurance() {
 		this.insuranceDate = LocalDate.now();
+		
 	}
 
 	//Propiedades derivadas - Derivated properties
 	
+
 	@Transient
 	public Double getInsurancePrice() {
 		Double res = 0.;
 		res += insuranceBase.getPrice();
-		res += vaccines.stream().mapToDouble(v -> v.getPrice()).sum();
-		res += treatments.stream().mapToDouble(t -> t.getPrice()).sum();
+		res += vaccines.stream().filter(x-> ! insuranceBase.getVaccines().contains(x)).mapToDouble(v -> v.getPrice()).sum();
+		res += treatments.stream().filter(x-> ! insuranceBase.getTreatments().contains(x)).mapToDouble(t -> t.getPrice()).sum();
 		
 		
 		return res;
