@@ -18,6 +18,7 @@
 				 
 				<td> <c:out value ="${appointment.appointmentTime}"/></td>
 				<td> <c:out value ="${appointment.reason}"/></td>
+<!-- <sec:authorize access="hasAuthority('worker')">				 -->
 <!-- 				 <td> -->
 <%--                      <spring:url value="/vetSchedule/{day}/appointment/{appointmentId}" var="app"> --%>
 <%--                      <spring:param name="appointmentId" value="${appointment.id}"/> --%>
@@ -25,6 +26,7 @@
 <%--                      </spring:url> --%>
 <%--                      <a href="${fn:escapeXml(app)}"> Atender cita</a> --%>
 <!--                </td>     -->
+<!-- </sec:authorize> -->
 			</tr>
 			</c:forEach>
    			

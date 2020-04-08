@@ -36,7 +36,7 @@
                     <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
                 </td>
                 <td>
-                <spring:url value="/vets/{vetId}/schedule" var="vetUrl">
+                <spring:url value="/vetSchedule/vet/{vetId}" var="vetUrl">
                         <spring:param name="vetId" value="${vet.id}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(vetUrl)}"><c:out value="Ver"/></a>

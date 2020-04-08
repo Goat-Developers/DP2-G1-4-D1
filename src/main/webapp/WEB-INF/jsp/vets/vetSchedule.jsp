@@ -249,8 +249,16 @@ function changeStyleTd(){
    		</table>
 			<script lang ="javascript">
    				changeStyleTd();
+   				function goBack() {
+   		 		 window.history.back();
+   				}
    			</script>
+   			
+   			<button onclick="goBack()">Volver</button>
 	</jsp:body>
+	
+		 
+	
 </petclinic:layout>
 
 

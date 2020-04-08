@@ -78,14 +78,14 @@
 				</sec:authorize>
 				
 				<sec:authorize access="hasAuthority('veterinarian')">
-				<petclinic:menuItem active="${name eq 'vets'}" url="/vetSchedule"
+				<petclinic:menuItem active="${name eq 'vet_schedule'}" url="/vetSchedule"
 					title="Horario">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Horario</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 				<sec:authorize access="hasAuthority('worker')">
-				<petclinic:menuItem active="${name eq 'vets'}" url="/vetSchedule"
+				<petclinic:menuItem active="${name eq 'vet_schedule'}" url="/vetSchedule"
 					title="Horario">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Horario</span>

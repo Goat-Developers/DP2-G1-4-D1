@@ -88,6 +88,24 @@ public class VetScheduleController {
 		return "vets/scheduleDetails";
 	}
 	
+	@GetMapping("/vetSchedule/vet/{vetId}")
+	public String ShowVetScheduleDetail(@PathVariable("vetId")  int vetId, Map<String,Object>  model ) {
+		
+		Vet vet = this.vetService.findVetById(vetId);
+		
+		VetSchedule vetSchedule = vet.getVetSchedule();
+		
+		cargaDatos(model);
+		
+		List<LocalDate> coincidencias = new ArrayList<>();
+		List<LocalTime> shifts = vetSchedule.getShifts().stream().map(Shift::getShiftDate).collect(Collectors.toList());
+		
+		coincidencias = vetSchedule.getAppointments().stream().filter(x->shifts.contains(x.getAppointmentTime()) && x.getAppointmentDate().getYear() == LocalDate.now().getYear()).map(Appointment::getAppointmentDate).collect(Collectors.toList());
+		model.put("coincidencias", coincidencias);
+		
+		return "vets/vetSchedule";
+	}
+	
 	@GetMapping(value = { "/vetSchedule" })
 	public String showVetSchedule(Map<String, Object> model) {
 		
@@ -97,6 +115,17 @@ public class VetScheduleController {
 		VetSchedule vetSchedule = vet.getVetSchedule();
 		
 		
+		cargaDatos(model);
+		
+		List<LocalDate> coincidencias = new ArrayList<>();
+		List<LocalTime> shifts = vetSchedule.getShifts().stream().map(Shift::getShiftDate).collect(Collectors.toList());
+		
+		coincidencias = vetSchedule.getAppointments().stream().filter(x->shifts.contains(x.getAppointmentTime()) && x.getAppointmentDate().getYear() == LocalDate.now().getYear()).map(Appointment::getAppointmentDate).collect(Collectors.toList());
+		model.put("coincidencias", coincidencias);
+		return "vets/vetSchedule";
+	}
+
+	private void cargaDatos(Map<String, Object> model) {
 		Month month = LocalDate.now().getMonth();
 		List<LocalDate> listaDias = new ArrayList<>();
 		List<LocalDate> week = new ArrayList<LocalDate>();
@@ -207,15 +236,8 @@ public class VetScheduleController {
 		model.put("firstWeek", week);
 		model.put("z", z);
 		model.put("dias", dias);
+	
 		
-
-		List<LocalDate> coincidencias = new ArrayList<>();
-		List<LocalTime> shifts = vetSchedule.getShifts().stream().map(Shift::getShiftDate).collect(Collectors.toList());
-		
-		coincidencias = vetSchedule.getAppointments().stream().filter(x->shifts.contains(x.getAppointmentTime()) && x.getAppointmentDate().getYear() == LocalDate.now().getYear()).map(Appointment::getAppointmentDate).collect(Collectors.toList());
-		System.out.println(coincidencias);
-		model.put("coincidencias", coincidencias);
-		return "vets/vetSchedule";
 	}
 
 	private List<LocalDate> addFirstDays(List<LocalDate> listaDias, List<DayOfWeek> dias, int z) {
