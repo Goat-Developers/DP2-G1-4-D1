@@ -45,6 +45,14 @@
 				</petclinic:menuItem>
 				</sec:authorize>
 				
+				<sec:authorize  access="hasAuthority('worker')">
+				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
+					title="Buscar Propietarios">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Buscar Propietarios</span>
+				</petclinic:menuItem>
+				</sec:authorize>
+				
 				<sec:authorize  access="hasAuthority('veterinarian')">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="Buscar Propietarios">
@@ -66,6 +74,21 @@
 					title="Veterinarios">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Veterinarios</span>
+				</petclinic:menuItem>
+				</sec:authorize>
+				
+				<sec:authorize access="hasAuthority('veterinarian')">
+				<petclinic:menuItem active="${name eq 'vet_schedule'}" url="/vetSchedule"
+					title="Horario">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Horario</span>
+				</petclinic:menuItem>
+				</sec:authorize>
+				<sec:authorize access="hasAuthority('worker')">
+				<petclinic:menuItem active="${name eq 'vet_schedule'}" url="/vetSchedule"
+					title="Horario">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Horario</span>
 				</petclinic:menuItem>
 				</sec:authorize>
 				
@@ -98,6 +121,8 @@
 					<span>Tratamientos</span>
 				</petclinic:menuItem>
 				</sec:authorize>
+				
+				
 
 			</ul>
 

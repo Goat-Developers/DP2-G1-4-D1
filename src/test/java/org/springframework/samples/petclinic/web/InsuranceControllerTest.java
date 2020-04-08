@@ -44,8 +44,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
-@WebMvcTest(value = InsuranceController.class,
-includeFilters = @ComponentScan.Filter(value = PetTypeFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
+@WebMvcTest(value = InsuranceController.class, 
+includeFilters = { @ComponentScan.Filter(value = PetTypeFormatter.class,type = FilterType.ASSIGNABLE_TYPE), @ComponentScan.Filter(value = VaccineFormatter.class, type = FilterType.ASSIGNABLE_TYPE)
+,@ComponentScan.Filter(value = TreatmentFormatter.class,type = FilterType.ASSIGNABLE_TYPE)
+,@ComponentScan.Filter(value = InsuranceBaseFormatter.class,type = FilterType.ASSIGNABLE_TYPE)},
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
 
@@ -255,7 +257,7 @@ public class InsuranceControllerTest {
 							
 				.andExpect(status().isOk());
 	}
-// No hay manera de sacarla, mirar la siguiente entrega.
+
 //		@WithMockUser(value = "spring")
 //    @Test
 //    void testProcessCreationFormHasErrors() throws Exception {
@@ -272,7 +274,7 @@ public class InsuranceControllerTest {
 //						.param("vaccines",vacunasBase.toString() )
 //						.param("treatments", tratamientosBase.toString()))
 //                        
-//            .andExpect(model().attributeHasErrors(("insuranceBase")))
+//            .andExpect(model().attributeHasErrors(("insurance")))
 //            .andExpect(model().attributeHasFieldErrors("insurance", "insuranceBase"))
 //            
 //            .andExpect(view().name("insurances/createOrUpdateInsuranceForm"));

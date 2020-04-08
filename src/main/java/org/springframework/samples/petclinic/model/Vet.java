@@ -33,10 +33,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+
+import lombok.Getter;
+import lombok.Setter;
 
 
 
@@ -49,6 +53,8 @@ import org.springframework.beans.support.PropertyComparator;
  * @author Arjen Poutsma
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "vets")
 public class Vet extends Person {
 
@@ -56,6 +62,10 @@ public class Vet extends Person {
 	@JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
 			inverseJoinColumns = @JoinColumn(name = "specialty_id"))
 	private Set<Specialty> specialties;
+	
+	@NotNull
+	@Column(name="max_shifts")
+	private Integer maxShifts;
 
 	protected Set<Specialty> getSpecialtiesInternal() {
 		if (this.specialties == null) {
@@ -84,43 +94,19 @@ public class Vet extends Person {
 	}
 	
 	
+	
 	//Relationships
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vet")
 	private Set<Announcement> announcements;
 	
-	
 	@ManyToOne
-	@JoinColumn(name = "vetschedule_id")
-	private VetSchedule vetSchedule;
-	
-
-	@OneToMany
-	@ElementCollection
-	@Column(name = "shifts")
-	private List<Shift> shifts;
+    @JoinColumn(name = "vet_schedule_id")
+    private VetSchedule vetSchedule;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
 	
-	
-	
-	public List<Shift>  getShifts() {
-		return this.shifts;
-	}
-
-	
-	public void setShifts(List<Shift>  shifts) {
-		this.shifts= shifts;
-	}
-	
-	public VetSchedule getVetSchedule() {
-		return this.vetSchedule;
-	}
-
-	public void setVetSchedule(VetSchedule vetSchedule) {
-		this.vetSchedule = vetSchedule;
-	}
 
 }

@@ -21,8 +21,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Appointment;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.VetSchedule;
 
 /**
  * Repository class for <code>Vet</code> domain objects All method names are compliant
@@ -35,18 +34,17 @@ import org.springframework.samples.petclinic.model.Vet;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-public interface VetRepository {
+public interface VetScheduleRepository {
 
 	/**
 	 * Retrieve all <code>Vet</code>s from the data store.
 	 * @return a <code>Collection</code> of <code>Vet</code>s
 	 */
-	Collection<Vet> findAll() throws DataAccessException;
+	Collection<VetSchedule> findAll() throws DataAccessException;
 
-	void save(Vet vet);
+	void save(VetSchedule vetSchedule);
 
-	Vet findById(int id);
-	
-	Vet findByPrincipal(String currentUsername);
+	VetSchedule findById(int id);
 
+	List<Appointment> findAppointmentsByDay(LocalDate day);
 }
