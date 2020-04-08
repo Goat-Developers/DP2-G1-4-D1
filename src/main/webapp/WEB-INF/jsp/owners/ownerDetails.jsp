@@ -124,7 +124,7 @@
             <th>Vacunas</th>
             <th>Tratamientos</th>
             <th>Condiciones</th>
-            <th>Precio Total</th>
+            <th>Cobertura restante del seguro</th>
             <th> Mascota </th>
         </tr>
         <tbody>
@@ -160,6 +160,7 @@
         </tbody>
     </table>
     </c:if>
+    <c:if test="${numberApp >0 }">
     <h2>Mis Citas</h2>
     <table id="insurancesTable" class="table table-striped">
         <tr>
@@ -203,5 +204,6 @@
         </c:forEach>
         </tbody>
     </table>
+    </c:if>
     
 </petclinic:layout>

@@ -55,6 +55,10 @@ INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,s
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (7,2,'vacuna contra bebes indefensos','Para ratas',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',40,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (9,2,'vacuna perros 2','Para prevenir',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (10,3,'vacuna para aprobar','Para polen',3322222,'Chema','2021-06-06',40,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (11,4,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (12,5,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (13,6,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes serpiente',65.7,'Limpieza de dientes');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,1,'Pelo gatos',10,'Corte de pelo');
@@ -62,6 +66,14 @@ INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (3,1,'Dient
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (4,1,'Garras gatos',0,'Corte de garras');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (5,6,'Garra hamsters',65.7,'Corte de garras');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (6,2,'Garra perros',0,'Corte de garras');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (7,3,'Veneno serpiente',22,'Extracción de veneno para morir');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (8,5,'Alas de pájaro',34,'Corte de alas');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (9,2,'Orejas perros',0,'Corte de orejas');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (10,3,'Piel lagarto',22,'Extracción de piel');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (11,4,'Escamas de serpiente',34,'Limado de escamas');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (12,5,'Pico de pájaro',22,'Quitar el pico al pájaro para que no cante');
+INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (13,6,'Dientes de hamster',34,'Quitar los dientes para que muera de hambre sin poder comer');
+
 
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (1,'Seguro Base Felino',1,'Tiene que ser gato');
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (2,'Seguro Base Canino ',2,'Tiene que ser perro.');
@@ -71,34 +83,24 @@ INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (5,'Seguro Base 
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,'Seguro Base Roedores',6,'Tiene que ser hamster.');
 
 
-INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (1,'2013-01-03',1);
-INSERT INTO insurances(id,insurance_date,insurance_base_id) VALUES (2,'2013-01-04',2);
 
-INSERT INTO insurance_vaccines VALUES (1, 1);
-INSERT INTO insurance_vaccines VALUES (1, 2);
-INSERT INTO insurance_vaccines VALUES (2, 2);
 
-INSERT INTO insurance_treatments VALUES (1, 2);
-INSERT INTO insurance_treatments VALUES (1, 4);
-INSERT INTO insurance_treatments VALUES (2, 2);
-INSERT INTO insurance_treatments VALUES (2, 4);
+INSERT INTO insurance_base_vaccines VALUES (1, 1);
+INSERT INTO insurance_base_vaccines VALUES (2, 7);
+INSERT INTO insurance_base_vaccines VALUES (3, 8);
+INSERT INTO insurance_base_vaccines VALUES (4, 4);
+INSERT INTO insurance_base_vaccines VALUES (5, 5);
+INSERT INTO insurance_base_vaccines VALUES (6, 6);
 
-INSERT INTO insurance_base_vaccines VALUES (1, 2);
-INSERT INTO insurance_base_vaccines VALUES (2, 1);
-INSERT INTO insurance_base_vaccines VALUES (2, 2);
-INSERT INTO insurance_base_vaccines VALUES (3, 2);
-INSERT INTO insurance_base_vaccines VALUES (4, 1);
-INSERT INTO insurance_base_vaccines VALUES (5, 2);
-INSERT INTO insurance_base_vaccines VALUES (6, 2);
 
 INSERT INTO insurance_base_treatments VALUES (1, 2);
-INSERT INTO insurance_base_treatments VALUES (1, 4);
-INSERT INTO insurance_base_treatments VALUES (2, 2);
-INSERT INTO insurance_base_treatments VALUES (2, 4);
-INSERT INTO insurance_base_treatments VALUES (3, 2);
-INSERT INTO insurance_base_treatments VALUES (4, 4);
-INSERT INTO insurance_base_treatments VALUES (5, 2);
-INSERT INTO insurance_base_treatments VALUES (6, 4);
+INSERT INTO insurance_base_treatments VALUES (2, 6);
+INSERT INTO insurance_base_treatments VALUES (3, 7);
+INSERT INTO insurance_base_treatments VALUES (4, 1);
+INSERT INTO insurance_base_treatments VALUES (5, 8);
+INSERT INTO insurance_base_treatments VALUES (6, 5);
+
+
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner2');
@@ -131,25 +133,15 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'Spayed');
 
 
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (1, '08:00:00',TRUE, 3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (2, '09:00:00',TRUE,3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (3, '10:00:00',TRUE,3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (4, '11:00:00',TRUE,3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (5, '12:00:00',TRUE,3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (6, '13:00:00',TRUE,3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (7, '14:00:00',FALSE,3);
-INSERT INTO shifts(id, shift_date, picked, max_appointments) VALUES (8, '15:00:00',FALSE,3);
+INSERT INTO shifts(id, shift_date) VALUES (1, '08:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (2, '09:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (3, '10:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (4, '11:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (5, '12:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (6, '13:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (7, '14:00:00');
+INSERT INTO shifts(id, shift_date) VALUES (8, '15:00:00');
 
-
-
-
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (1,'2010-09-07 ','8:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',1,1,2, FALSE, '');
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (2,'2010-09-07 ','9:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',2,2,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (3,'2010-09-07 ', '10:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',3,1,1,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (4,'2010-09-07 ','11:00:00', 'Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',4,2,2,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (5,'2010-09-07 ', '12:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',5,2,4,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (6,'2010-09-07 ', '13:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',6,3,3,TRUE, 'Su mascota ha  sido asesinada con éxito');
-INSERT INTO appointments(id,appointment_date,appointment_time, appointement_reason,pet_id,treatment_id,vaccine_id, appointment_attended, appointment_observations) VALUES (7,'2010-09-07 ', '14:00:00','Quiero matar a mi mascota y su clínica es la apropiada porque es una puta mierda',7,5,5,TRUE, 'Su mascota ha  sido asesinada con éxito');
 
 
 
@@ -161,15 +153,6 @@ INSERT INTO vet_schedule(id) VALUES (4);
 INSERT INTO vet_schedule(id) VALUES (5);
 INSERT INTO vet_schedule(id) VALUES (6);
 
-/*Id del calendario y el id de la cita*/
-INSERT INTO schedule_appointments VALUES (1, 1);
-INSERT INTO schedule_appointments VALUES (1, 2);
-INSERT INTO schedule_appointments VALUES (1, 3);
-INSERT INTO schedule_appointments VALUES (1, 4);
-INSERT INTO schedule_appointments VALUES (1, 5);
-INSERT INTO schedule_appointments VALUES (1, 8);
-INSERT INTO schedule_appointments VALUES (1, 9);
-INSERT INTO schedule_appointments VALUES (2, 10);
 
 INSERT INTO schedule_shifts(vet_schedule_id, shift_id) VALUES (1, 1);
 INSERT INTO schedule_shifts VALUES (1, 3);
