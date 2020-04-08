@@ -37,34 +37,21 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  */
 @Service
-public class VetService {
+public class VetScheduleService {
 
 	private VetRepository vetRepository;
 	private VetScheduleRepository vetScheduleRepository;
 
 
 	@Autowired
-	public VetService(VetRepository vetRepository) {
+	public VetScheduleService(VetRepository vetRepository, VetScheduleRepository vetScheduleRepository) {
 		this.vetRepository = vetRepository;
+		this.vetScheduleRepository = vetScheduleRepository;
 	}		
 
-	@Transactional(readOnly = true)	
-	public Collection<Vet> findVets() throws DataAccessException {
-		return vetRepository.findAll();
-	}
+	public List<Appointment> findAppointmentsByDay(LocalDate day) {
+		// TODO Auto-generated method stub
+		return vetScheduleRepository.findAppointmentsByDay(day);
+	}		
 
-	public void saveVet(Vet vet) {
-		vetRepository.save(vet);
-	}	
-	
-	@Transactional(readOnly = true)
-	public Vet findVetById(int id) throws DataAccessException {
-		return vetRepository.findById(id);
-	}
-	
-	
-	public Vet findVetByPrincipal(String currentUsername) {
-		
-		return vetRepository.findByPrincipal(currentUsername);
-	}
 }

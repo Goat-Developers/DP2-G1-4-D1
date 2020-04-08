@@ -49,6 +49,4 @@ public interface VetRepository {
 	
 	Vet findByPrincipal(String currentUsername);
 
-	List<Appointment> findAppointmentsByDay(LocalDate day);
-
 }

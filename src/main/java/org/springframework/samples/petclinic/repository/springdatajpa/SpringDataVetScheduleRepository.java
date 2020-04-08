@@ -15,9 +15,13 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.samples.petclinic.model.Appointment;
 import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.VetScheduleRepository;
@@ -33,4 +37,7 @@ public interface SpringDataVetScheduleRepository extends VetScheduleRepository, 
 	@Override
 	@Query("SELECT vet FROM VetSchedule vet WHERE vet.id =:id")
 	public VetSchedule findById(@Param("id") int id);
+	
+	@Query("SELECT app FROM Appointment app WHERE app.appointmentDate =:day")
+	List<Appointment> findAppointmentsByDay(@Param("day") LocalDate day);
 }

@@ -42,6 +42,5 @@ public interface SpringDataVetRepository extends VetRepository, Repository<Vet, 
 	@Query("SELECT vet FROM Vet vet WHERE vet.user.username =:currentUsername")
 	Vet findByPrincipal(@Param("currentUsername") String currentUsername);
 	
-	@Query("SELECT app FROM Appointment app WHERE app.appointmentDate =:day")
-	List<Appointment> findAppointmentsByDay(@Param("day") LocalDate day);
+	
 }
