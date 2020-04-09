@@ -20,34 +20,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Appointment;
 import org.springframework.samples.petclinic.model.Shift;
-import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.VetSchedule;
-import org.springframework.samples.petclinic.model.Vets;
-import org.springframework.samples.petclinic.repository.VetScheduleRepository;
+import org.springframework.samples.petclinic.service.ShiftService;
 import org.springframework.samples.petclinic.service.VetScheduleService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Juergen Hoeller
@@ -60,11 +50,13 @@ public class VetScheduleController {
 
 	private final VetService vetService;
 	private final VetScheduleService vetScheduleService;
+	private final ShiftService shiftService;
 
 	@Autowired
-	public VetScheduleController(VetService clinicService, VetScheduleService vetScheduleService) {
+	public VetScheduleController(VetService clinicService, VetScheduleService vetScheduleService, ShiftService shiftService) {
 		this.vetService = clinicService;
 		this.vetScheduleService = vetScheduleService;
+		this.shiftService =shiftService;
 	}
 
 	@GetMapping("/vetSchedule/{day}")
@@ -81,7 +73,7 @@ public class VetScheduleController {
 		appointments = appointments.stream().filter(a->apps.contains(a)).collect(Collectors.toList());
 		
 		//Ordeno los turnos
-		List<Shift> shifts= orderShifts(vetSchedule);
+		List<Shift> shifts= this.shiftService.orderShifts(vetSchedule);
 		
 		model.put("shifts",shifts);
 		model.put("appointments",appointments);
@@ -107,7 +99,7 @@ public class VetScheduleController {
 	}
 	
 	@GetMapping(value = { "/vetSchedule" })
-	public String showVetSchedule(Map<String, Object> model) {
+	public String showVetSchedule( Map<String, Object> model) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUsername = authentication.getName();
@@ -236,6 +228,8 @@ public class VetScheduleController {
 		model.put("firstWeek", week);
 		model.put("z", z);
 		model.put("dias", dias);
+		model.put("mes", month);
+		model.put("year", LocalDate.now().getYear());
 	
 		
 	}
@@ -267,11 +261,6 @@ public class VetScheduleController {
 		
 	}
 
-	private List<Shift> orderShifts(VetSchedule vetSchedule) {
-		List<Shift> shifts = vetSchedule.getShifts().stream().collect(Collectors.toList());
-		Collections.sort(shifts, (o1,o2)-> o1.getShiftDate().compareTo(o2.getShiftDate()));
-		return shifts;
-	}
 	
 	private List<LocalDate> findDates(List<DayOfWeek> day, Month month){
 		List<LocalDate> fechas = new ArrayList<>();

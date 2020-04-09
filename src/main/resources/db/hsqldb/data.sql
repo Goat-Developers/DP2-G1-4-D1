@@ -187,10 +187,10 @@ INSERT INTO schedule_shifts VALUES (6, 8);
 
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (1, 'James', 'Carter','vet1', 4,1);
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (2, 'Helen', 'Leary','vet2',5,2);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (3, 'Linda', 'Douglas','vet3',3,3);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (3, 'Linda', 'Douglas','vet3',5,3);
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (4, 'Rafael', 'Ortega','vet4',7,4);
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (5, 'Henry', 'Stevens','vet5',8,5);
-INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (6, 'Sharon', 'Jenkins','vet6',9,6);
+INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (6, 'Sharon', 'Jenkins','vet6',6,6);
 
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);
