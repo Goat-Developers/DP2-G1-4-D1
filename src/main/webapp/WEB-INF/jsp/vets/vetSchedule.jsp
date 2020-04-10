@@ -42,7 +42,7 @@ function changeStyleTd(){
 <petclinic:layout pageName="vet schedule">
 
 	<jsp:body>
-    	<h2>Horario del veterinario</h2>
+    	<h2>Horario del veterinario de <c:out value ="${mes}"/> / <c:out value ="${year }"/> </h2>
 		<table class="table table-striped">
 		
 			<thead>

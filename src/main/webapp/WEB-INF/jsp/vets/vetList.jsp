@@ -16,6 +16,7 @@
             <th>Nombre</th>
             <th>Especialidades</th>
             <th>Horario </th>
+            <th>Turnos </th>
         </tr>
         </thead>
         <tbody>
@@ -38,9 +39,16 @@
                 <td>
                 <spring:url value="/vetSchedule/vet/{vetId}" var="vetUrl">
                         <spring:param name="vetId" value="${vet.id}"/>
-                    </spring:url>
+                </spring:url>
                     <a href="${fn:escapeXml(vetUrl)}"><c:out value="Ver"/></a>
                 </td>
+                <td>
+                <spring:url value="/shifts/{vetId}" var="vetUrl">
+                        <spring:param name="vetId" value="${vet.id}"/>
+                </spring:url>
+                    <a href="${fn:escapeXml(vetUrl)}"><c:out value="Ver"/></a>
+                </td>
+                
             </tr>
         </c:forEach>
         </tbody>
