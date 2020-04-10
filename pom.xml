@@ -305,7 +305,13 @@
         	<plugin>
           		<groupId>org.apache.maven.plugins</groupId>
          		<artifactId>maven-surefire-plugin</artifactId>
-          		<configuration>
+          		<version>2.19.1</version>
+        	</plugin>
+        	<plugin>   
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>…</version>
+				<configuration>
 					<excludes>
 						<exclude>**/*UITest.java</exclude>
 						<exclude>**/*APITest.java</exclude>
