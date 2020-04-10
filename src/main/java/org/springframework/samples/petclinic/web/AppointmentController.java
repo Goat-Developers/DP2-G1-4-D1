@@ -21,6 +21,7 @@ import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.service.AppointmentService;
 import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.samples.petclinic.service.VetScheduleService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
@@ -40,10 +41,13 @@ public class AppointmentController {
 	
 	private final PetService petService;
 	
+	private final VaccineService vaccineService;
+	
 	private final InsuranceService insuranceService;
 	@Autowired
-	public AppointmentController(AppointmentService appointmentService, PetService petService,InsuranceService insuranceService,VetScheduleService vtSchService) {
+	public AppointmentController(AppointmentService appointmentService, PetService petService,InsuranceService insuranceService,VetScheduleService vtSchService,VaccineService vaccineService) {
 		this.vtSchService = vtSchService;
+		this.vaccineService = vaccineService;
 		this.insuranceService = insuranceService;
 		this.appService = appointmentService;
 		this.petService = petService;
@@ -109,6 +113,7 @@ public class AppointmentController {
 			if(pet.getInsurance() == null) {
 				if(!(appointment.getVaccine()==null)) {
 					res += appointment.getVaccine().getPrice();
+					
 				}
 				if(!(appointment.getTreatment()==null)) {
 					res += appointment.getTreatment().getPrice();
@@ -121,6 +126,13 @@ public class AppointmentController {
 					res += appointment.getTreatment().getPrice();
 				}
 			}
+			
+			if(!(appointment.getVaccine()==null)) {
+				Vaccine vacuna = appointment.getVaccine();
+				vacuna.setStock(vacuna.getStock()-1);
+				this.vaccineService.saveVaccine(vacuna);
+			}
+			
 			appointment.setBilling(res);
 			this.appService.saveAppointment(appointment);
 			pet.getAppointments().add(appointment);
