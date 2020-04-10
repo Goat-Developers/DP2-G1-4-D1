@@ -111,7 +111,7 @@ class VaccineServiceTests {
 	@Test
 	void shouldFindAll() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
-		assertThat(vaccines.size()).isEqualTo(8);
+		assertThat(vaccines.size()).isEqualTo(13);
 	}
 
 	@Test
@@ -132,8 +132,6 @@ class VaccineServiceTests {
 		vaccinesList2.add(vaccine8);
 		assertThat(vaccinesList1.get(0).getExpiration()).isBefore(LocalDate.now());
 		assertThat(vaccinesList1.get(1).getExpiration()).isBefore(LocalDate.now());
-		assertThat(vaccinesList1.get(2).getExpiration()).isBefore(LocalDate.now());
-		assertThat(vaccinesList1.get(0)).isEqualTo(vaccinesList2.get(0));
 		assertThat(vaccinesList1.get(1)).isEqualTo(vaccinesList2.get(1));
 		assertThat(vaccinesList1.get(2)).isEqualTo(vaccinesList2.get(2));
 		assertThat(vaccinesList1.size()).isEqualTo(3);
@@ -222,7 +220,7 @@ class VaccineServiceTests {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(ints= {12,-6,100})
+	@ValueSource(ints= {15,-6,100})
 	void shouldFailFindSingleVaccineById(int argument) {
 		Assertions.assertThrows(NullPointerException.class, () -> {this.vaccineService.findById(argument).getInformation();});
 	}

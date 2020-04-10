@@ -49,6 +49,7 @@ public class AnnouncementServiceTests {
 	@Test
 	void shouldFindCurrentAnnouncements() {
 		Collection<Announcement> announcements = this.annService.findAnnouncements();
+		
 		Announcement a = EntityUtils.getById(announcements, Announcement.class, 4);
 		assertThat(a.getBody()).isEqualTo("esto body CON MAYUS");
 		assertThat(a.getHeader()).isEqualTo("esto header en tiempo");

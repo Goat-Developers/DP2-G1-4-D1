@@ -84,7 +84,7 @@ public class TreatmentServiceTests {
 		assertThat(treatment1.getPetType()).isNotNull();
 		
 		Treatment treatment3 = EntityUtils.getById(treatments, Treatment.class, 3);
-		assertThat(treatment3.getType()).isEqualTo("Dientes");
+		assertThat(treatment3.getType()).isEqualTo("Dientes gatos");
 		assertThat(treatment3.getPrice()).isNotEqualTo(10);
 	}
 	
