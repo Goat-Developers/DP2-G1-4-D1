@@ -366,7 +366,7 @@
         </license>
     </licenses>
     
-    <profiles>
+    <!--  <profiles>
 		<profile>
 			<id>AcceptanceTests</id>
 			<build>
@@ -418,6 +418,6 @@
 				</plugins>
 			</build>
 		</profile>
-	</profiles>
+	</profiles>-->
 
 </project>

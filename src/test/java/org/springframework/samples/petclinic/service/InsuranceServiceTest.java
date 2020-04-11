@@ -34,8 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class InsuranceServiceTest {
 	
 	
-   @Autowired
+	@Autowired
    	protected InsuranceService insuranceService; 
+   
 	@Autowired
 	protected VaccineService vaccineService;
 
@@ -46,8 +47,8 @@ public class InsuranceServiceTest {
     protected InsuranceBaseService insuranceBaseService;
     
     @Autowired
-    protected 
-    TreatmentService treatmentService;
+    protected TreatmentService treatmentService;
+    
     @MockBean
     private AuthoritiesService authoritiesService; 
     
@@ -65,8 +66,6 @@ public class InsuranceServiceTest {
 	private Treatment treatmentParaNada;
 	
 	private InsuranceBase insuranceBaseCalvo;
-	
-	
 	
 	@BeforeEach
 	void setup() {
@@ -193,24 +192,27 @@ public class InsuranceServiceTest {
 		}
 	}
 
-
-
-
 	@Test
-    void shouldFindVaccinesl() {
-        Collection<Vaccine> vaccines = this.vaccineService.findAll();
-        assertThat(vaccines.size()).isEqualTo(13);
+    void shouldFindVaccines() {
+        Collection<Vaccine> vaccines = this.insuranceService.findVaccines();
+        
+        Vaccine vaccine1 = EntityUtils.getById(vaccines, Vaccine.class, 1);
+        assertThat(vaccine1.getName()).isEqualTo("Vacuna de la rabia");
+        assertThat(vaccine1.getInformation()).isEqualTo("Para ratas");
+        
+        Vaccine vaccine5 = EntityUtils.getById(vaccines, Vaccine.class, 5);
+        assertThat(vaccine5.getName()).isEqualTo("Vacuna de la uni");
+        assertThat(vaccine5.getPrice()).isEqualTo(31.3);
     }
 	
 	@Test
     void shouldFindTreatments() {
-        Collection<Treatment> treatment = this.treatmentService.findAll();
+        Collection<Treatment> treatment = this.insuranceService.findTreatments();
         assertThat(treatment.size()).isEqualTo(13);
     }
 	
 	@Test
     void shouldFindVaccinesByPetTypeId() {
-      
 		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(4);
 		assertThat(vaccines.size()).isEqualTo(1);
 		
@@ -218,12 +220,10 @@ public class InsuranceServiceTest {
 	
 	@Test
     void shouldFindTreatmentsByPetTypeId() {
-      
 		Collection<Treatment> treatment = this.insuranceService.findTreatmentsByPetTypeId(4);
 		assertThat(treatment.size()).isEqualTo(2);
 		
     }
-	
 	
 	@ParameterizedTest
 	@ValueSource(ints= {-3,0,230})
@@ -243,12 +243,10 @@ public class InsuranceServiceTest {
 	void shouldFailFindTreatmentsByPetTypeId(Integer argument) {
 		Collection<Treatment> treatment = this.insuranceService.findTreatmentsByPetTypeId(argument);
 		assertThat(treatment);
-
 	}
 	
 	@Test
 	void shoulPositiveFindInsurance() {
-
 		InsuranceService service = new InsuranceService(insuranceRepostiory);
 		List<Insurance> listaInsurance = new ArrayList<Insurance>();
 		listaInsurance.add(insuranceParaMamporreo);
@@ -260,8 +258,6 @@ public class InsuranceServiceTest {
 	}
 	@Test
 	void shouldNegativeFindInsurance() {
-
-		
 		InsuranceService service = new InsuranceService(insuranceRepostiory);
 		List<Insurance> listaInsurance = new ArrayList<Insurance>();
 		listaInsurance.add(insuranceParaMamporreo);
@@ -271,13 +267,5 @@ public class InsuranceServiceTest {
 		Assertions.assertThrows(RuntimeException.class, ()-> {service.findInsuranceById(19);});
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

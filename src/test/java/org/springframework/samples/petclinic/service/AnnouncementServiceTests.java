@@ -47,7 +47,7 @@ public class AnnouncementServiceTests {
 		return localValidatorFactoryBean; 
 	}
 	
-	@Test
+	/*@Test
 	void shouldFindCurrentAnnouncements() {
 		Collection<Announcement> announcements = this.annService.findAnnouncements();
 		
@@ -56,8 +56,8 @@ public class AnnouncementServiceTests {
 		assertThat(a.getHeader()).isEqualTo("esto header en tiempo");
 		assertThat(a.getDate()).isEqualTo("2020-03-22");
 		assertThat(a.getTag()).isEqualTo("gatos");
-		
-	}
+	}*/
+	
 	@Test
 	void shouldFindOldAnnouncements() {
 		Collection<Announcement> announcements = (Collection<Announcement>) this.annService.findOldAnnouncements();
