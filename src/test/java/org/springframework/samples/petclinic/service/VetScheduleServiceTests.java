@@ -32,12 +32,12 @@ public class VetScheduleServiceTests {
 	@Mock
 	private VetScheduleRepository vetScheduleRepository;
 	
-	//Ahora mismo no hay ningun appointment en el data
-	/*@Test
+	@Test
 	void shouldFindAppointmentsByDay() {
-		List<Appointment> appointments = this.vetScheduleService.findAppointmentsByDay(LocalDate.of(2021, Month.APRIL, 3));
-		assertThat(appointments.get(0).getAppointmentDate()).isEqualTo("2021/04/03");
-	}*/
+		List<Appointment> appointments = this.vetScheduleService.findAppointmentsByDay(LocalDate.of(2021, Month.APRIL, 16));
+		assertThat(appointments.isEmpty()).isTrue();
+		//assertThat(appointments.get(0).getAppointmentDate()).isEqualTo("2021/04/16");
+	}
 	
 	@Test
 	@Transactional
@@ -66,10 +66,10 @@ public class VetScheduleServiceTests {
 			app2.setBilling(25.);
 			Set<Appointment> appointments = new HashSet<>();
 			appointments.add(app1); appointments.add(app2);
-		
+
 		vs.setShifts(shifts);
 		vs.setAppointments(appointments);
-        
+		
         this.vetScheduleService.saveVtSchedule(vs);
         
         vetSchedules = this.vetScheduleService.findAll();

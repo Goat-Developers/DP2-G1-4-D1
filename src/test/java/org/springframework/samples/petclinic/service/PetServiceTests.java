@@ -24,17 +24,10 @@ import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.omg.PortableInterceptor.ORBInitInfoPackage.DuplicateName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
@@ -68,6 +61,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  * @author Dave Syer
+ * @author Martin Guerrero
  */
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -84,6 +78,16 @@ class PetServiceTests {
 		assertThat(pet7.getName()).startsWith("Samantha");
 		assertThat(pet7.getOwner().getFirstName()).isEqualTo("Jean");
 
+	}
+	
+	@Test
+	void shouldFindAllPets() {
+		Collection<Pet> pets = this.petService.findPets();
+		
+		Pet pet1 = EntityUtils.getById(pets, Pet.class, 1);
+		assertThat(pet1.getName()).isEqualTo("Leo");
+		Pet pet10 = EntityUtils.getById(pets, Pet.class, 10);
+		assertThat(pet10.getBirthDate()).isEqualTo("2007-02-24");
 	}
 
 	@Test

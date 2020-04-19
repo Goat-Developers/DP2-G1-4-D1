@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.service;
 
-
-
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
