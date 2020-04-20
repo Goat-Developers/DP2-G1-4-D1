@@ -1,6 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Appointment;
@@ -13,7 +13,7 @@ public class AppointmentService {
 	@Autowired
 	AppointmentRepository appRepository;
 	
-	public void saveAppointment(@Valid Appointment appointment) {
+	public void saveAppointment(Appointment appointment) {
 		appRepository.save(appointment);
 		
 	}

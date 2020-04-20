@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Appointment;
-import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Shift;
 import org.springframework.samples.petclinic.model.Treatment;
@@ -25,7 +24,6 @@ import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.VetScheduleService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +31,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 @Controller
 public class AppointmentController {
@@ -44,6 +43,7 @@ public class AppointmentController {
 	private final PetService petService;
 	
 	private final InsuranceService insuranceService;
+	
 	@Autowired
 	public AppointmentController(AppointmentService appointmentService, PetService petService,InsuranceService insuranceService,VetScheduleService vtSchService) {
 		this.vtSchService = vtSchService;
@@ -55,6 +55,11 @@ public class AppointmentController {
 	@InitBinder("appointment")
 	public void initPetBinder(final WebDataBinder dataBinder) {
 		dataBinder.setValidator(new AppointmentValidator(vtSchService));
+	}
+	
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
 	}
 	
 	@GetMapping(value = "appointment/new/{petId}")
@@ -168,24 +173,18 @@ public class AppointmentController {
 		
 	}
 	
-	@GetMapping(value = "/appointment/{appointementId}/edit")
-	public String initUpdateAppForm(@PathVariable("appointementId") int appointementId, Model model) {
-		Appointment app = this.appService.findAppointmentById(appointementId);
-		model.addAttribute(app);
-		return "appointments/updateAppointment";
+	@PostMapping(value = "/appointment/observe")
+	public String VetObserveApplication(@ModelAttribute("appointment") Appointment appoint, @ModelAttribute("id") int id) {
+
+		Appointment app = this.appService.findAppointmentById(id);
+		app.setObservations(appoint.getObservations());
+		app.setAttended(true);
+		this.appService.saveAppointment(app);
+		return "redirect:/vets";
 	}
 
-	@PostMapping(value = "/appointment/{appointementId}/edit")
-	public String processUpdateAppForm(@ModelAttribute("appointementId") int appointementId2, @Valid Appointment app , BindingResult result
-			) {
-		if (result.hasErrors()) {
-			return "appointments/updateAppointment";
-		}
-		else {
-			app.setId(appointementId2);
-			this.appService.saveAppointment(app);
-			return "redirect:/appointment/{appointementId}";
-		}
-	}
+
+	
+	
 
 }
