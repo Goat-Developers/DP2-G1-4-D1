@@ -191,11 +191,7 @@
 	            	<c:out value="${appointment.pet}" />
 	            </td>
                 <td>
-             
-               
-           
-                	<c:out value="${appointment.billing} "/>
-                	
+                	<c:out value="${appointment.billing} "/>      	
                 </td>
                          
             </tr>
@@ -205,5 +201,16 @@
         </tbody>
     </table>
     </c:if>
+    <h2>Calendarios de vacunas</h2>
+     <c:forEach items="${owner.pets}" var="pet">
+     
+    <sec:authorize access="!hasAuthority('owner')">
+   		
+    <spring:url value="/vaccinationSchedule/{petId}" var="vcSUrl">
+                    <spring:param name="petId" value="${pet.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(vcSUrl)}"><c:out value="${pet.name}"/></a>
+    </sec:authorize>
+    </c:forEach>
     
 </petclinic:layout>
