@@ -30,6 +30,9 @@ public class VaccineControllerIntegrationTests {
 	private VaccineController vaccineController;
 	
 	@Autowired
+	private VaccineService vaccineService;
+	
+	@Autowired
 	private PetService petService;
 	
 	@Test
@@ -45,11 +48,12 @@ public class VaccineControllerIntegrationTests {
 	@Test
 	void testShowVaccine() throws Exception {
 		ModelMap model=new ModelMap();
+		//Vaccine v = vaccineService.findById(TEST_VACCINE_ID);
 
 		String view = vaccineController.ShowVaccineDetail(TEST_VACCINE_ID, model);
 		
 		assertEquals(view,"vaccine/vaccineDetails");
-		assertNotNull(model.get("vaccine"));
+		assertNotNull(model.getAttribute("vaccine"));
 	}
 	
 	@Test
