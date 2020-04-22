@@ -11,13 +11,36 @@
 
 	<h2>Citas del día</h2>
 		<table class="table table-striped">
-		
+		<thead>
+        <tr>
+            <th>Hora de la cita</th>
+            <th>Motivos</th>
+            <th>Atendido</th>
+            <th>Propietario</th>
+            <th>Otros</th>
+      
+
+            
+            
+        </tr>
+        </thead>
 			
 			<c:forEach items ="${appointments}" var ="appointment">
 			<tr>
 				 
 				<td> <c:out value ="${appointment.appointmentTime}"/></td>
 				<td> <c:out value ="${appointment.reason}"/></td>
+				<td> <c:out value ="${appointment.attended}"/></td>
+				<td> <c:out value ="${appointment.pet.owner.firstName} ${appointment.pet.owner.lastName}"/></td>
+				<td>
+				<c:if test="${appointment.attended==false}">
+				<spring:url value="/appointment/{appointementId}" var="editUrl">
+				
+        				<spring:param name="appointementId" value="${appointment.id}"/>
+   	 			</spring:url>
+    			<a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Atender cita</a>
+    			</c:if> 
+				</td>
 <!-- <sec:authorize access="hasAuthority('worker')">				 -->
 <!-- 				 <td> -->
 <%--                      <spring:url value="/vetSchedule/{day}/appointment/{appointmentId}" var="app"> --%>
@@ -41,5 +64,6 @@
 			</c:forEach>
    			
 		</table>
+		
     
 </petclinic:layout>
