@@ -74,7 +74,7 @@
     	<form:form modelAttribute="appointment" action="/appointment/observe" method="post">
     		 <input type="hidden" name="id" value="${appointment.id}"/>
     		 <petclinic:inputField label="Observaciones" name="observations"/>
-         <button class="btn btn-default" type="submit">Actualizar Propietario</button>
+         <button class="btn btn-default" type="submit">Atender cita</button>
           
           </form:form>
    

@@ -19,7 +19,7 @@
 
  				<sec:authorize access="hasAuthority('veterinarian')">
                 <button class="btn btn-default" type="submit">Añadir Vacunas necesarias</button>
-                   <a href="/announcements" class="btn btn-default">Cancelar</a>
+                  
                 </sec:authorize>
                  </div>
                 
