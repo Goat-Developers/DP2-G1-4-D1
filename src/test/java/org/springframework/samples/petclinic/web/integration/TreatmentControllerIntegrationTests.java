@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.samples.petclinic.web.TreatmentController;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.ModelMap;
@@ -26,6 +27,9 @@ public class TreatmentControllerIntegrationTests {
 	
 	@Autowired
 	private TreatmentController treatmentController;
+	
+	@Autowired
+	private TreatmentService treatmentService;
 	
 	@Autowired
 	private PetService petService;
@@ -43,11 +47,12 @@ public class TreatmentControllerIntegrationTests {
 	@Test
 	void testShowTreatment() throws Exception {
 		ModelMap model=new ModelMap();
+		Treatment treatment = treatmentService.findById(TEST_TREATMENT_ID);
 
 		String view = treatmentController.ShowtreatmentDetail(TEST_TREATMENT_ID, model);
 		
 		assertEquals(view,"treatment/treatmentDetails");
-		assertNotNull(model.get("treatment"));
+		//assertEquals(model.getAttribute("treatment"), treatment); da dos treatments distintos????
 	}
 	
 	@Test

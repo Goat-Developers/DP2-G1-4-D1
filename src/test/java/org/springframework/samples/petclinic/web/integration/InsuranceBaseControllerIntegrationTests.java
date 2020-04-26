@@ -34,7 +34,7 @@ public class InsuranceBaseControllerIntegrationTests {
 		String view = insuranceBaseController.showInsuranceBaseList(model);
 		
 		assertEquals(view,"insurancesbases/insuranceList");
-		assertNotNull(model.get("insurance_base"));
+		assertNotNull(model.get("insurances_bases"));
 	}
 	
 	@Test

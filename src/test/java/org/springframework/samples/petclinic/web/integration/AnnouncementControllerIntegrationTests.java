@@ -94,9 +94,7 @@ public class AnnouncementControllerIntegrationTests {
 	void testProcessCreationFormSuccess() throws Exception {
 		Announcement ann = new Announcement();
 		ann.setBody("Este es el cuerpo");
-		ann.setDate(LocalDate.now());
 		ann.setHeader("Esta es la cabecera");
-		ann.setLikes(15);
 		ann.setTag("Este es el tag");
 			Vet vet = new Vet();
 			vet = vetService.findVetById(VET_TEST_ID);

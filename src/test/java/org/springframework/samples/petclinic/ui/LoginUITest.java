@@ -28,7 +28,6 @@ public class LoginUITest {
 	public void setUp() throws Exception {
 		String pathToGeckoDriver="./target/classes/static/resources/";
 		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
-		//System.setProperty("webdriver.gecko.driver", System.getenv("webdriver.gecko.driver"));
 		driver = new FirefoxDriver();
 		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

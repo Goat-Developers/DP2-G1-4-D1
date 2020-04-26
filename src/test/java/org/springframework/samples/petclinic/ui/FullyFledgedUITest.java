@@ -51,7 +51,7 @@ public class FullyFledgedUITest {
 	}
 
 	private void thenISeeMyUsernameInTheMenuBar() {
-		assertEquals(username, driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+		assertEquals(username.toUpperCase(), driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
 	}
 
 	private FullyFledgedUITest whenIamLoggedIntheSystem() {
