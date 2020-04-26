@@ -111,7 +111,7 @@ public class InsuranceController {
 	
 	@PostMapping(value ="/insurance/new/{petId}")	
 
-	public String postInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException, GeneralSecurityException, IOException, MessagingException, URISyntaxException {
+	public String postInsuranceCreationForm(@Valid final Insurance insurance, BindingResult result, @ModelAttribute("pet")Pet pet,Map<String,Object>model) throws DataAccessException, DuplicatedPetNameException, GeneralSecurityException, IOException, URISyntaxException, MessagingException {
 
 		if (result.hasErrors()){
 
@@ -133,7 +133,7 @@ public class InsuranceController {
 				vac.setStock(vac.getStock()-1);
 				this.vaccineService.saveVaccine(vac);
 			}
-			//this.insuranceService.sendMessage(insurance,pet);
+			this.insuranceService.sendMessage(insurance,pet);
 			insurance.getVaccines().addAll(insurance.getInsuranceBase().getVaccines());
 			insurance.getTreatments().addAll(insurance.getInsuranceBase().getTreatments());
 			this.insuranceService.saveInsurance(insurance);

@@ -35,7 +35,7 @@ public class SendEmail {
      * @param emailContent the MimeMessage used as email within the draft
      * @return the created draft
      * @throws MessagingException
-     * @throws IOException
+    * @throws IOException
      */
     public static Draft createDraft(Gmail service,
                                     String userId,
@@ -170,6 +170,6 @@ public class SendEmail {
     }
 
    
-    // ...
+    
 
 }

@@ -123,9 +123,9 @@ public class GmailQuickstart {
     	 	body+="\n"+""+"all with a cost of"+" "+ insurance.getInsurancePrice()+" euros";
      
     	 	
-    	 	//String s=ResourceUtils.class.getResource("static/resources/images/pets.png").toString();
+    	 	String s=ResourceUtils.class.getResource("static/resources/images/pets.png").toString();
     	 	
-    	 	//Resource resource = resourceLoader.getResource(".\\resources\\images\\pets.png");
+    	 	Resource resource = resourceLoader.getResource(".\\resources\\images\\pets.png");
 
     	 	
     		 File file = new File("./target/classes/static/resources/images/pets.png");

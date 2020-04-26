@@ -20,10 +20,9 @@ import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 import java.util.Collection;
 
-
 import javax.mail.MessagingException;
+//import javax.mail.MessagingException;
 import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -34,6 +33,7 @@ import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.util.GmailQuickstart;
+//import org.springframework.samples.petclinic.util.GmailQuickstart;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
