@@ -51,7 +51,7 @@ public class CreateAnnouncementUITest {
 	    driver.findElement(By.id("username")).clear();
 	    driver.findElement(By.id("username")).sendKeys(username);
 	    driver.findElement(By.id("password")).clear();
-	    driver.findElement(By.id("password")).sendKeys(passwordOfVet(username));
+	    driver.findElement(By.id("password")).sendKeys(passwordOfVet());
 	    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 	    driver.findElement(By.linkText("Anuncios")).click();
 	    driver.findElement(By.linkText("Crear Anuncio")).click();
@@ -66,7 +66,7 @@ public class CreateAnnouncementUITest {
 		return this;
 	}
   
-	private CharSequence passwordOfVet(String username) {
+	private CharSequence passwordOfVet() {
 		return "v3t";
 	}
 
