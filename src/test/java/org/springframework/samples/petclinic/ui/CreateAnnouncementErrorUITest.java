@@ -1,9 +1,7 @@
 package org.springframework.samples.petclinic.ui;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -11,66 +9,62 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
-public class CreateAnnouncementUITest {
+public class CreateAnnouncementErrorUITest {
 	private WebDriver driver;
-  	private String baseUrl;
-  	private boolean acceptNextAlert = true;
-  	private StringBuffer verificationErrors = new StringBuffer();
+	private String baseUrl;
+	private boolean acceptNextAlert = true;
+	private StringBuffer verificationErrors = new StringBuffer();
 
-  	@BeforeEach
-  	public void setUp() throws Exception {
-  		String pathToGeckoDriver="./target/classes/static/resources/";
-  		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
-  		driver = new FirefoxDriver();
-  		baseUrl = "https://www.google.com/";
-  		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  	}
-  
-  	@Test
-	public void testCreateAnnouncement() throws Exception {
+	@BeforeEach
+	public void setUp() throws Exception {
+		String pathToGeckoDriver="./target/classes/static/resources/";
+		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
+		driver = new FirefoxDriver();
+		baseUrl = "https://www.google.com/";
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+	
+	@Test
+	public void testCreateAnnouncementError() throws Exception {
 		as("vet1")
 		.whenIamLoggedIntheSystem()
-		.thenICanCreateAnAnnouncement();
+		.thenICanNotCreateAnAnnouncement();
 	}
 	
-	private void thenICanCreateAnAnnouncement() {
-		assertEquals("tag", driver.findElement(By.xpath("//table[@id='announcementsTable']/tbody/tr[2]/td[3]")).getText());
+	private void thenICanNotCreateAnAnnouncement() {
+		assertEquals("no puede estar vacío", driver.findElement(By.xpath("//form[@id='add-announcement-form']/div/div[2]/div/span[2]")).getText());
 	}
 	
-	private CreateAnnouncementUITest whenIamLoggedIntheSystem() {	
+	private CreateAnnouncementErrorUITest whenIamLoggedIntheSystem() {	
 		return this;
 	}
 	
-	private CreateAnnouncementUITest as(String username) {
+	private CreateAnnouncementErrorUITest as(String username) {
 		driver.get("http://localhost:8080/");
 	    driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
 	    driver.findElement(By.id("username")).clear();
 	    driver.findElement(By.id("username")).sendKeys(username);
 	    driver.findElement(By.id("password")).clear();
-	    driver.findElement(By.id("password")).sendKeys(passwordOfVet(username));
+	    driver.findElement(By.id("password")).sendKeys(passwordOfVet());
 	    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 	    driver.findElement(By.linkText("Anuncios")).click();
 	    driver.findElement(By.linkText("Crear Anuncio")).click();
 	    driver.findElement(By.id("header")).click();
 	    driver.findElement(By.id("header")).clear();
-	    driver.findElement(By.id("header")).sendKeys("Cabecera");
-	    driver.findElement(By.id("body")).clear();
-	    driver.findElement(By.id("body")).sendKeys("Cuerpo");
+	    driver.findElement(By.id("header")).sendKeys("cabecera");
 	    driver.findElement(By.id("tag")).clear();
-	    driver.findElement(By.id("tag")).sendKeys("Tag");
+	    driver.findElement(By.id("tag")).sendKeys("tag");
 	    driver.findElement(By.xpath("//button[@type='submit']")).click();
 		return this;
 	}
-  
-	private CharSequence passwordOfVet(String username) {
+
+  	private CharSequence passwordOfVet() {
 		return "v3t";
 	}
 
-  	@AfterEach
+	@AfterEach
   	public void tearDown() throws Exception {
   		driver.quit();
   		String verificationErrorString = verificationErrors.toString();
@@ -111,4 +105,5 @@ public class CreateAnnouncementUITest {
   			acceptNextAlert = true;
   		}
   	}
-}	
+}
+
