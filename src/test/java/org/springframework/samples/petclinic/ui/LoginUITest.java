@@ -42,7 +42,7 @@ public class LoginUITest {
 	}
 	
 	private void thenICanSeeMyUsernameInsideTheMenuBar() {
-		assertEquals(username.toUpperCase(), driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+		assertEquals(username, driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
 	}
 	
 	private LoginUITest whenIamLoggedIntheSystem() {	

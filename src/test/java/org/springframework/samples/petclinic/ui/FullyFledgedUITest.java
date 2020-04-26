@@ -36,8 +36,8 @@ public class FullyFledgedUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		String pathToGeckoDriver="C:\\DP2";
-		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "\\geckodriver.exe");
+		String pathToGeckoDriver="./target/classes/static/resources/";
+		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
 		driver = new FirefoxDriver();
 		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -51,7 +51,7 @@ public class FullyFledgedUITest {
 	}
 
 	private void thenISeeMyUsernameInTheMenuBar() {
-		assertEquals(username.toUpperCase(), driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+		assertEquals(username, driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
 	}
 
 	private FullyFledgedUITest whenIamLoggedIntheSystem() {
