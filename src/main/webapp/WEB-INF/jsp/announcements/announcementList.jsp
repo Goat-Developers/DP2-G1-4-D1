@@ -16,9 +16,11 @@
             	<label class="col-sm-2 control-label">Buscar por Tag</label>
                 <div class="col-sm-10">
 					<form:input path="tag" />
+					<form:button class="btn-default">Buscar</form:button>
 				</div>
 			</div>
 		</div>
+		
 	</form:form>
 	
     <table id="announcementsTable" class="table table-striped">
