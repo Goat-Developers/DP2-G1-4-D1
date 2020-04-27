@@ -30,7 +30,7 @@ public class LoginUITest {
 
 	@Test
 	public void testLoginAsVet1() throws Exception {
-		as("vet1").whenIamLoggedIntheSystem().thenICanSeeMyUsernameInsideTheMenuBar();
+		this.as("vet1").thenICanSeeMyUsernameInsideTheMenuBar();
 	}
 	
 	private void thenICanSeeMyUsernameInsideTheMenuBar() {
