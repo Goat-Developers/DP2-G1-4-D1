@@ -28,9 +28,76 @@ public class CheckVaccineAndTreatmentUITest {
   @Test
  	public void testCheckVaccineAndTreatment() throws Exception {
  		as("vet1")
- 		.whenIamLoggedIntheSystem();
+ 		.whenIamLoggedIntheSystem()
+ 		.checkAll();
  		
  	}
+  
+  private void checkAll() {
+	  try {
+	      assertEquals("Vacuna de la rabia", driver.findElement(By.xpath("//td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("cat", driver.findElement(By.xpath("//tr[2]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("Para ratas", driver.findElement(By.xpath("//tr[3]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("32.3", driver.findElement(By.xpath("//tr[4]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("Chema", driver.findElement(By.xpath("//tr[5]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("30", driver.findElement(By.xpath("//tr[6]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("produce ardores", driver.findElement(By.xpath("//tr[7]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("2022-06-08", driver.findElement(By.xpath("//tr[8]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    driver.findElement(By.xpath("//div[@id='main-navbar']/ul/li[7]/a/span[2]")).click();
+	    driver.findElement(By.linkText("Dientes serpiente")).click();
+	    try {
+	      assertEquals("Dientes serpiente", driver.findElement(By.xpath("//td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("snake", driver.findElement(By.xpath("//tr[2]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("65.7", driver.findElement(By.xpath("//tr[3]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    try {
+	      assertEquals("Limpieza de dientes", driver.findElement(By.xpath("//tr[4]/td")).getText());
+	    } catch (Error e) {
+	      verificationErrors.append(e.toString());
+	    }
+	    
+	}
  	
  	
  	
@@ -51,68 +118,7 @@ public class CheckVaccineAndTreatmentUITest {
     driver.findElement(By.xpath("//div[@id='main-navbar']/ul/li[6]/a/span[2]")).click();
     driver.findElement(By.xpath("//table[@id='vaccineTable']/tbody/tr/td")).click();
     driver.findElement(By.linkText("Vacuna de la rabia")).click();
-    try {
-      assertEquals("Vacuna de la rabia", driver.findElement(By.xpath("//td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("cat", driver.findElement(By.xpath("//tr[2]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("Para ratas", driver.findElement(By.xpath("//tr[3]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("32.3", driver.findElement(By.xpath("//tr[4]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("Chema", driver.findElement(By.xpath("//tr[5]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("30", driver.findElement(By.xpath("//tr[6]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("produce ardores", driver.findElement(By.xpath("//tr[7]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("2022-06-08", driver.findElement(By.xpath("//tr[8]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    driver.findElement(By.xpath("//div[@id='main-navbar']/ul/li[7]/a/span[2]")).click();
-    driver.findElement(By.linkText("Dientes serpiente")).click();
-    try {
-      assertEquals("Dientes serpiente", driver.findElement(By.xpath("//td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("snake", driver.findElement(By.xpath("//tr[2]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("65.7", driver.findElement(By.xpath("//tr[3]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
-    try {
-      assertEquals("Limpieza de dientes", driver.findElement(By.xpath("//tr[4]/td")).getText());
-    } catch (Error e) {
-      verificationErrors.append(e.toString());
-    }
+    
     return this;
   }
 	private CharSequence passwordOfVet() {
