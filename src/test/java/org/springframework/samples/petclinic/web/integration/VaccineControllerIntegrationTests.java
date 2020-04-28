@@ -25,6 +25,8 @@ import org.springframework.validation.MapBindingResult;
 public class VaccineControllerIntegrationTests {
 	
 	private static final int TEST_VACCINE_ID = 1;
+	
+	private static final int TEST_VACCINE_DELETE_ID = 14;
 
 	@Autowired
 	private VaccineController vaccineController;
@@ -125,13 +127,13 @@ public class VaccineControllerIntegrationTests {
 		assertEquals(view,"vaccine/vaccineCreate");
 	}
 	
-	/*@Test
+	@Test
 	void testDeleteVaccine() throws Exception {
 		ModelMap model = new ModelMap();
 		
-		String view = vaccineController.delete(TEST_VACCINE_ID, model);
+		String view = vaccineController.delete(TEST_VACCINE_DELETE_ID, model);
 		
 		assertEquals(view,"redirect:/vaccine");
-	}*/
+	}
 	
 }
