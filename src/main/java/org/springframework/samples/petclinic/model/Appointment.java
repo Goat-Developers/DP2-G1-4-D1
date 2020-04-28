@@ -59,7 +59,6 @@ public class Appointment extends BaseEntity {
 	
 	
 	public Appointment() {
-		this.observations="";
 		this.attended = false;
 		this.billing = 0.;
 	}

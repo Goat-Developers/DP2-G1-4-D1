@@ -9,7 +9,7 @@ import org.springframework.samples.petclinic.repository.AppointmentRepository;
 
 public interface SpringDataAppointmentRepository extends AppointmentRepository, Repository<Appointment, Integer>{
 	
-	
+	@Override
 	@Query("SELECT app from Appointment app where app.id=?1")
 	Appointment findAppById(@Param("id") int appointementId);
 
