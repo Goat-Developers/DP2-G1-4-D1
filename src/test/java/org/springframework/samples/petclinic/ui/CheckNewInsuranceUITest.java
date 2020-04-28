@@ -26,37 +26,44 @@ public class CheckNewInsuranceUITest {
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
-
   @Test
-  public void testCheckNewInsuranceUI() throws Exception {
+	public void testCheckNewInsurance() throws Exception {
+		as("owner1")
+		.whenIamLoggedIntheSystem()
+		.CreateAnInsurance();
+	}
+	
+	private void CreateAnInsurance() {
+		assertEquals("Información del Seguro", driver.findElement(By.xpath("//h2")).getText());
+	}
+	
+	private CheckNewInsuranceUITest whenIamLoggedIntheSystem() {	
+		return this;
+	}
+	
+	private  CheckNewInsuranceUITest as(String username) throws Exception {
+  
     driver.get("http://localhost:8080/");
     driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
     driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("owner1");
+    driver.findElement(By.id("username")).sendKeys(username);
     driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys("0wn3r");
+    driver.findElement(By.id("password")).sendKeys(passwordOfOwner());
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     driver.findElement(By.linkText("Mi Información")).click();
     driver.findElement(By.linkText("Añadir Seguro")).click();
     new Select(driver.findElement(By.id("insuranceBase"))).selectByVisibleText("Seguro Base Felino");
     driver.findElement(By.xpath("//option[@value='Seguro Base Felino']")).click();
-    // ERROR: Caught exception [ERROR: Unsupported command [addSelection | id=vaccines | label=Vacuna de la peste]]
     driver.findElement(By.xpath("//option[@value='Vacuna de la peste']")).click();
-    // ERROR: Caught exception [ERROR: Unsupported command [addSelection | id=treatments | label=Limpieza de dientes]]
     driver.findElement(By.xpath("//option[@value='Limpieza de dientes']")).click();
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.linkText("1")).click();
-    try {
-        assertEquals("Vacuna de la peste (32.3 Euros)\n Vacuna de la rabia (32.3 Euros)", driver.findElement(By.xpath("//tr[2]/td")).getText());
-      } catch (Error e) {
-        verificationErrors.append(e.toString());
-      }
-      try {
-        assertEquals("Limpieza de dientes (65.7 Euros)\n Corte de pelo (10.0 Euros)", driver.findElement(By.xpath("//tr[3]/td")).getText());
-      } catch (Error e) {
-        verificationErrors.append(e.toString());
-      }
+    
+    return this;
   }
+	private CharSequence passwordOfOwner() {
+		return "0wn3r";
+	}
 
   @AfterEach
   public void tearDown() throws Exception {
