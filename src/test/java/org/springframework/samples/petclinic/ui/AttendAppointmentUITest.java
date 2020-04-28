@@ -1,23 +1,15 @@
 package org.springframework.samples.petclinic.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.junit.jupiter.api.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class AppointmentUITest {
+public class AttendAppointmentUITest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -32,31 +24,30 @@ public class AppointmentUITest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
   @Test
- 	public void testAppointmentUI() throws Exception {
- 		as("owner1")
- 		.whenIamLoggedIntheSystem()
- 		.createAppointment();
- 	}
- 	
- 	private void createAppointment() {
- 		 driver.findElement(By.linkText("1")).click();
- 	    assertEquals("Información de la cita", driver.findElement(By.xpath("//h2")).getText());
- 	}
- 	
- 	private AppointmentUITest whenIamLoggedIntheSystem() {	
- 		return this;
- 	}
- 	
+	public void testAppointmentUI() throws Exception {
+		as("owner1")
+		.whenIamLoggedIntheSystem()
+		.attendAppointment();
+	}
+	
+	private void attendAppointment() {
+		  driver.findElement(By.xpath("//button[@type='submit']")).click();
+	}
+	
+	private AttendAppointmentUITest whenIamLoggedIntheSystem() {	
+		return this;
+	}
+	
 
- 	private AppointmentUITest as(String username) throws Exception {
-
+	private AttendAppointmentUITest as(String username) throws Exception {
+  
     driver.get("http://localhost:8080/");
     driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
     driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys(username);
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys(passwordOfOwner());
+    driver.findElement(By.id("password")).sendKeys("0wn3r");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     driver.findElement(By.linkText("Mi Información")).click();
     driver.findElement(By.linkText("Crear cita")).click();
@@ -64,18 +55,32 @@ public class AppointmentUITest {
     driver.findElement(By.linkText("30")).click();
     driver.findElement(By.id("reason")).click();
     driver.findElement(By.id("reason")).clear();
-    driver.findElement(By.id("reason")).sendKeys("motivo");
+    driver.findElement(By.id("reason")).sendKeys("prueba");
     new Select(driver.findElement(By.id("vaccine"))).selectByVisibleText("Vacuna de la rabia");
     driver.findElement(By.xpath("//option[@value='Vacuna de la rabia']")).click();
     new Select(driver.findElement(By.id("treatment"))).selectByVisibleText("Corte de pelo");
     driver.findElement(By.xpath("//option[@value='Corte de pelo']")).click();
     driver.findElement(By.xpath("//button[@type='submit']")).click();
+    driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
+    driver.findElement(By.linkText("Cerrar Sesión")).click();
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+    driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("vet1");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("v3t");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    driver.findElement(By.linkText("Horario")).click();
+    driver.findElement(By.linkText("30")).click();
+    driver.findElement(By.linkText("Atender cita")).click();
+    driver.findElement(By.id("observations")).click();
+    driver.findElement(By.id("observations")).clear();
+    driver.findElement(By.id("observations")).sendKeys("se ha atendido la cita");
+  
     return this;
   }
 
- 	private CharSequence passwordOfOwner() {
-		return "0wn3r";
-	}
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();

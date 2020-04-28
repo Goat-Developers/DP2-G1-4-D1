@@ -32,16 +32,31 @@ public class NoMoreAppointmentsUITest {
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
-
   @Test
-  public void testNoMoreAppointmentsUI() throws Exception {
+	public void testNoMoreAppointmentsUI() throws Exception {
+		as("owner1")
+		.whenIamLoggedIntheSystem()
+		.checkNoMoreAppointmentsAvailable();
+	}
+	
+	private void checkNoMoreAppointmentsAvailable() {
+		  assertEquals("required no hay cita disponible a esa hora y ese día", driver.findElement(By.xpath("//form[@id='add-appointment-form']/div[2]/div/span[2]")).getText());
+	}
+	
+	private NoMoreAppointmentsUITest whenIamLoggedIntheSystem() {	
+		return this;
+	}
+	
+
+	private NoMoreAppointmentsUITest as(String username) throws Exception {
+ 
     driver.get("http://localhost:8080/");
     driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
     driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("owner1");
+    driver.findElement(By.id("username")).sendKeys(username);
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys("0wn3r");
+    driver.findElement(By.id("password")).sendKeys(passwordOfOwner());
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     driver.findElement(By.linkText("Mi Información")).click();
     driver.findElement(By.linkText("Añadir nueva mascota")).click();
@@ -101,9 +116,12 @@ public class NoMoreAppointmentsUITest {
     driver.findElement(By.id("reason")).clear();
     driver.findElement(By.id("reason")).sendKeys("forth");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
-    assertEquals("required no hay cita disponible a esa hora y ese día", driver.findElement(By.xpath("//form[@id='add-appointment-form']/div[2]/div/span[2]")).getText());
-  }
-
+  
+    return this;
+	}
+	private CharSequence passwordOfOwner() {
+		return "0wn3r";
+	}
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();

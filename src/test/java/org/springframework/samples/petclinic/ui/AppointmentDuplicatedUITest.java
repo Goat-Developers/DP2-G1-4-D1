@@ -30,13 +30,29 @@ public class AppointmentDuplicatedUITest {
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
-
   @Test
-  public void testAppointmentDuplicatedUI() throws Exception {
+	public void testAppointmentDuplicatedUI() throws Exception {
+		as("owner1")
+		.whenIamLoggedIntheSystem()
+		.checkDuplicatedAppointment();
+	}
+	
+	private void checkDuplicatedAppointment() {
+		 assertEquals("required su mascota ya dispone de una cita para ese día y hora", driver.findElement(By.xpath("//form[@id='add-appointment-form']/div/div/span[2]")).getText());
+	}
+	
+	private AppointmentDuplicatedUITest whenIamLoggedIntheSystem() {	
+		return this;
+	}
+	
+
+	private AppointmentDuplicatedUITest as(String username) throws Exception {
+
+  
     driver.get("http://localhost:8080/");
     driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
     driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("owner1");
+    driver.findElement(By.id("username")).sendKeys(username);
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("0wn3r");
@@ -58,8 +74,9 @@ public class AppointmentDuplicatedUITest {
     driver.findElement(By.id("reason")).sendKeys("otra");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//form[@id='add-appointment-form']/div/div/span[2]")).click();
-    assertEquals("required su mascota ya dispone de una cita para ese día y hora", driver.findElement(By.xpath("//form[@id='add-appointment-form']/div/div/span[2]")).getText());
-  }
+   
+    return this;
+	}
 
   @AfterEach
   public void tearDown() throws Exception {
