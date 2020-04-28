@@ -18,15 +18,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-
-
 @Entity
 @Getter
 @Setter
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
-
-
 
 	@Column(name = "appointment_date")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -36,23 +32,18 @@ public class Appointment extends BaseEntity {
 	@DateTimeFormat( pattern = "HH:mm:ss")
 	private LocalTime appointmentTime;
 
-
-
 	@NotEmpty
 	@Column(name ="appointement_reason")
 	private String reason;
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "pet_id")
 	private Pet pet;
 	
-
 	@ManyToOne
 	@JoinColumn(name = "treatment_id")
 	private Treatment treatment;
 	
-
 	@ManyToOne
 	@JoinColumn(name = "vaccine_id")
 	private Vaccine vaccine;
@@ -71,9 +62,5 @@ public class Appointment extends BaseEntity {
 		this.attended = false;
 		this.billing = 0.;
 	}
-	
-	
-
-	
 
 }

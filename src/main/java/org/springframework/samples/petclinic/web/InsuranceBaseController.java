@@ -28,11 +28,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class InsuranceBaseController {
-
-	private final InsuranceBaseService insuranceBaseService;
 	
 	private static final String URL_INSURANCES_BASES ="insurancesbases/insuranceList"; 
 
+	private final InsuranceBaseService insuranceBaseService;
+	
 	@Autowired
 	public InsuranceBaseController(InsuranceBaseService insuranceBaseService) {
 		this.insuranceBaseService = insuranceBaseService;

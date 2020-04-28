@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Shift;
 import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.ShiftRepository;
-import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,13 +35,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShiftService {
 
-	private VetRepository vetRepository;
 	private ShiftRepository shiftRepository;
 
-
 	@Autowired
-	public ShiftService(VetRepository vetRepository, ShiftRepository shiftRepository) {
-		this.vetRepository = vetRepository;
+	public ShiftService(ShiftRepository shiftRepository) {
 		this.shiftRepository= shiftRepository;
 	}		
 
@@ -57,6 +53,7 @@ public class ShiftService {
 	public Shift findById(int id) {
 		return shiftRepository.findById(id);
 	}
+	
 	public List<Shift> orderShifts(VetSchedule vetSchedule) {
 		List<Shift> shifts = vetSchedule.getShifts().stream().collect(Collectors.toList());
 		Collections.sort(shifts, (o1,o2)-> o1.getShiftDate().compareTo(o2.getShiftDate()));

@@ -17,29 +17,15 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDate;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.model.Authorities;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -70,6 +56,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  * @author Dave Syer
+ * @author Martin Guerrero
  */
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -88,6 +75,36 @@ class VetServiceTests {
 		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("Dentistry");
 		assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("Surgery");
 	}
-
+	
+	@Test
+	void shouldFindVetById() {
+		Vet vet = this.vetService.findVetById(1);
+		assertThat(vet.getFirstName()).isEqualTo("James");
+	}
+	
+	@Test
+	@Transactional
+	public void shouldInsertVetIntoDatabaseAndGenerateId() {
+		Collection<Vet> vets = this.vetService.findVets();
+		int found = vets.size();
+		
+		Vet vet = new Vet();
+		vet.setFirstName("Arturo");
+		vet.setLastName("Schreiber");
+		vet.setMaxShifts(5);
+        
+        this.vetService.saveVet(vet);
+        
+        vets = this.vetService.findVets();
+		assertThat(vets.size()).isEqualTo(found + 1);
+        // checks that id has been generated
+        assertThat(vet.getId()).isNotNull();
+	}
+	
+	@Test
+	void shouldFindVetByPrincipal() {
+		Vet vet1 = this.vetService.findVetByPrincipal("vet1");
+		assertThat(vet1.getFirstName()).isEqualTo("James");
+	}
 
 }

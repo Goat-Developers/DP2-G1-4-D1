@@ -1,18 +1,3 @@
-/*
- * Copyright 2002-2013 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,48 +22,12 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.VaccineRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-/**
- * Integration test of the Service and the Repository layer.
- * <p>
- * ClinicServiceSpringDataJpaTests subclasses benefit from the following services provided
- * by the Spring TestContext Framework:
- * </p>
- * <ul>
- * <li><strong>Spring IoC container caching</strong> which spares us unnecessary set up
- * time between test execution.</li>
- * <li><strong>Dependency Injection</strong> of test fixture instances, meaning that we
- * don't need to perform application context lookups. See the use of
- * {@link Autowired @Autowired} on the <code>{@link
- * VaccineServiceTests#clinicService clinicService}</code> instance variable, which uses
- * autowiring <em>by type</em>.
- * <li><strong>Transaction management</strong>, meaning each test method is executed in
- * its own transaction, which is automatically rolled back by default. Thus, even if tests
- * insert or otherwise change database state, there is no need for a teardown or cleanup
- * script.
- * <li>An {@link org.springframework.context.ApplicationContext ApplicationContext} is
- * also inherited and can be used for explicit bean lookup if necessary.</li>
- * </ul>
- *
- * @author Ken Krebs
- * @author Rod Johnson
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Michael Isvy
- * @author Dave Syer
- */
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 class VaccineServiceTests {      
@@ -87,10 +36,6 @@ class VaccineServiceTests {
 	private static final int TEST_VACCINE_EXPIRATED_ID1 = 2;
 	private static final int TEST_VACCINE_EXPIRATED_ID2 = 4;
 	private static final int TEST_VACCINE_EXPIRATED_ID3 = 8;
-	private static final int TEST_VACCINE_STOCK_ID1 = 8;
-	private static final int TEST_VACCINE_STOCK_ID2 = 7;
-	private static final int TEST_VACCINE_STOCK_ID3 = 3;
-	private static final int TEST_VACCINE_STOCK_ID4 = 2;
 
 	@Mock
 	private VaccineRepository vaccineRepository;
@@ -111,7 +56,7 @@ class VaccineServiceTests {
 	@Test
 	void shouldFindAll() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
-		assertThat(vaccines.size()).isEqualTo(8);
+		assertThat(vaccines.size()).isEqualTo(13);
 	}
 
 	@Test
@@ -132,8 +77,6 @@ class VaccineServiceTests {
 		vaccinesList2.add(vaccine8);
 		assertThat(vaccinesList1.get(0).getExpiration()).isBefore(LocalDate.now());
 		assertThat(vaccinesList1.get(1).getExpiration()).isBefore(LocalDate.now());
-		assertThat(vaccinesList1.get(2).getExpiration()).isBefore(LocalDate.now());
-		assertThat(vaccinesList1.get(0)).isEqualTo(vaccinesList2.get(0));
 		assertThat(vaccinesList1.get(1)).isEqualTo(vaccinesList2.get(1));
 		assertThat(vaccinesList1.get(2)).isEqualTo(vaccinesList2.get(2));
 		assertThat(vaccinesList1.size()).isEqualTo(3);
@@ -186,43 +129,45 @@ class VaccineServiceTests {
 	void shouldDeleteVaccine() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
 		int found = vaccines.size();
+		
 		Vaccine vaccine = this.vaccineService.findById(TEST_VACCINE_DELETE);
 		this.vaccineService.deleteVaccine(vaccine);
+		
 		int numIns = this.insuranceService.findInsurances().size();
 		int numInsBas = this.insuranceBaseService.findInsurancesBases().size();
+		
 		compruebaNoHayVacunaEliminadaEnSeguro(numIns);
 		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
+		
 		vaccines = this.vaccineService.findAll();
 		assertThat(vaccines.size()).isEqualTo(found - 1);
-		assertThat(this.vaccineService.findById(TEST_VACCINE_DELETE)).isEqualTo(null);
+		assertThat(this.vaccineService.findById(TEST_VACCINE_DELETE)).isNull();
 	}
 
 	private void compruebaNoHayVacunaEliminadaEnSeguroBase(int numInsBas) {
 		for(int i = 0; i < numInsBas; i++) {
-			int z = this.insuranceBaseService.findInsurancesBases().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> v = this.insuranceBaseService.findInsuranceBaseById(z).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < v.size(); j++) {
-				Boolean res2 = v.get(j).getId() == TEST_VACCINE_DELETE;
+			int id = this.insuranceBaseService.findInsurancesBases().stream().collect(Collectors.toList()).get(i).getId();
+			List<Vaccine> vacinesBase = this.insuranceBaseService.findInsuranceBaseById(id).getVaccines().stream().collect(Collectors.toList());
+			for(int j = 0; j < vacinesBase.size(); j++) {
+				Boolean res2 = vacinesBase.get(j).getId() == TEST_VACCINE_DELETE;
 				assertThat(res2).isEqualTo(false);
 			}
 		}
-		
 	}
 
 	private void compruebaNoHayVacunaEliminadaEnSeguro(int numIns) {
 		for(int i = 0; i < numIns; i++) {
-			int z = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> v = this.insuranceService.findInsuranceById(z).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < v.size(); j++) {
-				Boolean res1 = v.get(j).getId() == TEST_VACCINE_DELETE;
+			int id = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
+			List<Vaccine> vaccines = this.insuranceService.findInsuranceById(id).getVaccines().stream().collect(Collectors.toList());
+			for(int j = 0; j < vaccines.size(); j++) {
+				Boolean res1 = vaccines.get(j).getId() == TEST_VACCINE_DELETE;
 				assertThat(res1).isEqualTo(false);
 			}
 		}
-		
 	}
 	
 	@ParameterizedTest
-	@ValueSource(ints= {12,-6,100})
+	@ValueSource(ints= {15,-6,100})
 	void shouldFailFindSingleVaccineById(int argument) {
 		Assertions.assertThrows(NullPointerException.class, () -> {this.vaccineService.findById(argument).getInformation();});
 	}
