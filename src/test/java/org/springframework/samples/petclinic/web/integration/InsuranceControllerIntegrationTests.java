@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
@@ -33,10 +36,10 @@ import org.springframework.validation.MapBindingResult;
 public class InsuranceControllerIntegrationTests {
 
 	private static final int TEST_INSURANCE_ID = 2;
-	private static final int TEST_INSURANCE_BASE_ID = 12;
-	private static final int TEST_VACCINE_ID = 15;
-	private static final int TEST_TREATMENT_ID = 122;
-	private static final int TEST_PET_ID = 8;
+	private static final int TEST_INSURANCE_BASE_ID = 1;
+	private static final int TEST_VACCINE_ID = 1;
+	private static final int TEST_TREATMENT_ID = 4;
+	private static final int TEST_PET_ID = 1;
 
 	@Autowired
 	private InsuranceController insuranceController;
@@ -94,19 +97,23 @@ public class InsuranceControllerIntegrationTests {
 			InsuranceBase insuranceBase = new InsuranceBase();
 			insuranceBase = insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID);
 		newInsurance.setInsuranceBase(insuranceBase);
-			Treatment treatment = new Treatment();
-			treatment = treatmentService.findById(TEST_TREATMENT_ID);
-			Set<Treatment> treatments = new HashSet<>();
-			treatments.add(treatment);
-		newInsurance.setTreatments(treatments);
-			Vaccine vaccine = new Vaccine();
-			vaccine = vaccineService.findById(TEST_VACCINE_ID);
+			Vaccine vaccine = vaccineService.findById(TEST_VACCINE_ID);
 			Set<Vaccine> vaccines = new HashSet<>();
 			vaccines.add(vaccine);
 		newInsurance.setVaccines(vaccines);
+			Treatment treatment = new Treatment();
+			treatment.setDescription("Descripcion1");
+			treatment.setPetType(petService.findPetById(1).getType());
+			treatment.setPrice(15.);
+			treatment.setType("Tipo1"); 
+			treatmentService.saveTreatment(treatment);
+			Set<Treatment> treatments = new HashSet<>();
+			treatments.add(treatment);
+			
+		newInsurance.setTreatments(treatments);
 		
 		Pet pet = new Pet();
-		pet = petService.findPetById(TEST_PET_ID);
+		pet = petService.findPets().iterator().next();
 		BindingResult bindingResult=new MapBindingResult(Collections.emptyMap(),"");
 		
 		String view = insuranceController.postInsuranceCreationForm(newInsurance, bindingResult, pet, model);
