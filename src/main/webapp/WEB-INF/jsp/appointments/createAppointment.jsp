@@ -16,7 +16,7 @@
             	monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             	dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
             	firstDay: 1
-            	});
+            	}).datepicker("setDate", new Date());
         });
         </script>
     </jsp:attribute>

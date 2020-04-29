@@ -59,6 +59,7 @@ public class VaccinationScheduleControllerE2ETest {
         vaccineCoronavirus.setProvider("China");
         vaccineCoronavirus.setSideEffects("Puede provocar crisis nerviosas");
         vaccineCoronavirus.setStock(235);
+        vaccines.add(vaccineCoronavirus);
 			mockMvc.perform(post("/vaccinationSchedule/{petId}",TEST_PET_ID)
 					.with(csrf())
 					.param("vaccines", vaccines.toString())
