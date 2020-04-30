@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -262,10 +263,10 @@ public class AppointmentControllerE2ETest {
 	@WithMockUser(username="vet1",authorities= {"v3t"})
 	@Test
 	void testVetObserverApplication() throws Exception{
-		mockMvc.perform(post("/appointment/observe"))
-		.andExpect(model().attribute("appointment", hasProperty("attended", is(true)))).
-		 andExpect(view().name("vets"));
-
+		mockMvc.perform(post("/appointment/observe")
+		.with(csrf())  
+		.param("attended", "true")).
+		andExpect(status().isOk());
 		
 	}
 }
