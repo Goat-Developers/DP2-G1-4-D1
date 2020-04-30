@@ -254,17 +254,17 @@ public class AppointmentControllerTests {
     	
 	}
 	
-	@WithMockUser(username="owner1",authorities= {"owner"})
+	@WithMockUser(value = "spring")
     @Test
     void testInitAppointmentCreationForm() throws Exception {
-	mockMvc.perform(get("appointment/new/{petId}", TEST_PET_ID)).andExpect(status().isOk())
-	.andExpect(model().attributeExists("vaccines"))
+	mockMvc.perform(get("/appointment/new/{petId}", TEST_PET_ID)).andExpect(status().isOk())
+	.andExpect(model().attributeExists("appointment"))
 			.andExpect(view().name("appointments/createAppointment"));
 }
 	
 	@WithMockUser(value = "spring")
 	@Test
-	void testShowAppintmentsDetails() throws Exception {	    	
+	void testShowAppointmentsDetails() throws Exception {	    	
 	 	mockMvc.perform(get("/appointment/{appointementId}", TEST_APPOINTMENT_ID)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("appointment"))
 				.andExpect(view().name("appointments/appointmentDetails"));
@@ -279,7 +279,7 @@ public class AppointmentControllerTests {
 		treatments.add(treatment);
 		List<LocalTime> times = new ArrayList<LocalTime>();
 		times.add(LocalTime.of(9, 30, 00));
-		mockMvc.perform(post("appointment/new/{petId}", TEST_PET_ID).with(csrf())
+		mockMvc.perform(post("/appointment/new/{petId}", TEST_PET_ID).with(csrf())
 				
 						.param("pet", pet.toString())
 						.param("appointment",appointment.toString())

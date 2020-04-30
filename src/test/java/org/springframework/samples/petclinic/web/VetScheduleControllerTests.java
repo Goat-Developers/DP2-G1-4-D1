@@ -54,24 +54,25 @@ excludeAutoConfiguration= SecurityConfiguration.class)
 public class VetScheduleControllerTests {
 	
 	private static final int TEST_VET_SCHEDULE_ID = 1;
+	private static final int TEST_APPOINTMENT_ID = 3;	
 	private static final int TEST_VACCINE_ID = 10;
 	private static final int TEST_TREATMENT_ID = 13;
 	private static final int TEST_VACCINE_BASE_ID = 21;
 	private static final int TEST_TREATMENT_BASE_ID = 32;
-	private static final int TEST_APPOINTMENT_ID = 3;
 	private static final int TEST_SHIFT_ID = 25;
-	private static final int TEST_PET_ID = 12;
+	private static final int TEST_PET_ID = 1;
 	private static final int TEST_INSURANCE_ID = 4;
 	private static final int TEST_INSURANCE_BASE_ID = 5;
+	private static final int TEST_VET_ID = 8;
 	
 	@Autowired
 	private VetScheduleController vetScheduleController;
 
 	@MockBean
-	private VetScheduleService vetScheduleService;
+	private AppointmentService appointmentService;
 	
 	@MockBean
-	private AppointmentService appointmentService;
+	private VetScheduleService vetScheduleService;
 	
 	@MockBean
 	private ShiftService shiftService;
@@ -256,7 +257,7 @@ public class VetScheduleControllerTests {
 	 @WithMockUser(value = "spring")
 		@Test
 		void testShowScheduleDetail() throws Exception {	    	
-		 	mockMvc.perform(get("/vetSchedule/{day}", LocalDate.of(2020, Month.AUGUST, 3))).andExpect(status().isOk())
+		 	mockMvc.perform(get("/vetSchedule/{day}", "2020-08-03")).andExpect(status().isOk())
 //					.andExpect(model().attributeExists("appointments"))
 //					.andExpect(model().attributeExists("shifts"))
 					.andExpect(view().name("vets/scheduleDetails"));
@@ -266,6 +267,14 @@ public class VetScheduleControllerTests {
 		@Test
 		void testShowSchedule() throws Exception {	    	
 		 	mockMvc.perform(get("/vetSchedule")).andExpect(status().isOk())
+//					.andExpect(model().attributeExists("coincidencias"))
+					.andExpect(view().name("vets/vetSchedule"));
+		}
+	 
+	 @WithMockUser(value = "spring")
+		@Test
+		void testShowVetScheduleDetail() throws Exception {	    	
+		 	mockMvc.perform(get("/vetSchedule/vet/{vetId}", TEST_VET_ID)).andExpect(status().isOk())
 //					.andExpect(model().attributeExists("coincidencias"))
 					.andExpect(view().name("vets/vetSchedule"));
 		}

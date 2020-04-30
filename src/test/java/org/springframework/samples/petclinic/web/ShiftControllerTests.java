@@ -32,9 +32,9 @@ excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classe
 excludeAutoConfiguration= SecurityConfiguration.class)
 public class ShiftControllerTests {
 
-	private static final int TEST_SHIFT_ID = 3;
+	private static final int TEST_SHIFT_ID = 20;
 	
-	private static final int TEST_VET_ID = 1;
+	private static final int TEST_VET_ID = 2;
 	
 	@Autowired
 	private ShiftController shiftController;
@@ -82,13 +82,9 @@ public class ShiftControllerTests {
 	
 	@WithMockUser(value = "spring")
 	@Test
-	void testShowVetList() throws Exception {
+	void testShowShiftsList() throws Exception {
 		mockMvc.perform(get("/shifts/{vetId}", TEST_VET_ID)).andExpect(status().isOk())
-//				.andExpect(model().attributeExists("vet"))
-//				.andExpect(model().attributeExists("max"))
-//				.andExpect(model().attributeExists("shifts"))
-//				.andExpect(model().attributeExists("actual"))
-//				.andExpect(model().attributeExists("avalableShifts"))
+				.andExpect(model().attributeExists("shifts"))
 				.andExpect(view().name("shifts/shiftList"));
 		
 	}
@@ -97,8 +93,8 @@ public class ShiftControllerTests {
     @Test
     void testInitCreationForm() throws Exception {
 
-	mockMvc.perform(get("/shifts/{shiftId}/new/{vetId}", TEST_SHIFT_ID, TEST_VET_ID)).andExpect(status().isOk())		
-			.andExpect(view().name("redirect:/shifts/"+TEST_VET_ID));
+	mockMvc.perform(get("/shifts/{shiftId}/new/{vetId}", TEST_SHIFT_ID, TEST_VET_ID)).andExpect(status().isOk())	
+			.andExpect(view().name("shifts/shiftList"));
 	
 	}
 	
