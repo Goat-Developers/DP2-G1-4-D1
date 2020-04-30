@@ -176,5 +176,7 @@ public class AppointmentController {
 		return "appointments/appointmentDetails";
 		
 	}
+	
+	
 
 }

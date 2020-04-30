@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.web;
 
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -10,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,30 +49,30 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers=VetScheduleController.class,includeFilters = @ComponentScan.Filter(value = PetTypeFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
+@WebMvcTest(controllers=AppointmentController.class,includeFilters = @ComponentScan.Filter(value = PetTypeFormatter.class, type = FilterType.ASSIGNABLE_TYPE),
 excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 excludeAutoConfiguration= SecurityConfiguration.class)
-public class VetScheduleControllerTests {
+public class AppointmentControllerTests {
 	
+	private static final int TEST_APPOINTMENT_ID = 3;
 	private static final int TEST_VET_SCHEDULE_ID = 1;
 	private static final int TEST_VACCINE_ID = 10;
 	private static final int TEST_TREATMENT_ID = 13;
 	private static final int TEST_VACCINE_BASE_ID = 21;
 	private static final int TEST_TREATMENT_BASE_ID = 32;
-	private static final int TEST_APPOINTMENT_ID = 3;
 	private static final int TEST_SHIFT_ID = 25;
-	private static final int TEST_PET_ID = 12;
+	private static final int TEST_PET_ID = 1;
 	private static final int TEST_INSURANCE_ID = 4;
 	private static final int TEST_INSURANCE_BASE_ID = 5;
 	
 	@Autowired
-	private VetScheduleController vetScheduleController;
+	private AppointmentController appointmentController;
 
 	@MockBean
-	private VetScheduleService vetScheduleService;
+	private AppointmentService appointmentService;
 	
 	@MockBean
-	private AppointmentService appointmentService;
+	private VetScheduleService vetScheduleService;
 	
 	@MockBean
 	private ShiftService shiftService;
@@ -253,21 +254,42 @@ public class VetScheduleControllerTests {
     	
 	}
 	
-	 @WithMockUser(value = "spring")
-		@Test
-		void testShowScheduleDetail() throws Exception {	    	
-		 	mockMvc.perform(get("/vetSchedule/{day}", LocalDate.of(2020, Month.AUGUST, 3))).andExpect(status().isOk())
-//					.andExpect(model().attributeExists("appointments"))
-//					.andExpect(model().attributeExists("shifts"))
-					.andExpect(view().name("vets/scheduleDetails"));
-		}
-	 
-	 @WithMockUser(value = "spring")
-		@Test
-		void testShowSchedule() throws Exception {	    	
-		 	mockMvc.perform(get("/vetSchedule")).andExpect(status().isOk())
-//					.andExpect(model().attributeExists("coincidencias"))
-					.andExpect(view().name("vets/vetSchedule"));
-		}
+	@WithMockUser(username="owner1",authorities= {"owner"})
+    @Test
+    void testInitAppointmentCreationForm() throws Exception {
+	mockMvc.perform(get("appointment/new/{petId}", TEST_PET_ID)).andExpect(status().isOk())
+	.andExpect(model().attributeExists("vaccines"))
+			.andExpect(view().name("appointments/createAppointment"));
+}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testShowAppintmentsDetails() throws Exception {	    	
+	 	mockMvc.perform(get("/appointment/{appointementId}", TEST_APPOINTMENT_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("appointment"))
+				.andExpect(view().name("appointments/appointmentDetails"));
+	}
+	
+	@WithMockUser(value = "spring")
+    @Test
+    void testProcessCreationFormSuccess() throws Exception {
+		Set<Vaccine> vaccines = new HashSet<Vaccine>();
+		vaccines.add(vaccine);
+		Set<Treatment> treatments = new HashSet<Treatment>();
+		treatments.add(treatment);
+		List<LocalTime> times = new ArrayList<LocalTime>();
+		times.add(LocalTime.of(9, 30, 00));
+		mockMvc.perform(post("appointment/new/{petId}", TEST_PET_ID).with(csrf())
+				
+						.param("pet", pet.toString())
+						.param("appointment",appointment.toString())
+						.param("times", times.toString())
+						.param("vaccines", vaccines.toString())
+						.param("treatments", treatments.toString()))
+	
+						
+			.andExpect(status().isOk());
+}
+
 
 }
