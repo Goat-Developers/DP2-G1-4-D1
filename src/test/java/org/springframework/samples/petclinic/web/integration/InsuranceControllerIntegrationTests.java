@@ -26,6 +26,7 @@ import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.samples.petclinic.web.InsuranceController;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -89,37 +90,38 @@ public class InsuranceControllerIntegrationTests {
 		assertNotNull(model.get("insurance"));
 	}
 	
-	/*@Test
+	
+	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		ModelMap model=new ModelMap();
 		Insurance newInsurance = new Insurance();
-		newInsurance.setInsuranceDate(LocalDate.now());
-			InsuranceBase insuranceBase = new InsuranceBase();
-			insuranceBase = insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID);
+		
+		InsuranceBase insuranceBase = insuranceBaseService.findInsuranceBaseById(1);
 		newInsurance.setInsuranceBase(insuranceBase);
-			Vaccine vaccine = vaccineService.findById(TEST_VACCINE_ID);
-			Set<Vaccine> vaccines = new HashSet<>();
-			vaccines.add(vaccine);
-		newInsurance.setVaccines(vaccines);
-			Treatment treatment = new Treatment();
-			treatment.setDescription("Descripcion1");
-			treatment.setPetType(petService.findPetById(1).getType());
-			treatment.setPrice(15.);
-			treatment.setType("Tipo1"); 
-			treatmentService.saveTreatment(treatment);
+
+			
+		Treatment treatment = treatmentService.findById(3);
+
 			Set<Treatment> treatments = new HashSet<>();
 			treatments.add(treatment);
 			
 		newInsurance.setTreatments(treatments);
+
+		Vaccine  vaccine = vaccineService.findById(3);
+			Set<Vaccine> vaccines = new HashSet<>();
+			vaccines.add(vaccine);
+		newInsurance.setVaccines(vaccines);
+	
 		
-		Pet pet = new Pet();
-		pet = petService.findPets().iterator().next();
+		Pet pet = petService.findPetById(1);
+
 		BindingResult bindingResult=new MapBindingResult(Collections.emptyMap(),"");
+		
 		
 		String view = insuranceController.postInsuranceCreationForm(newInsurance, bindingResult, pet, model);
 		
-		assertEquals(view,"redirect:/owners/"+ pet.getOwner().getId());
-	}*/
+		assertEquals(view,"redirect:/owners/1");
+	}
 	
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {
@@ -137,8 +139,8 @@ public class InsuranceControllerIntegrationTests {
 			vaccines.add(vaccine);
 		newInsurance.setVaccines(vaccines);
 		
-		Pet pet = new Pet();
-		pet = petService.findPetById(TEST_PET_ID);
+		
+		Pet pet = petService.findPetById(TEST_PET_ID);
 		BindingResult bindingResult=new MapBindingResult(Collections.emptyMap(),"");
 		bindingResult.reject("insuranceBase", "Required!");
 		

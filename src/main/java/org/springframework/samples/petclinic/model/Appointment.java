@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,11 +23,13 @@ import lombok.Setter;
 @Setter
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
-
+	
+	@NotNull
 	@Column(name = "appointment_date")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate appointmentDate;
 	
+	@NotNull
 	@Column(name = "appointment_time")
 	@DateTimeFormat( pattern = "HH:mm:ss")
 	private LocalTime appointmentTime;
