@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class CheckStockUITest {
   private WebDriver driver;
   private String baseUrl;

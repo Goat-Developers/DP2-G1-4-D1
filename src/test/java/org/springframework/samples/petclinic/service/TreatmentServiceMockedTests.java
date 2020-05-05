@@ -12,11 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.repository.TreatmentRepository;
 
 
 @ExtendWith(MockitoExtension.class)
+@AutoConfigureTestDatabase(replace=Replace.NONE)
 public class TreatmentServiceMockedTests {
 	
 	@Mock

@@ -14,7 +14,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class CreateVaccineErrorUITest {
   private WebDriver driver;
   private String baseUrl;

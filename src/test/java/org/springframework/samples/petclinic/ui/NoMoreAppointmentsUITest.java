@@ -17,7 +17,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class NoMoreAppointmentsUITest {
   private WebDriver driver;
   private String baseUrl;

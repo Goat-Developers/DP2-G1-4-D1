@@ -10,7 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 public class CreateAnnouncementErrorUITest {
 	private WebDriver driver;
 	private String baseUrl;
