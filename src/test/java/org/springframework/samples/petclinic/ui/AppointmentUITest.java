@@ -61,7 +61,7 @@ public class AppointmentUITest {
     driver.findElement(By.linkText("Mi Información")).click();
     driver.findElement(By.linkText("Crear cita")).click();
     driver.findElement(By.id("appointmentDate")).click();
-    driver.findElement(By.linkText("30")).click();
+    driver.findElement(By.linkText("31")).click();
     driver.findElement(By.id("reason")).click();
     driver.findElement(By.id("reason")).clear();
     driver.findElement(By.id("reason")).sendKeys("motivo");

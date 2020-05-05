@@ -90,21 +90,24 @@ public class AnnouncementControllerIntegrationTests {
 		assertNotNull(model.get("announcement"));
 	}
 	
-	/*@Test
+	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		Announcement ann = new Announcement();
-		ann.setBody("Este es el cuerpo");
-		ann.setHeader("Esta es la cabecera");
-		ann.setTag("Este es el tag");
-			Vet vet = new Vet();
-			vet = vetService.findVetById(VET_TEST_ID);
+		ann.setBody("este es el cuerpo");
+		ann.setHeader("esta es la cabecera");
+		ann.setTag("este es el tag");
+		Vet vet = this.annService.findVetByUser("vet1");
+
+
+		
+			
 		ann.setVet(vet);
 		BindingResult bindingResult=new MapBindingResult(Collections.emptyMap(),"");
 		
 		String view = annController.processCreationForm(ann, bindingResult);
 		
 		assertEquals(view,"redirect:/announcements");
-	}*/
+	}
 	
 	@Test
 	void testProcessCreationFormHasErrors() throws Exception {

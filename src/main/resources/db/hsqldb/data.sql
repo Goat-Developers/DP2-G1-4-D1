@@ -58,6 +58,7 @@ INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,s
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (11,4,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (12,5,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (13,6,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (14,6,'Vacuna de cannabis','Para polen',332,'Chema','2001-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 
 
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes serpiente',65.7,'Limpieza de dientes');
