@@ -55,6 +55,17 @@
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt>Tipo</dt>
                         <dd><c:out value="${pet.type.name}"/></dd>
+                        <dd>
+                         <sec:authorize access="!hasAuthority('owner')">
+   		
+    <spring:url value="/vaccinationSchedule/{petId}" var="vcSUrl">
+                    <spring:param name="petId" value="${pet.id}"/>
+                    </spring:url>
+                    <c:if test="${pet.schedule==null }">
+                    <a href="${fn:escapeXml(vcSUrl)}">Crear calendario de vacunas</a>
+                    </c:if>
+    </sec:authorize>
+                        </dd>
                     </dl>
                 </td>
                 <td valign="top">
@@ -66,6 +77,7 @@
                             <th>Descripción</th>
                             <c:if test ="${ pet.insurance ==null}"> <th> Seguro </th></c:if>
                             <th> Citas </th>
+                            <th> Calendario de vacunas</th>
                         </tr>
                         </thead>
                         <c:forEach var="visit" items="${pet.visits}">
@@ -107,6 +119,14 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(appointmentUrl)}">Crear cita</a>
                             </td>
+                            <c:if test="${pet.schedule!=null }">
+                            <td>
+                             <spring:url value="/vaccinationSchedule/{petId}/show" var="vcSUrlShow">
+                    <spring:param name="petId" value="${pet.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(vcSUrlShow)}">Ver calendario</a>
+                            </td>
+                            </c:if>
                         </tr>
                   
                     </table>
@@ -191,11 +211,7 @@
 	            	<c:out value="${appointment.pet}" />
 	            </td>
                 <td>
-             
-               
-           
-                	<c:out value="${appointment.billing} "/>
-                	
+                	<c:out value="${appointment.billing} "/>      	
                 </td>
                          
             </tr>
@@ -205,5 +221,6 @@
         </tbody>
     </table>
     </c:if>
+   
     
 </petclinic:layout>

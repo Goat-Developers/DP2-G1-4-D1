@@ -29,8 +29,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 @Controller
 public class AppointmentController {
@@ -44,6 +46,7 @@ public class AppointmentController {
 	private final VaccineService vaccineService;
 	
 	private final InsuranceService insuranceService;
+	
 	@Autowired
 	public AppointmentController(AppointmentService appointmentService, PetService petService,InsuranceService insuranceService,VetScheduleService vtSchService,VaccineService vaccineService) {
 		this.vtSchService = vtSchService;
@@ -56,6 +59,11 @@ public class AppointmentController {
 	@InitBinder("appointment")
 	public void initPetBinder(final WebDataBinder dataBinder) {
 		dataBinder.setValidator(new AppointmentValidator(vtSchService));
+	}
+	
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
 	}
 	
 	@GetMapping(value = "appointment/new/{petId}")
@@ -177,6 +185,19 @@ public class AppointmentController {
 		
 	}
 	
+
+	@PostMapping(value = "/appointment/observe")
+	public String VetObserveApplication(@ModelAttribute("appointment") Appointment appoint, @ModelAttribute("id") int id) {
+
+		Appointment app = this.appService.findAppointmentById(id);
+		app.setObservations(appoint.getObservations());
+		app.setAttended(true);
+		this.appService.saveAppointment(app);
+		return "redirect:/vets";
+	}
+
+
+
 	
 
 }

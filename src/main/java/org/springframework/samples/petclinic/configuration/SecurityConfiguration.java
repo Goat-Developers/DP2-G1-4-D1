@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/appointment/**").permitAll()
 
 				.antMatchers("/vetSchedule/**").permitAll()
-
+				.antMatchers("/vaccinationSchedule/**").permitAll()
 				.antMatchers("/insurancesbases/**").permitAll()
 				.anyRequest().denyAll()
 				.and()

@@ -1,9 +1,8 @@
 package org.springframework.samples.petclinic.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.validation.Valid;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Appointment;
@@ -21,8 +20,9 @@ public class AppointmentService {
 		this.appRepository = appRepository;
 	}
 	
-	@Transactional
-	public void saveAppointment(@Valid Appointment appointment) {
+
+	public void saveAppointment(Appointment appointment) {
+
 		appRepository.save(appointment);
 		
 	}
