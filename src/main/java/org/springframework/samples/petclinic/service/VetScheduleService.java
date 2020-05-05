@@ -69,5 +69,10 @@ public class VetScheduleService {
 		return vetScheduleRepository.findById(id);	
 	}
 
+	@Transactional
+	public VetSchedule findById(int id) {
+		return vetScheduleRepository.findById(id);	
+	}
+
 
 }
