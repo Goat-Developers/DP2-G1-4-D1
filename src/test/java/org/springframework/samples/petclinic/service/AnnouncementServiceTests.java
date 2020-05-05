@@ -29,11 +29,13 @@ import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.AnnouncementRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace=Replace.NONE)
+//@TestPropertySource(locations="classpath:application-mysql.properties")
 public class AnnouncementServiceTests {
 	
 	@Autowired
@@ -51,7 +53,6 @@ public class AnnouncementServiceTests {
 	
 
 	@Test
-
 	void shouldFindCurrentAnnouncements() {
 		Collection<Announcement> announcements = this.annService.findAnnouncements();
 		
@@ -60,7 +61,6 @@ public class AnnouncementServiceTests {
 		assertThat(a.getHeader()).isEqualTo("esto header en tiempo");
 		assertThat(a.getDate()).isEqualTo("2022-03-22");
 		assertThat(a.getTag()).isEqualTo("gatos");
-
 	}
 
 

@@ -95,18 +95,12 @@ public class InsuranceControllerIntegrationTests {
 	void testProcessCreationFormSuccess() throws Exception {
 		ModelMap model=new ModelMap();
 		Insurance newInsurance = new Insurance();
-		
 		InsuranceBase insuranceBase = insuranceBaseService.findInsuranceBaseById(1);
 		newInsurance.setInsuranceBase(insuranceBase);
-
-			
 		Treatment treatment = treatmentService.findById(3);
-
 			Set<Treatment> treatments = new HashSet<>();
 			treatments.add(treatment);
-			
 		newInsurance.setTreatments(treatments);
-
 		Vaccine  vaccine = vaccineService.findById(3);
 			Set<Vaccine> vaccines = new HashSet<>();
 			vaccines.add(vaccine);
@@ -114,7 +108,6 @@ public class InsuranceControllerIntegrationTests {
 	
 		
 		Pet pet = petService.findPetById(1);
-
 		BindingResult bindingResult=new MapBindingResult(Collections.emptyMap(),"");
 		
 		
