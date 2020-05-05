@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
@@ -34,10 +37,10 @@ import org.springframework.validation.MapBindingResult;
 public class InsuranceControllerIntegrationTests {
 
 	private static final int TEST_INSURANCE_ID = 2;
-	private static final int TEST_INSURANCE_BASE_ID = 12;
-	private static final int TEST_VACCINE_ID = 15;
-	private static final int TEST_TREATMENT_ID = 122;
-	private static final int TEST_PET_ID = 8;
+	private static final int TEST_INSURANCE_BASE_ID = 1;
+	private static final int TEST_VACCINE_ID = 1;
+	private static final int TEST_TREATMENT_ID = 4;
+	private static final int TEST_PET_ID = 1;
 
 	@Autowired
 	private InsuranceController insuranceController;
@@ -95,11 +98,15 @@ public class InsuranceControllerIntegrationTests {
 		
 		InsuranceBase insuranceBase = insuranceBaseService.findInsuranceBaseById(1);
 		newInsurance.setInsuranceBase(insuranceBase);
+
 			
 		Treatment treatment = treatmentService.findById(3);
+
 			Set<Treatment> treatments = new HashSet<>();
 			treatments.add(treatment);
+			
 		newInsurance.setTreatments(treatments);
+
 		Vaccine  vaccine = vaccineService.findById(3);
 			Set<Vaccine> vaccines = new HashSet<>();
 			vaccines.add(vaccine);
@@ -107,6 +114,7 @@ public class InsuranceControllerIntegrationTests {
 	
 		
 		Pet pet = petService.findPetById(1);
+
 		BindingResult bindingResult=new MapBindingResult(Collections.emptyMap(),"");
 		
 		

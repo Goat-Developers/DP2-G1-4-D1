@@ -15,6 +15,7 @@ import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.AnnouncementService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.web.AnnouncementController;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -90,6 +91,9 @@ public class AnnouncementControllerIntegrationTests {
 		assertNotNull(model.get("announcement"));
 	}
 	
+
+	@WithMockUser(username="vet1",authorities= {"veterinarian"})
+
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
 		Announcement ann = new Announcement();
