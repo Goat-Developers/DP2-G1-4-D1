@@ -225,6 +225,8 @@ public class InsuranceControllerTest {
 		
 		
 	}  
+	
+	
 
 
 	@WithMockUser(value = "spring")
@@ -258,28 +260,36 @@ public class InsuranceControllerTest {
 				.andExpect(status().isOk());
 	}
 
-//		@WithMockUser(value = "spring")
-//    @Test
-//    void testProcessCreationFormHasErrors() throws Exception {
-//			Set<Vaccine> vacunasBase = new HashSet<Vaccine>();
-//			vacunasBase.add(vaccineExplotacion);
-//			Set<Treatment> tratamientosBase = new HashSet<Treatment>();
-//			tratamientosBase.add(treatmentParaNada);
-//			Set<InsuranceBase> seguroBase = new HashSet<InsuranceBase>();
-//			seguroBase.add(insuranceBaseCalvo);
-//			
-//    mockMvc.perform(post("/insurance/new/{petId}", TEST_PET_ID)
-//                        .with(csrf())
-//                      
-//						.param("vaccines",vacunasBase.toString() )
-//						.param("treatments", tratamientosBase.toString()))        
-//            .andExpect();
-//}
+		@WithMockUser(value = "spring")
+    @Test
+    void testProcessCreationFormHasErrors() throws Exception {
+			Set<Vaccine> vacunasBase = new HashSet<Vaccine>();
+			vacunasBase.add(vaccineExplotacion);
+			Set<Treatment> tratamientosBase = new HashSet<Treatment>();
+			tratamientosBase.add(treatmentParaNada);
+			Set<InsuranceBase> seguroBase = new HashSet<InsuranceBase>();
+			seguroBase.add(insuranceBaseCalvo);
+			
+    mockMvc.perform(post("/insurance/new/{petId}", TEST_PET_ID)
+                        .with(csrf())
+                      
+						.param("vaccines",vacunasBase.toString() )
+						.param("treatments", tratamientosBase.toString()))        
+            .andExpect(status().isOk());
+}
 
+	 @WithMockUser(value = "spring")
+		@Test
+		void testShowInsuranceList() throws Exception {
+			mockMvc.perform(get("/insurances")).andExpect(status().isOk())
+					.andExpect(model().attributeExists("insurances"))
+					.andExpect(model().attributeExists("insurance"))
+					.andExpect(view().name("insurances/insuranceList"));
+		}
 	
     	@WithMockUser(value = "spring")
     @Test
-    void testShowInsurance() throws Exception {
+    void testShowInsuranceDetails() throws Exception {
     		Set<Vaccine> vacunas = new HashSet<Vaccine>();
     		vacunas.add(vaccineCoronavirus);
     		Set<Treatment> tratamientos = new HashSet<Treatment>();

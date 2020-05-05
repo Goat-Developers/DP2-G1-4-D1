@@ -76,12 +76,12 @@ public class ShiftController {
 	@GetMapping(value = "/shifts/{shiftId}/new/{vetId}")
 	public String initCreateshiftForm(@PathVariable("vetId") int vetId, @PathVariable("shiftId") int shiftId) {
 			
-			Shift a = this.shiftService.findById(shiftId);
-			Vet vet = this.vetService.findVetById(vetId);
-			VetSchedule vtSchedule = vet.getVetSchedule();
-			vtSchedule.getShifts().add(a);
-			this.vetScheduleService.saveVtSchedule(vtSchedule);
-			return "redirect:/shifts/{vetId}";
+		Shift a = this.shiftService.findById(shiftId);
+		Vet vet = this.vetService.findVetById(vetId);
+		VetSchedule vtSchedule = vet.getVetSchedule();
+		vtSchedule.getShifts().add(a);
+		this.vetScheduleService.saveVtSchedule(vtSchedule);
+		return "redirect:/shifts/{vetId}";
 	}
 
 	

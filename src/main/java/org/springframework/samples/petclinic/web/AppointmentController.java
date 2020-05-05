@@ -185,6 +185,7 @@ public class AppointmentController {
 		
 	}
 	
+
 	@PostMapping(value = "/appointment/observe")
 	public String VetObserveApplication(@ModelAttribute("appointment") Appointment appoint, @ModelAttribute("id") int id) {
 
@@ -196,7 +197,7 @@ public class AppointmentController {
 	}
 
 
-	
+
 	
 
 }

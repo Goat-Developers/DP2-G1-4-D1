@@ -38,6 +38,7 @@ public class AppointmentValidator implements Validator{
 		Set<Appointment> appointments = pet.getAppointments();
 		LocalDate dateApp = appointment.getAppointmentDate();
 		LocalTime timeApp = appointment.getAppointmentTime();
+
 	
 		if (appointment.getAppointmentDate().isBefore(LocalDate.now()) ) {
 			errors.rejectValue("appointmentDate", AppointmentValidator.REQUIRED + " la fecha de la cita no puede ser anterior a hoy", AppointmentValidator.REQUIRED + " la fecha de la cita no puede ser anterior a hoy");
@@ -46,11 +47,13 @@ public class AppointmentValidator implements Validator{
 		if (appointment.getAppointmentTime().isBefore(LocalTime.now()) && appointment.getAppointmentDate().equals(LocalDate.now())) {
 			errors.rejectValue("appointmentTime", AppointmentValidator.REQUIRED + " la hora de la cita no puede ser anterior a la actual "+ LocalTime.now().getHour()+ " : "+ LocalTime.now().getMinute(), AppointmentValidator.REQUIRED + " la hora de la cita no puede ser anterior a la actual "+  LocalTime.now().getHour()+ " : "+ LocalTime.now().getMinute());
 		}
+
 		for(Appointment a: appointments) {
 			if(a.getAppointmentDate().equals(dateApp) && a.getAppointmentTime().equals(timeApp) ) {
 				errors.rejectValue("appointmentDate", AppointmentValidator.REQUIRED + " su mascota ya dispone de una cita para ese día y hora", AppointmentValidator.REQUIRED + " su mascota ya dispone de una cita para ese día y hora");
 			}
 		}
+		
 		if(appointment.getReason().isEmpty()) {
 			errors.rejectValue("reason", AppointmentValidator.REQUIRED + " debe facilitar un motivo para la cita", AppointmentValidator.REQUIRED + " debe facilitar un motivo para la cita");
 		}
@@ -73,7 +76,10 @@ public class AppointmentValidator implements Validator{
 			errors.rejectValue("appointmentTime", AppointmentValidator.REQUIRED + " no hay cita disponible a esa hora y ese día", AppointmentValidator.REQUIRED + " no hay cita disponible a esa hora y ese día");
 		}
 		
+
+
 		
 	}
+	
 
 }
