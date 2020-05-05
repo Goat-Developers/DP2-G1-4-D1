@@ -72,16 +72,12 @@ public class InsuranceService {
 	public Collection<Treatment> findTreatments() throws DataAccessException {
 		return insuranceRepository.findTreatments();
 	}
-	
 
 	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findTreatmentsByPetTypeId(id);
 	}
+	
 	public void sendMessage(@Valid Insurance insurance, Pet pet) throws GeneralSecurityException, IOException, MessagingException, URISyntaxException {
 		GmailQuickstart.SendingEmail(insurance,pet);
-		
 	}
-
-	
-
 }

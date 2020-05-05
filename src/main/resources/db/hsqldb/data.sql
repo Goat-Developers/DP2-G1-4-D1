@@ -1,7 +1,7 @@
 -- One admin user, named admin1 with password 4dm1n and authority admin
 INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
 INSERT INTO authorities VALUES ('admin1','admin');
--- One owner user, named owner1 with password 0wn3r
+-- Ten owner users, named ownerX with password 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('owner2','0wn3r',TRUE);
@@ -22,18 +22,18 @@ INSERT INTO users(username,password,enabled) VALUES ('owner9','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner9','owner');
 INSERT INTO users(username,password,enabled) VALUES ('owner10','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner10','owner');
--- One vet user, named vet1 with password v3t
+-- Six vet users, named vetX with password v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('vet2','v3t',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('vet3','v3t',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('vet4','v3t',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('vet5','v3t',TRUE);
-INSERT INTO users(username,password,enabled) VALUES ('vet6','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet1','veterinarian');
+INSERT INTO users(username,password,enabled) VALUES ('vet2','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet2','worker');
+INSERT INTO users(username,password,enabled) VALUES ('vet3','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet3','worker');
+INSERT INTO users(username,password,enabled) VALUES ('vet4','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet4','worker');
+INSERT INTO users(username,password,enabled) VALUES ('vet5','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet5','worker');
+INSERT INTO users(username,password,enabled) VALUES ('vet6','v3t',TRUE);
 INSERT INTO authorities VALUES ('vet6','worker');
 
 
@@ -45,20 +45,20 @@ INSERT INTO types VALUES (5, 'bird');
 INSERT INTO types VALUES (6, 'hamster');
 
 
-
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (1,1,'Vacuna de la rabia','Para ratas',32.3,'Chema','2022-06-08',30, 'produce ardores');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,1,'Vacuna del coronavirus','Para ratas',332,'Chema','2021-06-06',10, 'hecha por chinos');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (2,1,'Vacuna del coronavirus','Para ratas',332,'Chema','2019-06-06',10, 'hecha por chinos');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (3,1,'Vacuna de la peste','Para ratas',32.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (4,4,'Vacuna de cannabis','Para polen',332,'Chema','2001-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (5,5,'Vacuna de la uni','Para ratas',31.3,'Chema','2022-06-08',13,'inútil');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (6,6,'Vacuna del virus chino','Para ratas',3324,'Chema','2021-06-06',20,'te puede entrar la rabia');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (7,2,'vacuna contra bebes indefensos','Para ratas',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
-INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',40,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (8,3,'vacuna para aprobar','Para polen',3322222,'Chema','2001-06-06',5,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (9,2,'vacuna perros 2','Para prevenir',34.3,'Chema','2022-06-08',3,'Te quedas como el Chema');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (10,3,'vacuna para aprobar','Para polen',3322222,'Chema','2021-06-06',40,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (11,4,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (12,5,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (13,6,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
+
 
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes serpiente',65.7,'Limpieza de dientes');
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (2,1,'Pelo gatos',10,'Corte de pelo');
@@ -83,11 +83,9 @@ INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (5,'Seguro Base 
 INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,'Seguro Base Roedores',6,'Tiene que ser hamster.');
 
 
-
-
 INSERT INTO insurance_base_vaccines VALUES (1, 1);
 INSERT INTO insurance_base_vaccines VALUES (2, 7);
-INSERT INTO insurance_base_vaccines VALUES (3, 8);
+INSERT INTO insurance_base_vaccines VALUES (3, 2);
 INSERT INTO insurance_base_vaccines VALUES (4, 4);
 INSERT INTO insurance_base_vaccines VALUES (5, 5);
 INSERT INTO insurance_base_vaccines VALUES (6, 6);
@@ -99,7 +97,6 @@ INSERT INTO insurance_base_treatments VALUES (3, 7);
 INSERT INTO insurance_base_treatments VALUES (4, 1);
 INSERT INTO insurance_base_treatments VALUES (5, 8);
 INSERT INTO insurance_base_treatments VALUES (6, 5);
-
 
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
@@ -143,9 +140,6 @@ INSERT INTO shifts(id, shift_date) VALUES (7, '14:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (8, '15:00:00');
 
 
-
-
-
 INSERT INTO vet_schedule(id) VALUES (1);
 INSERT INTO vet_schedule(id) VALUES (2);
 INSERT INTO vet_schedule(id) VALUES (3);
@@ -159,24 +153,29 @@ INSERT INTO schedule_shifts VALUES (1, 3);
 INSERT INTO schedule_shifts VALUES (1, 5);
 INSERT INTO schedule_shifts VALUES (1, 7);
 
+
 INSERT INTO schedule_shifts VALUES (2, 2);
 INSERT INTO schedule_shifts VALUES (2, 4);
 INSERT INTO schedule_shifts VALUES (2, 6);
 INSERT INTO schedule_shifts VALUES (2, 8);
 
+
 INSERT INTO schedule_shifts VALUES (3, 1);
 INSERT INTO schedule_shifts VALUES (3, 3);
 INSERT INTO schedule_shifts VALUES (3, 5);
+
 
 INSERT INTO schedule_shifts VALUES (4, 2);
 INSERT INTO schedule_shifts VALUES (4, 4);
 INSERT INTO schedule_shifts VALUES (4, 6);
 INSERT INTO schedule_shifts VALUES (4, 8);
 
+
 INSERT INTO schedule_shifts VALUES (5, 1);
 INSERT INTO schedule_shifts VALUES (5, 3);
 INSERT INTO schedule_shifts VALUES (5, 5);
 INSERT INTO schedule_shifts VALUES (5, 7);
+
 
 INSERT INTO schedule_shifts VALUES (6, 2);
 INSERT INTO schedule_shifts VALUES (6, 4);
@@ -192,26 +191,21 @@ INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) V
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (5, 'Henry', 'Stevens','vet5',8,5);
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (6, 'Sharon', 'Jenkins','vet6',6,6);
 
+
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (3,'esto body CON MAYUS','esto header','gatos','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-22',1,0);
 
+
 INSERT INTO specialties VALUES (1, 'Radiology');
 INSERT INTO specialties VALUES (2, 'Surgery');
 INSERT INTO specialties VALUES (3, 'Dentistry');
+
 
 INSERT INTO vet_specialties VALUES (2, 1);
 INSERT INTO vet_specialties VALUES (3, 2);
 INSERT INTO vet_specialties VALUES (3, 3);
 INSERT INTO vet_specialties VALUES (4, 2);
 INSERT INTO vet_specialties VALUES (5, 1);
-
-
-
-
-
-
-
-
 

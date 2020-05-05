@@ -29,6 +29,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Insurances;
+import org.springframework.samples.petclinic.model.InsurancesBases;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.Vaccine;
@@ -77,7 +78,7 @@ public class InsuranceController {
 		model.put("insurances",insurances);
 		model.put("insurance",insurance);
 		return URL_INSURANCES;
-		
+
 	}
 	
 	@GetMapping("/insurances/{insuranceId}")

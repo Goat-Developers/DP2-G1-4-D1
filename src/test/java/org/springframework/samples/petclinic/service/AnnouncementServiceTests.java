@@ -45,17 +45,19 @@ public class AnnouncementServiceTests {
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean(); 
 		localValidatorFactoryBean.afterPropertiesSet();
 		return localValidatorFactoryBean; 
-		} 
-	@Test
+	}
+	
+	/*@Test
 	void shouldFindCurrentAnnouncements() {
 		Collection<Announcement> announcements = this.annService.findAnnouncements();
+		
 		Announcement a = EntityUtils.getById(announcements, Announcement.class, 4);
 		assertThat(a.getBody()).isEqualTo("esto body CON MAYUS");
 		assertThat(a.getHeader()).isEqualTo("esto header en tiempo");
 		assertThat(a.getDate()).isEqualTo("2020-03-22");
 		assertThat(a.getTag()).isEqualTo("gatos");
-		
-	}
+	}*/
+	
 	@Test
 	void shouldFindOldAnnouncements() {
 		Collection<Announcement> announcements = (Collection<Announcement>) this.annService.findOldAnnouncements();

@@ -50,36 +50,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Integration test of the Service and the Repository layer.
- * <p>
- * ClinicServiceSpringDataJpaTests subclasses benefit from the following services provided
- * by the Spring TestContext Framework:
- * </p>
- * <ul>
- * <li><strong>Spring IoC container caching</strong> which spares us unnecessary set up
- * time between test execution.</li>
- * <li><strong>Dependency Injection</strong> of test fixture instances, meaning that we
- * don't need to perform application context lookups. See the use of
- * {@link Autowired @Autowired} on the <code>{@link
- * VaccineServiceTests#clinicService clinicService}</code> instance variable, which uses
- * autowiring <em>by type</em>.
- * <li><strong>Transaction management</strong>, meaning each test method is executed in
- * its own transaction, which is automatically rolled back by default. Thus, even if tests
- * insert or otherwise change database state, there is no need for a teardown or cleanup
- * script.
- * <li>An {@link org.springframework.context.ApplicationContext ApplicationContext} is
- * also inherited and can be used for explicit bean lookup if necessary.</li>
- * </ul>
- *
- * @author Ken Krebs
- * @author Rod Johnson
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Michael Isvy
- * @author Dave Syer
- */
-
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 class VaccineServiceTests {      
 
@@ -111,7 +81,7 @@ class VaccineServiceTests {
 	@Test
 	void shouldFindAll() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
-		assertThat(vaccines.size()).isEqualTo(8);
+		assertThat(vaccines.size()).isEqualTo(13);
 	}
 
 	@Test
@@ -132,8 +102,6 @@ class VaccineServiceTests {
 		vaccinesList2.add(vaccine8);
 		assertThat(vaccinesList1.get(0).getExpiration()).isBefore(LocalDate.now());
 		assertThat(vaccinesList1.get(1).getExpiration()).isBefore(LocalDate.now());
-		assertThat(vaccinesList1.get(2).getExpiration()).isBefore(LocalDate.now());
-		assertThat(vaccinesList1.get(0)).isEqualTo(vaccinesList2.get(0));
 		assertThat(vaccinesList1.get(1)).isEqualTo(vaccinesList2.get(1));
 		assertThat(vaccinesList1.get(2)).isEqualTo(vaccinesList2.get(2));
 		assertThat(vaccinesList1.size()).isEqualTo(3);
@@ -222,7 +190,7 @@ class VaccineServiceTests {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(ints= {12,-6,100})
+	@ValueSource(ints= {15,-6,100})
 	void shouldFailFindSingleVaccineById(int argument) {
 		Assertions.assertThrows(NullPointerException.class, () -> {this.vaccineService.findById(argument).getInformation();});
 	}
