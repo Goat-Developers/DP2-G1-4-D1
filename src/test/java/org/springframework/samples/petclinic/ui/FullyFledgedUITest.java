@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.ui;
 
+
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -36,8 +38,10 @@ public class FullyFledgedUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
+
 		String pathToGeckoDriver="./target/classes/static/resources/";
 		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
+
 		driver = new FirefoxDriver();
 		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -45,9 +49,11 @@ public class FullyFledgedUITest {
 
 	@Test
 	public void testLoginAsOwner() throws Exception {
+
 		as("owner1")
 		.whenIamLoggedIntheSystem()
 		.thenISeeMyUsernameInTheMenuBar();
+
 	}
 
 	private void thenISeeMyUsernameInTheMenuBar() {
@@ -63,14 +69,18 @@ public class FullyFledgedUITest {
 		driver.get("http://localhost:"+port);
 		driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
 		driver.findElement(By.id("password")).clear();
+
 		driver.findElement(By.id("password")).sendKeys(passwordOfOwner(username));
+
 		driver.findElement(By.id("username")).clear();
 		driver.findElement(By.id("username")).sendKeys(username);
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		return this;
 	}
 
+
 	private CharSequence passwordOfOwner(String username) {
+
 		return "0wn3r";
 	}
 

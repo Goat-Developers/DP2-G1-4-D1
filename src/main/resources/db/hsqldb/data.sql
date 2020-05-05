@@ -198,6 +198,7 @@ INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VA
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2022-03-22',1,0);
 
 
+
 INSERT INTO specialties VALUES (1, 'Radiology');
 INSERT INTO specialties VALUES (2, 'Surgery');
 INSERT INTO specialties VALUES (3, 'Dentistry');

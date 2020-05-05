@@ -225,6 +225,8 @@ public class InsuranceControllerTest {
 		
 		
 	}  
+	
+	
 
 
 	@WithMockUser(value = "spring")
@@ -276,10 +278,18 @@ public class InsuranceControllerTest {
 //            .andExpect();
 //}
 
+	 @WithMockUser(value = "spring")
+		@Test
+		void testShowInsuranceList() throws Exception {
+			mockMvc.perform(get("/insurances")).andExpect(status().isOk())
+					.andExpect(model().attributeExists("insurances"))
+					.andExpect(model().attributeExists("insurance"))
+					.andExpect(view().name("insurances/insuranceList"));
+		}
 	
     	@WithMockUser(value = "spring")
     @Test
-    void testShowInsurance() throws Exception {
+    void testShowInsuranceDetails() throws Exception {
     		Set<Vaccine> vacunas = new HashSet<Vaccine>();
     		vacunas.add(vaccineCoronavirus);
     		Set<Treatment> tratamientos = new HashSet<Treatment>();

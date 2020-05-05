@@ -33,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class InsuranceServiceTest {
 	
+
 	@Autowired
    	protected InsuranceService insuranceService; 
    
@@ -58,10 +59,12 @@ public class InsuranceServiceTest {
 	
 	private Vaccine  vaccineInsurance, vaccineInsuranceBase;
 	
+
 	private Treatment treatmentInsurance, treatmentInsuranceBase;
 	
 	private InsuranceBase insuranceBase;
 	
+
 	@BeforeEach
 	void setup() {
 		//Vacuna para el seguro
@@ -149,7 +152,7 @@ public class InsuranceServiceTest {
 		Insurance insurance = this.insuranceService.findInsuranceById(1);
 		assertThat(insurance.getId()).isEqualTo(1);
 	}*/
-	
+
 	@Test
 	@Transactional
 	public void  shouldSaveInsurance() {
@@ -195,12 +198,15 @@ public class InsuranceServiceTest {
     void shouldFindVaccinesByPetTypeId() {
 		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(4);
 		assertThat(vaccines.size()).isEqualTo(1);
+
     }
 	
 	@Test
     void shouldFindTreatmentsByPetTypeId() {
+
 		Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(4);
 		assertThat(treatments.size()).isEqualTo(2);
+
     }
 	
 	@ParameterizedTest
@@ -219,8 +225,10 @@ public class InsuranceServiceTest {
 	@ParameterizedTest
 	@ValueSource(ints= {-49,0,123})
 	void shouldFailFindTreatmentsByPetTypeId(Integer argument) {
-		Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(argument);
-		assertThat(treatments);
+
+		Collection<Treatment> treatment = this.insuranceService.findTreatmentsByPetTypeId(argument);
+		assertThat(treatment);
+
 	}
 	
 	@Test
@@ -244,4 +252,5 @@ public class InsuranceServiceTest {
 		when(service.findInsuranceById(19)).thenThrow(new RuntimeException());
 		Assertions.assertThrows(RuntimeException.class, ()-> {service.findInsuranceById(19);});
 	}
+
 }

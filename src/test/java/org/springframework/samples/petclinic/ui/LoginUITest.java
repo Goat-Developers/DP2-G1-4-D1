@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.ui;
 
+
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+
 public class LoginUITest {
 	private String username;
 	private WebDriver driver;
@@ -26,8 +28,10 @@ public class LoginUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
+
 		String pathToGeckoDriver="./target/classes/static/resources/";
 		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
+
 		driver = new FirefoxDriver();
 		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -35,6 +39,7 @@ public class LoginUITest {
 
 	@Test
 	public void testLoginAsVet1() throws Exception {
+
 		as("vet1")
 		.whenIamLoggedIntheSystem()
 		.thenICanSeeMyUsernameInsideTheMenuBar();
@@ -42,6 +47,7 @@ public class LoginUITest {
 	
 	private void thenICanSeeMyUsernameInsideTheMenuBar() {
 		assertEquals(username, driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
+
 	}
 	
 	private LoginUITest whenIamLoggedIntheSystem() {	
@@ -50,6 +56,7 @@ public class LoginUITest {
 	
 	private LoginUITest as(String username) {
 		this.username = username;
+
 		driver.get("http://localhost:8080");
 	    driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
 	    driver.findElement(By.id("password")).clear();
@@ -57,6 +64,7 @@ public class LoginUITest {
 	    driver.findElement(By.id("username")).clear();
 	    driver.findElement(By.id("username")).sendKeys(username);
 	    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
 		return this;
 	}
 	

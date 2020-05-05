@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Appointment;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.repository.VetRepository;
@@ -61,6 +62,11 @@ public class VetScheduleService {
 	public void saveVtSchedule(VetSchedule vtSchedule) {
 		 this.vetScheduleRepository.save(vtSchedule);
 		
+	}
+	
+	@Transactional
+	public VetSchedule findById(int id) {
+		return vetScheduleRepository.findById(id);	
 	}
 
 
