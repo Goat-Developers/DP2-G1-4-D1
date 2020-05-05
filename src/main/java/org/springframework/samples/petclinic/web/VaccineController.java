@@ -55,7 +55,6 @@ public class VaccineController {
 			}
 		}
 		modelMap.addAttribute("vaccine",vaccines);
-		
 		return vista;
 	}
 	

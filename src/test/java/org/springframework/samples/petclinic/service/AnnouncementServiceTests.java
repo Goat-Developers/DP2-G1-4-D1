@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.service;
 
-
-
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,20 +45,27 @@ public class AnnouncementServiceTests {
 		return localValidatorFactoryBean; 
 	}
 	
-	/*@Test
+
+	@Test
+
 	void shouldFindCurrentAnnouncements() {
 		Collection<Announcement> announcements = this.annService.findAnnouncements();
 		
 		Announcement a = EntityUtils.getById(announcements, Announcement.class, 4);
 		assertThat(a.getBody()).isEqualTo("esto body CON MAYUS");
 		assertThat(a.getHeader()).isEqualTo("esto header en tiempo");
-		assertThat(a.getDate()).isEqualTo("2020-03-22");
+		assertThat(a.getDate()).isEqualTo("2022-03-22");
 		assertThat(a.getTag()).isEqualTo("gatos");
-	}*/
+
+	}
+
+
+
 	
 	@Test
 	void shouldFindOldAnnouncements() {
-		Collection<Announcement> announcements = (Collection<Announcement>) this.annService.findOldAnnouncements();
+		Collection<Announcement> announcements = this.annService.findOldAnnouncements();
+		
 		Announcement a = EntityUtils.getById(announcements, Announcement.class, 1);
 		assertThat(a.getBody()).isEqualTo("esto body");
 		assertThat(a.getHeader()).isEqualTo("esto header");
@@ -76,6 +81,7 @@ public class AnnouncementServiceTests {
 		announcements = this.annService.findAnnouncementsByTag("gatod");
 		assertThat(announcements.isEmpty()).isTrue();
 	}
+	
 	@ParameterizedTest
 	@ValueSource(ints= {5,6,7,8})
 	void failureFindAnnouncementsById(int argument) {
@@ -103,6 +109,7 @@ public class AnnouncementServiceTests {
 		announcements = this.annService.findAnnouncementsByTag("Testing tag");
 		assertThat(announcements.size()).isEqualTo(found + 1);
 	}
+	
 	@Test
 	public void failureInsertAnnouncement() {
 		Vet vetAdin = this.annService.findVetByUser("vet1");
@@ -123,9 +130,7 @@ public class AnnouncementServiceTests {
 		assertThat(violation.getPropertyPath().toString()) .isEqualTo("body"); 
 		assertThat(violation.getMessage()).isEqualTo("must not be empty"); 
 		Assertions.assertThrows(Exception.class, () -> {this.annService.saveAnnouncement(a);});
-		
 	}
-
 
 	@ParameterizedTest
 	@ValueSource(ints= {1,2,3,4})
@@ -133,6 +138,7 @@ public class AnnouncementServiceTests {
 		Announcement a = this.annService.findAnnouncementById(argument);
 		assertThat(a.getVet().getFirstName()).startsWith("James");
 	}
+	
 	@Test
 	public void shouldFindAnnouncements() {
 		AnnouncementService annServices = new AnnouncementService(annRepository);

@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class InsuranceServiceTest {
 	
-	
+
 	@Autowired
    	protected InsuranceService insuranceService; 
    
@@ -55,105 +55,89 @@ public class InsuranceServiceTest {
     @Mock
     private InsuranceRepository insuranceRepostiory;
 
-    private Insurance insuranceParaMamporreo;
+    private Insurance insurancePrincipal;
 	
-	private Vaccine  vaccineCoronavirus;
+	private Vaccine  vaccineInsurance, vaccineInsuranceBase;
 	
-	private Vaccine  vaccineExplotacion;
+
+	private Treatment treatmentInsurance, treatmentInsuranceBase;
 	
-	private Treatment treatmentParaAburrimiento;
+	private InsuranceBase insuranceBase;
 	
-	private Treatment treatmentParaNada;
-	
-	private InsuranceBase insuranceBaseCalvo;
-	
+
 	@BeforeEach
 	void setup() {
-		//Creo la vacuna para seguro
-		vaccineCoronavirus = new Vaccine();
+		//Vacuna para el seguro
+		vaccineInsurance = new Vaccine();
 		Collection<PetType> mariposa = this.petService.findPetTypes();
-    	vaccineCoronavirus.setPetType(EntityUtils.getById(mariposa, PetType.class, 4));
-        vaccineCoronavirus.setId(1);
-        vaccineCoronavirus.setInformation("Vacuna del coronavirus en pruebas, testeado en monos");
-        vaccineCoronavirus.setExpiration(LocalDate.of(2021, 4, 3));
-        vaccineCoronavirus.setName("Vacuna contra el coronavirus");
+    	vaccineInsurance.setPetType(EntityUtils.getById(mariposa, PetType.class, 4));
+        vaccineInsurance.setId(1);
+        vaccineInsurance.setInformation("Vacuna del coronavirus en pruebas, testeado en monos");
+        vaccineInsurance.setExpiration(LocalDate.of(2021, 4, 3));
+        vaccineInsurance.setName("Vacuna contra el coronavirus");
+        vaccineInsurance.setPrice(325.25);
+        vaccineInsurance.setProvider("China");
+        vaccineInsurance.setSideEffects("Puede provocar crisis nerviosas");
+        vaccineInsurance.setStock(235);
         
-        vaccineCoronavirus.setPrice(325.25);
-        vaccineCoronavirus.setProvider("China");
-        vaccineCoronavirus.setSideEffects("Puede provocar crisis nerviosas");
-        vaccineCoronavirus.setStock(235);
-      
-        
-        //Creo el tratamiento
-        treatmentParaAburrimiento = new Treatment();
+        //Tratamiento para el seguro
+        treatmentInsurance = new Treatment();
         Collection<PetType> raton = this.petService.findPetTypes();
-    	treatmentParaAburrimiento.setPetType(EntityUtils.getById(raton, PetType.class, 1));
-        treatmentParaAburrimiento.setId(1);
-        treatmentParaAburrimiento.setPrice(21.4);
-        treatmentParaAburrimiento.setType("Tratamiento contra el aburrimiento");
-        treatmentParaAburrimiento.setDescription("Para que no te arranques los pelos este mes");
+    	treatmentInsurance.setPetType(EntityUtils.getById(raton, PetType.class, 1));
+        treatmentInsurance.setId(1);
+        treatmentInsurance.setPrice(21.4);
+        treatmentInsurance.setType("Tratamiento contra el aburrimiento");
+        treatmentInsurance.setDescription("Para que no te arranques los pelos este mes");
         
-        
-      //Creo la vacuna para seguro base
-        vaccineExplotacion = new Vaccine();
+        //Vacuna para el seguro base
+        vaccineInsuranceBase = new Vaccine();
         Collection<PetType> koala = this.petService.findPetTypes();
-        vaccineExplotacion.setPetType(EntityUtils.getById(koala, PetType.class, 5));
-      
-        vaccineExplotacion.setId(2);
-        vaccineExplotacion.setInformation("Vacuna contra la explotacion, testeado en Chao");
-        vaccineExplotacion.setExpiration(LocalDate.of(2021, 5, 9));
-        vaccineExplotacion.setName("Vacuna contra la explotacion");
-        vaccineExplotacion.setPrice(32.3);
-        vaccineExplotacion.setProvider("Madagascar");
-        vaccineExplotacion.setSideEffects("Puede volverte mas tonto");
-        vaccineExplotacion.setStock(2);
+        vaccineInsuranceBase.setPetType(EntityUtils.getById(koala, PetType.class, 5));
+        vaccineInsuranceBase.setId(2);
+        vaccineInsuranceBase.setInformation("Vacuna contra la explotacion, testeado en Chao");
+        vaccineInsuranceBase.setExpiration(LocalDate.of(2021, 5, 9));
+        vaccineInsuranceBase.setName("Vacuna contra la explotacion");
+        vaccineInsuranceBase.setPrice(32.3);
+        vaccineInsuranceBase.setProvider("Madagascar");
+        vaccineInsuranceBase.setSideEffects("Puede volverte mas tonto");
+        vaccineInsuranceBase.setStock(2);
         
-        
-      //Creo el tratamiento para seguro base
-        treatmentParaNada = new Treatment();
+        //Tratamiento para el seguro base
+        treatmentInsuranceBase = new Treatment();
         Collection<PetType> agaporni = this.petService.findPetTypes();
-        treatmentParaNada.setPetType(EntityUtils.getById(agaporni, PetType.class, 2));
-       
-        treatmentParaNada.setId(3);
-        treatmentParaNada.setPrice(43.4);
-        treatmentParaNada.setType("Tratamiento inutil");
-        treatmentParaNada.setDescription("No sabia que poner");
+        treatmentInsuranceBase.setPetType(EntityUtils.getById(agaporni, PetType.class, 2));
+        treatmentInsuranceBase.setId(3);
+        treatmentInsuranceBase.setPrice(43.4);
+        treatmentInsuranceBase.setType("Tratamiento inutil");
+        treatmentInsuranceBase.setDescription("No sabia que poner");
         
-        
-        
-        //Crear Seguro Base
-        
-        Set<Vaccine> vacunasBase = new HashSet<Vaccine>();
-		vacunasBase.add(vaccineExplotacion);
-		Set<Treatment> tratamientosBase = new HashSet<Treatment>();
-		tratamientosBase.add(treatmentParaNada);
-		insuranceBaseCalvo = new InsuranceBase();
-		 Collection<PetType> rata = this.petService.findPetTypes();
-	        vaccineExplotacion.setPetType(EntityUtils.getById(rata, PetType.class, 3));
-        
-        insuranceBaseCalvo.setId(5);
-       
-        insuranceBaseCalvo.setName("Para sobrevivir");
-        insuranceBaseCalvo.setConditions("Respirar y poco mas ");
-        insuranceBaseCalvo.setTreatments(tratamientosBase);
-        insuranceBaseCalvo.setVaccines(vacunasBase);
-        
-        
-        
-        
-        //Creo el seguro
-        
-		Set<Vaccine> vacunas = new HashSet<Vaccine>();
-		vacunas.add(vaccineCoronavirus);
-		Set<Treatment> tratamientos = new HashSet<Treatment>();
-		tratamientos.add(treatmentParaAburrimiento);	
+        //Seguro Base
+        Set<Vaccine> vaccinesBase = new HashSet<Vaccine>();
+		vaccinesBase.add(vaccineInsuranceBase);
+		Set<Treatment> treatmentsBase = new HashSet<Treatment>();
+		treatmentsBase.add(treatmentInsuranceBase);
 		
-		insuranceParaMamporreo = new Insurance();
-		insuranceParaMamporreo.setId(5);
-		insuranceParaMamporreo.setInsuranceDate(LocalDate.of(2020, 4 ,3));
-		insuranceParaMamporreo.setInsuranceBase(insuranceBaseCalvo);
-		insuranceParaMamporreo.setTreatments(tratamientos);
-		insuranceParaMamporreo.setVaccines(vacunas);
+		insuranceBase = new InsuranceBase();
+		Collection<PetType> rata = this.petService.findPetTypes();
+        insuranceBase.setPetType(EntityUtils.getById(rata, PetType.class, 3));
+        insuranceBase.setId(5);
+        insuranceBase.setName("Para sobrevivir");
+        insuranceBase.setConditions("Respirar y poco mas ");
+        insuranceBase.setTreatments(treatmentsBase);
+        insuranceBase.setVaccines(vaccinesBase);
+        
+        //Seguro
+		Set<Vaccine> vaccines = new HashSet<Vaccine>();
+		vaccines.add(vaccineInsurance);
+		Set<Treatment> treatments = new HashSet<Treatment>();
+		treatments.add(treatmentInsurance);	
+		
+		insurancePrincipal = new Insurance();
+		insurancePrincipal.setId(5);
+		insurancePrincipal.setInsuranceDate(LocalDate.of(2020, 4 ,3));
+		insurancePrincipal.setInsuranceBase(insuranceBase);
+		insurancePrincipal.setTreatments(treatments);
+		insurancePrincipal.setVaccines(vaccines);
 	}
 		
 	@Test
@@ -168,20 +152,19 @@ public class InsuranceServiceTest {
 		Insurance insurance = this.insuranceService.findInsuranceById(1);
 		assertThat(insurance.getId()).isEqualTo(1);
 	}*/
-	
-	
+
 	@Test
 	@Transactional
 	public void  shouldSaveInsurance() {
 		Collection<Insurance> insurance = this.insuranceService.findInsurances();
 		int total = insurance.size();
-		this.insuranceService.saveInsurance(insuranceParaMamporreo);
+		this.insuranceService.saveInsurance(insurancePrincipal);
 
 		insurance = this.insuranceService.findInsurances();
-		Set<Vaccine> vacunas = insuranceParaMamporreo.getVaccines();
+		Set<Vaccine> vacunas = insurancePrincipal.getVaccines();
 		comprueboQueDecrementaElStockEn1(vacunas);
 		assertThat(insurance.size()).isEqualTo(total + 1);
-		assertThat(insuranceParaMamporreo.getId()).isNotNull();
+		assertThat(insurancePrincipal.getId()).isNotNull();
 	}
 	
 	private void comprueboQueDecrementaElStockEn1(Set<Vaccine> vacunas) {
@@ -215,14 +198,15 @@ public class InsuranceServiceTest {
     void shouldFindVaccinesByPetTypeId() {
 		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(4);
 		assertThat(vaccines.size()).isEqualTo(1);
-		
+
     }
 	
 	@Test
     void shouldFindTreatmentsByPetTypeId() {
-		Collection<Treatment> treatment = this.insuranceService.findTreatmentsByPetTypeId(4);
-		assertThat(treatment.size()).isEqualTo(2);
-		
+
+		Collection<Treatment> treatments = this.insuranceService.findTreatmentsByPetTypeId(4);
+		assertThat(treatments.size()).isEqualTo(2);
+
     }
 	
 	@ParameterizedTest
@@ -236,36 +220,37 @@ public class InsuranceServiceTest {
 	void shouldFailFindVaccinesByPetTypeId(Integer argument) {
 		Collection<Vaccine> vaccines = this.insuranceService.findVaccinesByPetTypeId(argument);
 		assertThat(vaccines);
-
 	}
+	
 	@ParameterizedTest
 	@ValueSource(ints= {-49,0,123})
 	void shouldFailFindTreatmentsByPetTypeId(Integer argument) {
+
 		Collection<Treatment> treatment = this.insuranceService.findTreatmentsByPetTypeId(argument);
 		assertThat(treatment);
+
 	}
 	
 	@Test
 	void shoulPositiveFindInsurance() {
 		InsuranceService service = new InsuranceService(insuranceRepostiory);
 		List<Insurance> listaInsurance = new ArrayList<Insurance>();
-		listaInsurance.add(insuranceParaMamporreo);
+		listaInsurance.add(insurancePrincipal);
 		when(service.findInsurances()).thenReturn(listaInsurance);	
 		assertThat(listaInsurance).hasSize(1);
 		Insurance insurancePrueba = listaInsurance.iterator().next();
 		assertThat(insurancePrueba.getId()).isEqualTo(5);
-		
 	}
+	
 	@Test
 	void shouldNegativeFindInsurance() {
 		InsuranceService service = new InsuranceService(insuranceRepostiory);
 		List<Insurance> listaInsurance = new ArrayList<Insurance>();
-		listaInsurance.add(insuranceParaMamporreo);
+		listaInsurance.add(insurancePrincipal);
 		when(service.findInsurances()).thenReturn(listaInsurance);	
 		Assertions.assertThrows(Exception.class, ()->{listaInsurance.get(1);});
 		when(service.findInsuranceById(19)).thenThrow(new RuntimeException());
 		Assertions.assertThrows(RuntimeException.class, ()-> {service.findInsuranceById(19);});
-		
 	}
 
 }

@@ -1,26 +1,17 @@
 package org.springframework.samples.petclinic.ui;
 
-
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
-
-public class LoginUITest {
-	private String username;
+public class FeedbackAnnouncementUITest {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -28,48 +19,42 @@ public class LoginUITest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-
 		String pathToGeckoDriver="./target/classes/static/resources/";
 		System.setProperty("webdriver.gecko.driver", pathToGeckoDriver + "geckodriver.exe");
-
 		driver = new FirefoxDriver();
 		baseUrl = "https://www.google.com/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
-
+	
 	@Test
-	public void testLoginAsVet1() throws Exception {
-
-		as("vet1")
+	public void testFeedbackAnnouncement() throws Exception {
+		as("owner2")
 		.whenIamLoggedIntheSystem()
-		.thenICanSeeMyUsernameInsideTheMenuBar();
+		.thenICanGetFeedbackAnAnnouncement();
 	}
 	
-	private void thenICanSeeMyUsernameInsideTheMenuBar() {
-		assertEquals(username, driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a/strong")).getText());
-
+	private void thenICanGetFeedbackAnAnnouncement() {
+		assertEquals("0", driver.findElement(By.xpath("//table[@id='announcementsTable']/tbody/tr/td[4]")).getText());
 	}
 	
-	private LoginUITest whenIamLoggedIntheSystem() {	
+	private FeedbackAnnouncementUITest whenIamLoggedIntheSystem() {	
 		return this;
 	}
 	
-	private LoginUITest as(String username) {
-		this.username = username;
-
-		driver.get("http://localhost:8080");
-	    driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
-	    driver.findElement(By.id("password")).clear();
-	    driver.findElement(By.id("password")).sendKeys(passwordOfVet(username));
+	private FeedbackAnnouncementUITest as(String username) {
+		driver.get("http://localhost:8080/");
+		driver.findElement(By.xpath("//div[@id='main-navbar']/ul[2]/li/a")).click();
 	    driver.findElement(By.id("username")).clear();
 	    driver.findElement(By.id("username")).sendKeys(username);
-	    driver.findElement(By.xpath("//button[@type='submit']")).click();
-
+	    driver.findElement(By.id("password")).clear();
+	    driver.findElement(By.id("password")).sendKeys(passwordOfOwner());
+	    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+	    driver.findElement(By.linkText("Anuncios")).click();
 		return this;
 	}
-	
-	private CharSequence passwordOfVet(String username) {
-		return "v3t";
+
+	private CharSequence passwordOfOwner() {
+		return "0wn3r";
 	}
 
 	@AfterEach
@@ -80,7 +65,7 @@ public class LoginUITest {
 			fail(verificationErrorString);
 		}
 	}
-
+	
 	private boolean isElementPresent(By by) {
 		try {
 			driver.findElement(by);
@@ -89,23 +74,23 @@ public class LoginUITest {
 			return false;
 		}
 	}
-
+	
 	private boolean isAlertPresent() {
 		try {
 			driver.switchTo().alert();
-			return true;
+      return true;
 		} catch (NoAlertPresentException e) {
 			return false;
 		}
-	}	
-
+	}
+	
 	private String closeAlertAndGetItsText() {
 		try {
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
 			if (acceptNextAlert) {
 				alert.accept();
-			} else {
+			} else {	
 				alert.dismiss();
 			}
 			return alertText;

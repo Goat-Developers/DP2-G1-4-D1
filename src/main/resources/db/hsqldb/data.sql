@@ -195,7 +195,8 @@ INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) V
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (1,'esto body','esto header','tag1','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (2,'esto body mas largo','esto header','caballos','2010-09-07',1,0);
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (3,'esto body CON MAYUS','esto header','gatos','2010-09-07',1,0);
-INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2020-03-22',1,0);
+INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2022-03-22',1,0);
+
 
 
 INSERT INTO specialties VALUES (1, 'Radiology');
