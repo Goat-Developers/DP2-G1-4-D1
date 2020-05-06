@@ -2,6 +2,10 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.mockito.Mock;
+
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,7 +22,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -26,6 +29,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
+import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
+import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.repository.VaccineRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
@@ -42,14 +47,21 @@ class VaccineServiceTests {
 
 	@Mock
 	private VaccineRepository vaccineRepository;
+	
     @Autowired
 	protected VaccineService vaccineService;
 
     @Autowired
     protected PetService petService;
+    
+    @Mock
+    private InsuranceRepository insuranceRepository;
 
     @Autowired
     protected InsuranceService insuranceService; 
+    
+    @Mock
+    private InsuranceBaseRepository insuranceBaseRepository;
 
     @Autowired
     protected InsuranceBaseService insuranceBaseService;
@@ -59,7 +71,7 @@ class VaccineServiceTests {
 	@Test
 	void shouldFindAll() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
-		assertThat(vaccines.size()).isEqualTo(13);
+		assertThat(vaccines.size()).isEqualTo(14);
 	}
 
 	@Test
@@ -82,7 +94,7 @@ class VaccineServiceTests {
 		assertThat(vaccinesList1.get(1).getExpiration()).isBefore(LocalDate.now());
 		assertThat(vaccinesList1.get(1)).isEqualTo(vaccinesList2.get(1));
 		assertThat(vaccinesList1.get(2)).isEqualTo(vaccinesList2.get(2));
-		assertThat(vaccinesList1.size()).isEqualTo(3);
+		assertThat(vaccinesList1.size()).isEqualTo(4);
 	}
 	
 	@ParameterizedTest
@@ -132,41 +144,15 @@ class VaccineServiceTests {
 	void shouldDeleteVaccine() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
 		int found = vaccines.size();
+		assertThat(vaccines.size()).isEqualTo(14);
 		
 		Vaccine vaccine = this.vaccineService.findById(TEST_VACCINE_DELETE);
 		this.vaccineService.deleteVaccine(vaccine);
 		
-		int numIns = this.insuranceService.findInsurances().size();
-		int numInsBas = this.insuranceBaseService.findInsurancesBases().size();
-		
-		compruebaNoHayVacunaEliminadaEnSeguro(numIns);
-		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
-		
 		vaccines = this.vaccineService.findAll();
 		assertThat(vaccines.size()).isEqualTo(found - 1);
 		assertThat(this.vaccineService.findById(TEST_VACCINE_DELETE)).isNull();
-	}
 
-	private void compruebaNoHayVacunaEliminadaEnSeguroBase(int numInsBas) {
-		for(int i = 0; i < numInsBas; i++) {
-			int id = this.insuranceBaseService.findInsurancesBases().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> vacinesBase = this.insuranceBaseService.findInsuranceBaseById(id).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < vacinesBase.size(); j++) {
-				Boolean res2 = vacinesBase.get(j).getId() == TEST_VACCINE_DELETE;
-				assertThat(res2).isEqualTo(false);
-			}
-		}
-	}
-
-	private void compruebaNoHayVacunaEliminadaEnSeguro(int numIns) {
-		for(int i = 0; i < numIns; i++) {
-			int id = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> vaccines = this.insuranceService.findInsuranceById(id).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < vaccines.size(); j++) {
-				Boolean res1 = vaccines.get(j).getId() == TEST_VACCINE_DELETE;
-				assertThat(res1).isEqualTo(false);
-			}
-		}
 	}
 	
 	@ParameterizedTest

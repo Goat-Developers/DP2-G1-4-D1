@@ -123,10 +123,9 @@ public class VaccineController {
     		   i.getVaccines().remove(vaccine);   		      		   
     	   }
        }
-      
        this.vaccineService.deleteVaccine(vaccine);
       
-        return "redirect:/vaccine";
+       return "redirect:/vaccine";
     }
 
 }

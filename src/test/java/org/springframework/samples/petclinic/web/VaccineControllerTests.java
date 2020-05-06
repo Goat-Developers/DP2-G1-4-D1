@@ -154,7 +154,7 @@ class VaccineControllerTests {
 				.andExpect(view().name("vaccine/vaccineCreate"));
 	}
 
-        @WithMockUser(value = "spring")
+    @WithMockUser(value = "spring")
 	@Test
 	void testShowVaccine() throws Exception {
 		mockMvc.perform(get("/vaccine/{vaccineId}", TEST_VACCINE_ID)).andExpect(status().isOk())
