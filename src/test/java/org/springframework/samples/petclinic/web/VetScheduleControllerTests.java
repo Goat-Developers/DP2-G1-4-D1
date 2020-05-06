@@ -32,6 +32,7 @@ import org.springframework.samples.petclinic.model.Shift;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.VaccinationSchedule;
 import org.springframework.samples.petclinic.model.Vaccine;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.service.AppointmentService;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
@@ -64,7 +65,7 @@ public class VetScheduleControllerTests {
 	private static final int TEST_INSURANCE_ID = 4;
 	private static final int TEST_INSURANCE_BASE_ID = 5;
 	private static final int TEST_VET_ID = 1;
-	
+	private static final LocalDate TEST_DAY= LocalDate.of(2020,Month.AUGUST,03);
 	@Autowired
 	private VetScheduleController vetScheduleController;
 
@@ -115,6 +116,7 @@ public class VetScheduleControllerTests {
 	private VaccinationSchedule vaSchedule;
 	private InsuranceBase insuranceBase;
 	private Insurance insurance;
+	private Vet vet;
 	
 	
 	@BeforeEach
@@ -216,7 +218,7 @@ public class VetScheduleControllerTests {
 		
 		appointment = new Appointment();
 		appointment.setId(TEST_APPOINTMENT_ID);
-		appointment.setAppointmentDate(LocalDate.of(2020, Month.AUGUST, 3));
+		appointment.setAppointmentDate(TEST_DAY);
 		appointment.setAppointmentTime(LocalTime.of(9, 30, 00));
 		appointment.setAttended(false);
 		appointment.setTreatment(treatment);
@@ -225,20 +227,37 @@ public class VetScheduleControllerTests {
 		appointment.setObservations("Mascota herida");
 		appointment.setPet(pet);
 		appointment.setReason("Curar la pata");
-		
-		shift = new Shift();
-		shift.setId(TEST_SHIFT_ID);
-		shift.setShiftDate(LocalTime.of(9, 30, 00));
 	
 		Set<Appointment> appointments = new HashSet<Appointment>();
 		appointments.add(appointment);
 		Set<Shift> shifts = new HashSet<Shift>();
 		shifts.add(shift);						
-			
+		
+		List<Appointment> appList = new ArrayList<Appointment>();
+		appList.addAll(appointments);
+		
+		vet = new Vet();
+		vet.setId(TEST_VET_ID);
+		vet.setFirstName("Pablo");
+		vet.setLastName("Castillo");
+		vet.setMaxShifts(10);
+		
+		shift = new Shift();
+		shift.setId(TEST_SHIFT_ID);
+		LocalTime time = LocalTime.of(16, 00, 00);
+		shift.setShiftDate(time);
+		Set<Shift> res = new HashSet<Shift>();
+		res.add(shift);
+		
+		List<Shift> res1 = new ArrayList<Shift>();
+		res1.addAll(res);
+		
 		horario = new VetSchedule();
 		horario.setId(TEST_VET_SCHEDULE_ID);
+		horario.setShifts(res);
 		horario.setAppointments(appointments);
-		horario.setShifts(shifts);
+		vet.setVetSchedule(horario);
+		
 		
 
     	given(vetScheduleService.findById(TEST_VET_SCHEDULE_ID)).willReturn(horario);
@@ -251,19 +270,26 @@ public class VetScheduleControllerTests {
     	given(treatmentService.findById(TEST_TREATMENT_BASE_ID)).willReturn(treatment2);
     	given(petService.findPetById(TEST_PET_ID)).willReturn(pet);
     	given(insuranceService.findInsuranceById(TEST_INSURANCE_ID)).willReturn(insurance);
-    	
+    	given(vetService.findVetById(TEST_VET_ID)).willReturn(vet);
+    	given(vetScheduleService.findAppointmentsByDay(TEST_DAY)).willReturn(appList);
+    	given(vetService.findVetByPrincipal("vet1")).willReturn(vet);
+    	given(shiftService.orderShifts(horario)).willReturn(res1);
+
+
+
+
+    		
 	}
 	
-//	 @WithMockUser(value = "spring")
-//		@Test
-//		void testShowScheduleDetail() throws Exception {	    	
-//		 	mockMvc.perform(get("/vetSchedule/{day}", "2020-08-03")).andExpect(status().isOk())
-////					.andExpect(model().attributeExists("appointments"))
-////					.andExpect(model().attributeExists("shifts"))
-//					.andExpect(view().name("vets/scheduleDetails"));
-//		}
+	 @WithMockUser(username  = "vet1")
+		@Test
+		void testShowScheduleDetail() throws Exception {	    	
+		 	mockMvc.perform(get("/vetSchedule/{day}", TEST_DAY.toString())).andExpect(status().isOk())
+					
+					.andExpect(view().name("vets/scheduleDetails"));
+		}
 	 
-	 @WithMockUser(value = "spring")
+	 @WithMockUser(value = "vet1")
 		@Test
 		void testShowSchedule() throws Exception {	    	
 		 	mockMvc.perform(get("/vetSchedule")).andExpect(status().isOk())
@@ -271,11 +297,11 @@ public class VetScheduleControllerTests {
 					.andExpect(view().name("vets/vetSchedule"));
 		}
 	 
-	 @WithMockUser(value = "spring")
+	 @WithMockUser(value = "vet1")
 		@Test
 		void testShowVetScheduleDetail() throws Exception {	    	
 		 	mockMvc.perform(get("/vetSchedule/vet/{vetId}", TEST_VET_ID)).andExpect(status().isOk())
-//					.andExpect(model().attributeExists("coincidencias"))
+					.andExpect(model().attributeExists("coincidencias"))
 					.andExpect(view().name("vets/vetSchedule"));
 		}
 
