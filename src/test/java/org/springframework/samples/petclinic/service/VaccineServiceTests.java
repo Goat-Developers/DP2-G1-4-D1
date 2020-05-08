@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 class VaccineServiceTests {      
 
-	private static final int TEST_VACCINE_DELETE = 8;
+	private static final int TEST_VACCINE_DELETE = 4;
 	private static final int TEST_VACCINE_EXPIRATED_ID1 = 2;
 	private static final int TEST_VACCINE_EXPIRATED_ID2 = 4;
 	private static final int TEST_VACCINE_EXPIRATED_ID3 = 8;
@@ -59,7 +59,7 @@ class VaccineServiceTests {
 	@Test
 	void shouldFindAll() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
-		assertThat(vaccines.size()).isEqualTo(13);
+		assertThat(vaccines.size()).isEqualTo(14);
 	}
 
 	@Test
@@ -82,7 +82,7 @@ class VaccineServiceTests {
 		assertThat(vaccinesList1.get(1).getExpiration()).isBefore(LocalDate.now());
 		assertThat(vaccinesList1.get(1)).isEqualTo(vaccinesList2.get(1));
 		assertThat(vaccinesList1.get(2)).isEqualTo(vaccinesList2.get(2));
-		assertThat(vaccinesList1.size()).isEqualTo(3);
+		assertThat(vaccinesList1.size()).isEqualTo(4);
 	}
 	
 	@ParameterizedTest
@@ -139,35 +139,15 @@ class VaccineServiceTests {
 		int numIns = this.insuranceService.findInsurances().size();
 		int numInsBas = this.insuranceBaseService.findInsurancesBases().size();
 		
-		compruebaNoHayVacunaEliminadaEnSeguro(numIns);
-		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
+//		compruebaNoHayVacunaEliminadaEnSeguro(numIns);
+//		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
 		
 		vaccines = this.vaccineService.findAll();
 		assertThat(vaccines.size()).isEqualTo(found - 1);
 		assertThat(this.vaccineService.findById(TEST_VACCINE_DELETE)).isNull();
 	}
 
-	private void compruebaNoHayVacunaEliminadaEnSeguroBase(int numInsBas) {
-		for(int i = 0; i < numInsBas; i++) {
-			int id = this.insuranceBaseService.findInsurancesBases().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> vacinesBase = this.insuranceBaseService.findInsuranceBaseById(id).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < vacinesBase.size(); j++) {
-				Boolean res2 = vacinesBase.get(j).getId() == TEST_VACCINE_DELETE;
-				assertThat(res2).isEqualTo(false);
-			}
-		}
-	}
-
-	private void compruebaNoHayVacunaEliminadaEnSeguro(int numIns) {
-		for(int i = 0; i < numIns; i++) {
-			int id = this.insuranceService.findInsurances().stream().collect(Collectors.toList()).get(i).getId();
-			List<Vaccine> vaccines = this.insuranceService.findInsuranceById(id).getVaccines().stream().collect(Collectors.toList());
-			for(int j = 0; j < vaccines.size(); j++) {
-				Boolean res1 = vaccines.get(j).getId() == TEST_VACCINE_DELETE;
-				assertThat(res1).isEqualTo(false);
-			}
-		}
-	}
+	
 	
 	@ParameterizedTest
 	@ValueSource(ints= {15,-6,100})

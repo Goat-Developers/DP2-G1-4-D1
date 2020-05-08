@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,6 +18,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,8 +68,6 @@ public class AppointmentControllerTests {
 	private static final int TEST_TREATMENT_BASE_ID = 32;
 	private static final int TEST_SHIFT_ID = 25;
 	private static final int TEST_PET_ID = 1;
-	private static final int TEST_INSURANCE_ID = 4;
-	private static final int TEST_INSURANCE_BASE_ID = 5;
 	
 	@Autowired
 	private AppointmentController appointmentController;
@@ -113,8 +117,7 @@ public class AppointmentControllerTests {
 	private Treatment treatment2;
 	private Pet pet;
 	private VaccinationSchedule vaSchedule;
-	private InsuranceBase insuranceBase;
-	private Insurance insurance;
+
 	
 	
 	@BeforeEach
@@ -168,39 +171,10 @@ public class AppointmentControllerTests {
         treatment2.setPrice(43.4);
         treatment2.setType("Tratamiento inutil");
         treatment2.setDescription("No sabia que poner");
-
-	    Set<Vaccine> vacunas = new HashSet<Vaccine>();
-		vacunas.add(vaccine);
-		Set<Treatment> tratamientos = new HashSet<Treatment>();
-		tratamientos.add(treatment);
-		Set<Vaccine> vacunas2 = new HashSet<Vaccine>();
-		vacunas.add(vaccine2);
-		Set<Treatment> tratamientos2 = new HashSet<Treatment>();
-		tratamientos.add(treatment2);
+		
 		LocalDate date1 = LocalDate.of(2020, Month.JULY, 10);
 		List<LocalDate> dates = new ArrayList<>();
 		dates.add(date1);
-		
-		vaSchedule = new VaccinationSchedule();
-		vaSchedule.setDates(dates);
-		
-		insuranceBase = new InsuranceBase();
-		PetType mascota = new PetType();
-		mascota.setId(8);
-		mascota.setName("mascota");
-		insuranceBase.setId(TEST_INSURANCE_BASE_ID);
-		insuranceBase.setName("Seguro para ganar dinero");
-		insuranceBase.setPetType(mascota);
-		insuranceBase.setVaccines(vacunas2);
-		insuranceBase.setTreatments(tratamientos2);
-		insuranceBase.setConditions("Ser rico");	
-		
-		insurance = new Insurance();
-		insurance.setId(TEST_INSURANCE_ID);
-		insurance.setInsuranceDate(LocalDate.of(2020, 4 ,3));
-		insurance.setInsuranceBase(insuranceBase);
-		insurance.setTreatments(tratamientos);
-		insurance.setVaccines(vacunas);
 		
 		pet = new Pet();
 		PetType rata = new PetType();
@@ -212,7 +186,6 @@ public class AppointmentControllerTests {
 		pet.setType(rata);
 		pet.setTreatment(treatment);
 		pet.setSchedule(vaSchedule);
-		pet.setInsurance(insurance);
 		
 		appointment = new Appointment();
 		appointment.setId(TEST_APPOINTMENT_ID);
@@ -226,6 +199,8 @@ public class AppointmentControllerTests {
 		appointment.setPet(pet);
 		appointment.setReason("Curar la pata");
 		
+		
+		
 		shift = new Shift();
 		shift.setId(TEST_SHIFT_ID);
 		shift.setShiftDate(LocalTime.of(9, 30, 00));
@@ -233,7 +208,8 @@ public class AppointmentControllerTests {
 		Set<Appointment> appointments = new HashSet<Appointment>();
 		appointments.add(appointment);
 		Set<Shift> shifts = new HashSet<Shift>();
-		shifts.add(shift);						
+		shifts.add(shift);		
+		pet.setAppointments(appointments);
 			
 		horario = new VetSchedule();
 		horario.setId(TEST_VET_SCHEDULE_ID);
@@ -242,7 +218,6 @@ public class AppointmentControllerTests {
 		
 
     	given(vetScheduleService.findById(TEST_VET_SCHEDULE_ID)).willReturn(horario);
-    	given(insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID)).willReturn(insuranceBase);
     	given(appointmentService.findAppointmentById(TEST_APPOINTMENT_ID)).willReturn(appointment);
     	given(shiftService.findById(TEST_SHIFT_ID)).willReturn(shift);
     	given(vaccineService.findById(TEST_VACCINE_ID)).willReturn(vaccine);
@@ -250,14 +225,14 @@ public class AppointmentControllerTests {
     	given(vaccineService.findById(TEST_VACCINE_BASE_ID)).willReturn(vaccine2);
     	given(treatmentService.findById(TEST_TREATMENT_BASE_ID)).willReturn(treatment2);
     	given(petService.findPetById(TEST_PET_ID)).willReturn(pet);
-    	given(insuranceService.findInsuranceById(TEST_INSURANCE_ID)).willReturn(insurance);
     	
 	}
 	
 	@WithMockUser(value = "spring")
     @Test
     void testInitAppointmentCreationForm() throws Exception {
-	mockMvc.perform(get("/appointment/new/{petId}", TEST_PET_ID)).andExpect(status().isOk())
+	mockMvc.perform(get("/appointment/new/{petId}", TEST_PET_ID))
+	.andExpect(status().isOk())
 	.andExpect(model().attributeExists("appointment"))
 			.andExpect(view().name("appointments/createAppointment"));
 }
@@ -268,6 +243,7 @@ public class AppointmentControllerTests {
 	 	mockMvc.perform(get("/appointment/{appointementId}", TEST_APPOINTMENT_ID)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("appointment"))
 				.andExpect(view().name("appointments/appointmentDetails"));
+	 	
 	}
 	
 	@WithMockUser(value = "spring")
@@ -286,10 +262,28 @@ public class AppointmentControllerTests {
 						.param("times", times.toString())
 						.param("vaccines", vaccines.toString())
 						.param("treatments", treatments.toString()))
-	
-						
+							
+			
 			.andExpect(status().isOk());
+		assertThat(horario.getAppointments().contains(appointment));
+		assertThat(appointment.getBilling()).isEqualTo(vaccine.getPrice()+treatment.getPrice());
+		assertThat(pet.getAppointments().contains(appointment));
+
 }
+	
+	
+	
+	
+	
+	@WithMockUser(value = "spring")
+	@Test
+	void testVetObserverApplication() throws Exception{
+		mockMvc.perform(post("/appointment/observe")
+		.with(csrf())  
+		.param("attended", "true"))
+		.andExpect(status().isOk());
+		
+	}
 
 
 }

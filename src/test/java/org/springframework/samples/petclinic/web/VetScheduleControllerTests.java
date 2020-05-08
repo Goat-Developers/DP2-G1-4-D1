@@ -5,7 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -65,7 +67,7 @@ public class VetScheduleControllerTests {
 	private static final int TEST_INSURANCE_ID = 4;
 	private static final int TEST_INSURANCE_BASE_ID = 5;
 	private static final int TEST_VET_ID = 1;
-	private static final LocalDate TEST_DAY= LocalDate.of(2020,Month.AUGUST,03);
+	private static final LocalDate TEST_DAY= LocalDate.of(2020,Month.AUGUST,04);
 	@Autowired
 	private VetScheduleController vetScheduleController;
 
@@ -182,9 +184,7 @@ public class VetScheduleControllerTests {
 		LocalDate date1 = LocalDate.of(2020, Month.JULY, 10);
 		List<LocalDate> dates = new ArrayList<>();
 		dates.add(date1);
-		
-		vaSchedule = new VaccinationSchedule();
-		vaSchedule.setDates(dates);
+
 		
 		insuranceBase = new InsuranceBase();
 		PetType mascota = new PetType();
@@ -261,13 +261,8 @@ public class VetScheduleControllerTests {
 		
 
     	given(vetScheduleService.findById(TEST_VET_SCHEDULE_ID)).willReturn(horario);
-    	given(insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID)).willReturn(insuranceBase);
     	given(appointmentService.findAppointmentById(TEST_APPOINTMENT_ID)).willReturn(appointment);
     	given(shiftService.findById(TEST_SHIFT_ID)).willReturn(shift);
-    	given(vaccineService.findById(TEST_VACCINE_ID)).willReturn(vaccine);
-    	given(treatmentService.findById(TEST_TREATMENT_ID)).willReturn(treatment);
-    	given(vaccineService.findById(TEST_VACCINE_BASE_ID)).willReturn(vaccine2);
-    	given(treatmentService.findById(TEST_TREATMENT_BASE_ID)).willReturn(treatment2);
     	given(petService.findPetById(TEST_PET_ID)).willReturn(pet);
     	given(insuranceService.findInsuranceById(TEST_INSURANCE_ID)).willReturn(insurance);
     	given(vetService.findVetById(TEST_VET_ID)).willReturn(vet);
@@ -276,33 +271,62 @@ public class VetScheduleControllerTests {
     	given(shiftService.orderShifts(horario)).willReturn(res1);
 
 
-
-
     		
 	}
 	
-	 @WithMockUser(username  = "vet1")
+	 @WithMockUser(value  = "vet1")
 		@Test
 		void testShowScheduleDetail() throws Exception {	    	
-		 	mockMvc.perform(get("/vetSchedule/{day}", TEST_DAY.toString())).andExpect(status().isOk())
-					
+		 	
+		 	mockMvc.perform(get("/vetSchedule/{day}", TEST_DAY.toString()))
+		 			.andExpect(status().isOk())
+		 			.andExpect(model().attributeExists("shifts"))
+		 			.andExpect(model().attributeExists("appointments"))
 					.andExpect(view().name("vets/scheduleDetails"));
+		 	
 		}
 	 
 	 @WithMockUser(value = "vet1")
 		@Test
 		void testShowSchedule() throws Exception {	    	
+		 	
 		 	mockMvc.perform(get("/vetSchedule")).andExpect(status().isOk())
 					.andExpect(model().attributeExists("coincidencias"))
 					.andExpect(view().name("vets/vetSchedule"));
+		 	
+		 	
 		}
 	 
 	 @WithMockUser(value = "vet1")
 		@Test
 		void testShowVetScheduleDetail() throws Exception {	    	
+		 	
 		 	mockMvc.perform(get("/vetSchedule/vet/{vetId}", TEST_VET_ID)).andExpect(status().isOk())
 					.andExpect(model().attributeExists("coincidencias"))
-					.andExpect(view().name("vets/vetSchedule"));
+					.andExpect(view().name("vets/vetSchedule"));	 	
+		 	
+		 	compruebaFindDates(horario);
+		 	compruebaAddFirstDates(horario, Month.AUGUST);
+		 	
 		}
+
+	 //Este método comprueba que todos las citas del horario están en días laboralesd
+	 
+	private void compruebaFindDates(VetSchedule horario2) {
+		for(Appointment a : horario2.getAppointments()){
+			DayOfWeek day = a.getAppointmentDate().getDayOfWeek();
+			assertThat(day.equals(DayOfWeek.SATURDAY)).isFalse();
+			assertThat(day.equals(DayOfWeek.SUNDAY)).isFalse();
+
+		}
+		
+	}
+	
+	// En este caso el primer día es un martes
+	private void compruebaAddFirstDates(VetSchedule horario2, Month month) {		
+		Appointment a = horario2.getAppointments().stream().findFirst().get();
+		assertThat(a.getAppointmentDate().getDayOfWeek().equals(DayOfWeek.MONDAY)).isFalse();
+		
+	}
 
 }

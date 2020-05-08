@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.web.e2e;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 
 import java.time.LocalDate;
@@ -183,9 +186,6 @@ private Vet vet;
 		List<LocalDate> dates = new ArrayList<>();
 		dates.add(date1);
 		
-		vaSchedule = new VaccinationSchedule();
-		vaSchedule.setDates(dates);
-		
 		insuranceBase = new InsuranceBase();
 		PetType mascota = new PetType();
 		mascota.setId(8);
@@ -260,14 +260,9 @@ private Vet vet;
 		
 		
 
-    	given(vetScheduleService.findById(TEST_VET_SCHEDULE_ID)).willReturn(horario);
-    	given(insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID)).willReturn(insuranceBase);
+		given(vetScheduleService.findById(TEST_VET_SCHEDULE_ID)).willReturn(horario);
     	given(appointmentService.findAppointmentById(TEST_APPOINTMENT_ID)).willReturn(appointment);
     	given(shiftService.findById(TEST_SHIFT_ID)).willReturn(shift);
-    	given(vaccineService.findById(TEST_VACCINE_ID)).willReturn(vaccine);
-    	given(treatmentService.findById(TEST_TREATMENT_ID)).willReturn(treatment);
-    	given(vaccineService.findById(TEST_VACCINE_BASE_ID)).willReturn(vaccine2);
-    	given(treatmentService.findById(TEST_TREATMENT_BASE_ID)).willReturn(treatment2);
     	given(petService.findPetById(TEST_PET_ID)).willReturn(pet);
     	given(insuranceService.findInsuranceById(TEST_INSURANCE_ID)).willReturn(insurance);
     	given(vetService.findVetById(TEST_VET_ID)).willReturn(vet);
@@ -284,7 +279,8 @@ private Vet vet;
 	@WithMockUser(username="vet1",authorities= {"veterinarian"}) 
 	@Test
 	void testShowScheduleDetail() throws Exception {
-		mockMvc.perform(get("/vetSchedule/{day}", LocalDate.of(2020, Month.AUGUST, 3))).andExpect(status().isOk())
+		mockMvc.perform(get("/vetSchedule/{day}", LocalDate.of(2020, Month.AUGUST, 3)))
+		.andExpect(status().isOk())		
 		.andExpect(view().name("vets/scheduleDetails"));
     }
 	
