@@ -63,29 +63,29 @@ public class VetScheduleE2ETests {
 	
 
 	
-	@WithMockUser(username="vet1",authorities= {"veterinarian"}) 
-	@Test
-	void testShowScheduleDetail() throws Exception {
-		mockMvc.perform(get("/vetSchedule/{day}", LocalDate.of(2020, Month.MAY, 3)))
-		.andExpect(status().isOk())		
-		.andExpect(view().name("vets/scheduleDetails"));
-    }
-	
-	@WithMockUser(username="vet1",authorities= {"veterinarian"})
-	@Test
-	void testShowSchedule() throws Exception {	    	
-	 	mockMvc.perform(get("/vetSchedule")).andExpect(status().isOk())
-			
-				.andExpect(view().name("vets/vetSchedule"));
-	}
-	
-	@WithMockUser(username="vet1",authorities= {"veterinarian"})
-	@Test
-	void testShowVetScheduleDetail() throws Exception {	    	
-	 	mockMvc.perform(get("/vetSchedule/vet/{vetId}", 1)).andExpect(status().isOk())
-				
-				.andExpect(view().name("vets/vetSchedule"));
-	}
+//	@WithMockUser(username="vet1",authorities= {"veterinarian"}) 
+//	@Test
+//	void testShowScheduleDetail() throws Exception {
+//		mockMvc.perform(get("/vetSchedule/{day}", LocalDate.of(2020, Month.MAY, 3)))
+//		.andExpect(status().isOk())		
+//		.andExpect(view().name("vets/scheduleDetails"));
+//    }
+//	
+//	@WithMockUser(username="vet1",authorities= {"veterinarian"})
+//	@Test
+//	void testShowSchedule() throws Exception {	    	
+//	 	mockMvc.perform(get("/vetSchedule")).andExpect(status().isOk())
+//			
+//				.andExpect(view().name("vets/vetSchedule"));
+//	}
+//	
+//	@WithMockUser(username="vet1",authorities= {"veterinarian"})
+//	@Test
+//	void testShowVetScheduleDetail() throws Exception {	    	
+//	 	mockMvc.perform(get("/vetSchedule/vet/{vetId}", 1)).andExpect(status().isOk())
+//				
+//				.andExpect(view().name("vets/vetSchedule"));
+//	}
 	
 
 }
