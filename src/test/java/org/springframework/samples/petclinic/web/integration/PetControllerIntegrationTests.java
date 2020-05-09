@@ -34,7 +34,7 @@ import org.springframework.validation.MapBindingResult;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PetControllerIntegrationTests {
+public class PetControllerIntegrationTests {
 
 	private static final int TEST_OWNER_ID = 1;
 

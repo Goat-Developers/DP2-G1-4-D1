@@ -51,28 +51,6 @@ public class GmailAPITest {
 	
 	@Test
 	void testSendingEmail() throws Exception{
-//		Insurance seguro = new Insurance();
-//		InsuranceBase seguroBase = new InsuranceBase();
-//		Vaccine vacc= new Vaccine();
-//		vacc.setPrice(10.0);
-//		Treatment treat = new Treatment();
-//		treat.setPrice(10.0);
-//		Set<Treatment> treatments = new HashSet<Treatment>();
-//		treatments.add(treat);
-//		seguroBase.setTreatments(treatments);
-//		Set<Vaccine> vaccines= new HashSet<Vaccine>();
-//		vaccines.add(vacc);
-//		seguroBase.setVaccines(vaccines);
-//		seguroBase.setName("prueba base");
-//		seguro.setInsuranceBase(seguroBase);
-//		seguro.setTreatments(treatments);
-//		seguro.setVaccines(vaccines);
-//		Pet pet = new Pet();
-//		Owner owner = new Owner();
-//		owner.addPet(pet);
-//		owner.setFirstName("Carlos");
-//		owner.setLastName("Cote");
-//		GmailQuickstart.SendingEmail(seguro, pet);
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
    	 Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, GmailQuickstart.getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)

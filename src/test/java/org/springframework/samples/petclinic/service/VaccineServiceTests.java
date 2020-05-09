@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 class VaccineServiceTests {      
 
-	private static final int TEST_VACCINE_DELETE = 4;
+	private static final int TEST_VACCINE_DELETE = 14;
 	private static final int TEST_VACCINE_EXPIRATED_ID1 = 2;
 	private static final int TEST_VACCINE_EXPIRATED_ID2 = 4;
 	private static final int TEST_VACCINE_EXPIRATED_ID3 = 8;

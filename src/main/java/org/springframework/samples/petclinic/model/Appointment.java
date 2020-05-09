@@ -35,7 +35,7 @@ public class Appointment extends BaseEntity {
 	private LocalTime appointmentTime;
 
 	@NotEmpty
-	@Column(name ="appointement_reason")
+	@Column(name ="appointment_reason")
 	private String reason;
 	
 	@ManyToOne

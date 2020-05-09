@@ -140,9 +140,10 @@ INSERT INTO shifts(id, shift_date) VALUES (6, '13:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (7, '14:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (8, '15:00:00');
 
+INSERT INTO appointments(id, appointment_date, appointment_time, appointment_reason, pet_id, treatment_id,vaccine_id) VALUES (1, '2020-08-03', '09:00:00', 'Curar la pata', 4, 1, 4);
 
 INSERT INTO vet_schedule(id) VALUES (1);
-INSERT INTO vet_schedule(id) VALUES (2);
+INSERT INTO vet_schedule(id) VALUES (2); 
 INSERT INTO vet_schedule(id) VALUES (3);
 INSERT INTO vet_schedule(id) VALUES (4);
 INSERT INTO vet_schedule(id) VALUES (5);
@@ -183,6 +184,8 @@ INSERT INTO schedule_shifts VALUES (6, 4);
 INSERT INTO schedule_shifts VALUES (6, 6);
 INSERT INTO schedule_shifts VALUES (6, 7);
 INSERT INTO schedule_shifts VALUES (6, 8);
+
+INSERT INTO schedule_appointments VALUES (2,1); 
 
 
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (1, 'James', 'Carter','vet1', 4,1);

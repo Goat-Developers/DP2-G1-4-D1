@@ -30,10 +30,10 @@ import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-@AutoConfigureTestDatabase(replace=Replace.NONE)
 public class InsuranceServiceTest {
 	
 
@@ -60,10 +60,12 @@ public class InsuranceServiceTest {
 
     private Insurance insurancePrincipal;
 	
-	private Vaccine  vaccineInsurance, vaccineInsuranceBase;
+	private Vaccine  vaccineInsurance;
+	private Vaccine vaccineInsuranceBase;
 	
 
-	private Treatment treatmentInsurance, treatmentInsuranceBase;
+	private Treatment treatmentInsurance;
+	private Treatment treatmentInsuranceBase;
 	
 	private InsuranceBase insuranceBase;
 	
