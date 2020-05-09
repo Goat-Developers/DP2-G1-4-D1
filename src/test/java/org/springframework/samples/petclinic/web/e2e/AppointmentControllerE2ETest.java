@@ -58,8 +58,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class AppointmentControllerE2ETest {
 	
-	
-	
 	@Autowired 
 	private MockMvc mockMvc;
 	private static final int TEST_PET_ID =1;

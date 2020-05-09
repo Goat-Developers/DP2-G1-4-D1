@@ -2,6 +2,10 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.mockito.Mock;
+
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,7 +22,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -26,6 +29,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
+import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
+import org.springframework.samples.petclinic.repository.InsuranceRepository;
 import org.springframework.samples.petclinic.repository.VaccineRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
@@ -42,14 +47,21 @@ class VaccineServiceTests {
 
 	@Mock
 	private VaccineRepository vaccineRepository;
+	
     @Autowired
 	protected VaccineService vaccineService;
 
     @Autowired
     protected PetService petService;
+    
+    @Mock
+    private InsuranceRepository insuranceRepository;
 
     @Autowired
     protected InsuranceService insuranceService; 
+    
+    @Mock
+    private InsuranceBaseRepository insuranceBaseRepository;
 
     @Autowired
     protected InsuranceBaseService insuranceBaseService;
@@ -132,22 +144,16 @@ class VaccineServiceTests {
 	void shouldDeleteVaccine() {
 		Collection<Vaccine> vaccines = this.vaccineService.findAll();
 		int found = vaccines.size();
+		assertThat(vaccines.size()).isEqualTo(14);
 		
 		Vaccine vaccine = this.vaccineService.findById(TEST_VACCINE_DELETE);
 		this.vaccineService.deleteVaccine(vaccine);
 		
-		int numIns = this.insuranceService.findInsurances().size();
-		int numInsBas = this.insuranceBaseService.findInsurancesBases().size();
-		
-//		compruebaNoHayVacunaEliminadaEnSeguro(numIns);
-//		compruebaNoHayVacunaEliminadaEnSeguroBase(numInsBas);
-		
 		vaccines = this.vaccineService.findAll();
 		assertThat(vaccines.size()).isEqualTo(found - 1);
 		assertThat(this.vaccineService.findById(TEST_VACCINE_DELETE)).isNull();
-	}
 
-	
+	}
 	
 	@ParameterizedTest
 	@ValueSource(ints= {15,-6,100})

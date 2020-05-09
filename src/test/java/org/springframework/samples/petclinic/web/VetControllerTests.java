@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.service.ShiftService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +36,9 @@ class VetControllerTests {
 
 	@Autowired
 	private VetController vetController;
+	
+	@Autowired 
+	private ShiftService shifitService;
 
 	@MockBean
 	private VetService clinicService;

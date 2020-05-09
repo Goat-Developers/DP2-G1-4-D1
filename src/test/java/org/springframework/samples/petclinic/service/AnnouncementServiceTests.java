@@ -51,7 +51,6 @@ public class AnnouncementServiceTests {
 		return localValidatorFactoryBean; 
 	}
 	
-
 	@Test
 	void shouldFindCurrentAnnouncements() {
 		Collection<Announcement> announcements = this.annService.findAnnouncements();
