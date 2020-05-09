@@ -1,6 +1,9 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -17,6 +20,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Shift;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.VetSchedule;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.ShiftService;
@@ -34,7 +38,9 @@ public class ShiftControllerTests {
 
 	private static final int TEST_SHIFT_ID = 20;
 	
-	private static final int TEST_VET_ID = 2;
+	private static final int TEST_VET_ID = 99;
+	private static final int TEST_VET_SCHEDULE_ID = 767;
+
 	
 	@Autowired
 	private ShiftController shiftController;
@@ -62,6 +68,8 @@ public class ShiftControllerTests {
 		
 	private Shift turno;
 	private Vet vet;
+	private VetSchedule horario;
+
 	
 	@BeforeEach
 	void setup() {
@@ -76,8 +84,19 @@ public class ShiftControllerTests {
 		turno.setId(TEST_SHIFT_ID);
 		LocalTime time = LocalTime.of(16, 00, 00);
 		turno.setShiftDate(time);
+		Set<Shift> res = new HashSet<Shift>();
+		res.add(turno);
+		
+		horario = new VetSchedule();
+		horario.setId(TEST_VET_SCHEDULE_ID);
+		horario.setShifts(res);
+		vet.setVetSchedule(horario);
+		
 		
 		given(shiftService.findById(TEST_SHIFT_ID)).willReturn(turno);
+		given(vetScheduleService.findById(TEST_VET_SCHEDULE_ID)).willReturn(horario);
+    	given(vetService.findVetById(TEST_VET_ID)).willReturn(vet);
+
 	}
 	
 	@WithMockUser(value = "spring")
@@ -92,9 +111,9 @@ public class ShiftControllerTests {
 	@WithMockUser(value = "spring")
     @Test
     void testInitCreationForm() throws Exception {
-
-	mockMvc.perform(get("/shifts/{shiftId}/new/{vetId}", TEST_SHIFT_ID, TEST_VET_ID)).andExpect(status().isOk())	
-			.andExpect(view().name("shifts/shiftList"));
+	mockMvc.perform(get("/shifts/{shiftId}/new/{vetId}", TEST_SHIFT_ID, TEST_VET_ID))
+	.andExpect(status().is3xxRedirection())	
+			.andExpect(view().name("redirect:/shifts/{vetId}"));
 	
 	}
 	

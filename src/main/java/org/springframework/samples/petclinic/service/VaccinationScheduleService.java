@@ -16,4 +16,8 @@ public class VaccinationScheduleService {
 		this.vSRepository.save(vacSchedule);
 	}
 
+	public VaccinationSchedule findById(int id) {
+		return vSRepository.findById(id);	
+	}
+
 }

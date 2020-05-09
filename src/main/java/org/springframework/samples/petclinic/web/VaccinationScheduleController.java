@@ -46,7 +46,8 @@ public class VaccinationScheduleController {
 		model.put("vaccinationSchedule", vaccSchedule);
 		model.put("vaccines", vaccines);
 		return "vaccine/createVaccSchedule";
-	}
+	} 
+	
 	@PostMapping(value="/vaccinationSchedule/{petId}")
 	public String processVaccinationScheduleForm(@Valid VaccinationSchedule vaccSchedule, BindingResult bindingResult, @PathVariable("petId") int id,Map<String,Object> model) throws DataAccessException, DuplicatedPetNameException {
 		Pet pet= this.petService.findPetById(id);
