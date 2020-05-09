@@ -1,6 +1,5 @@
 -- One admin user, named admin1 with password 4dm1n and authority admin
-INSERT INTO users(username,password,enabled) VALUES ('admin1','4dm1n',TRUE);
-INSERT INTO authorities VALUES ('admin1','admin');
+
 -- Ten owner users, named ownerX with password 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
 INSERT INTO authorities VALUES ('owner1','owner');
