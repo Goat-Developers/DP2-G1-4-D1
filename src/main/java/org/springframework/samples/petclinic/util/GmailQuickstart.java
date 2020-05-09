@@ -58,7 +58,7 @@ public class GmailQuickstart {
      * @return An authorized Credential object.
      * @throws IOException If the credentials.json file cannot be found.
      */
-    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+    public static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
         InputStream in = GmailQuickstart.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
@@ -106,20 +106,25 @@ public class GmailQuickstart {
     	 	String body = "Tanks for choosing PetClinic"+"\n"+"\n" + " Hi "+pet.getOwner().getFirstName()+"\n"+"\n"+" You have taken out the insurance base : "+" "+ insurance.getInsuranceBase().getName()+"\n"
     	 			+" with a list of vaccines"+""+":"
     	 			;
-    	 	for(Vaccine v: insurance.getVaccines()) {
-    	 		
-    	 		body += v.getName();
-    	 		if(insurance.getVaccines().size()>1) {
-    	 			body+=",";
-    	 		}
+    	 	if(insurance.getVaccines()!=null) {
+    	 		for(Vaccine v: insurance.getVaccines()) {
+        	 		
+        	 		body += v.getName();
+        	 		if(insurance.getVaccines().size()>1) {
+        	 			body+=",";
+        	 		}
+        	 	}
     	 	}
-    	 	body +="\n"+""+ " and a list of treatments:";
-    	 	for(Treatment t: insurance.getTreatments()) {
-    	 		body+=t.getDescription();
-    	 		if(insurance.getTreatments().size()>1) {
-    	 			body+=",";
-    	 		}
+    	 	if(insurance.getTreatments()!=null) {
+    	 		body +="\n"+""+ " and a list of treatments:";
+        	 	for(Treatment t: insurance.getTreatments()) {
+        	 		body+=t.getDescription();
+        	 		if(insurance.getTreatments().size()>1) {
+        	 			body+=",";
+        	 		}
+        	 	}
     	 	}
+    	 	
     	 	body+="\n"+""+"all with a cost of"+" "+ insurance.getInsurancePrice()+" euros";
      
     	 	
