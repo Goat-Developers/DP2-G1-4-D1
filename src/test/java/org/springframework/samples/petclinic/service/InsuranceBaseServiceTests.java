@@ -24,43 +24,29 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
-import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.model.Vaccine;
-import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.model.InsuranceBase;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
-import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
-
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@AutoConfigureTestDatabase(replace=Replace.NONE)
 class InsuranceBaseServiceTests {                
      
 	@Autowired
@@ -69,13 +55,50 @@ class InsuranceBaseServiceTests {
 	@Mock
 	private InsuranceBaseRepository insuranceBaseRepository;
 	
+	private InsuranceBase sampleInsuranceBase;
+	
+	@BeforeEach
+	void setup() {
+		Vaccine sampleVaccine = new Vaccine();
+	    PetType human = new PetType();
+	    sampleVaccine.setId(1);
+	    sampleVaccine.setInformation("Vacuna del coronavirus en pruebas, testeado en monos");
+	    sampleVaccine.setExpiration(LocalDate.of(2021, Month.APRIL, 3));
+	    sampleVaccine.setName("Vacuna contra el coronavirus");
+	    sampleVaccine.setPetType(human);
+	    sampleVaccine.setPrice(75.0);
+	    sampleVaccine.setProvider("China");
+	    sampleVaccine.setSideEffects("Puede provocar crisis nerviosas");
+	    sampleVaccine.setStock(235);
+	    
+	    Treatment sampleTreatment = new Treatment();
+	    PetType raton = new PetType();
+	    sampleTreatment.setId(2);
+	    sampleTreatment.setPetType(raton);
+	    sampleTreatment.setPrice(25.0);
+	    sampleTreatment.setType("Tratamiento contra el aburrimiento");
+	    sampleTreatment.setDescription("Para que no te arranques los pelos este mes");
+	    
+	    Set<Vaccine> vacunas = new HashSet<Vaccine>();
+		vacunas.add(sampleVaccine);
+		Set<Treatment> tratamientos = new HashSet<Treatment>();
+		tratamientos.add(sampleTreatment);
+	    
+	    sampleInsuranceBase = new InsuranceBase();
+		PetType mascota = new PetType();
+		sampleInsuranceBase.setId(3);
+		sampleInsuranceBase.setName("Seguro para ganar dinero");
+		sampleInsuranceBase.setPetType(mascota);
+		sampleInsuranceBase.setVaccines(vacunas);
+		sampleInsuranceBase.setTreatments(tratamientos);
+		sampleInsuranceBase.setConditions("Ser rico");
+	}
+	
 	@Test
 	void shouldFindAll() {
 		Collection<InsuranceBase> segurosBase = this.insuranceBaseService.findInsurancesBases();
 		assertThat(segurosBase.size()).isEqualTo(6);
 	}
-	
-	
 	
 	@Test
 	void shouldFindById() {
@@ -99,102 +122,30 @@ class InsuranceBaseServiceTests {
 
 	}
 	
-	
-	
 	@Test
     void shouldFindInsurancesBases() {
-		
-		Vaccine sampleVaccine = new Vaccine();
-	    PetType human = new PetType();
-	    sampleVaccine.setId(1);
-	    sampleVaccine.setInformation("Vacuna del coronavirus en pruebas, testeado en monos");
-	    sampleVaccine.setExpiration(LocalDate.of(2021, Month.APRIL, 3));
-	    sampleVaccine.setName("Vacuna contra el coronavirus");
-	    sampleVaccine.setPetType(human);
-	    sampleVaccine.setPrice(75.0);
-	    sampleVaccine.setProvider("China");
-	    sampleVaccine.setSideEffects("Puede provocar crisis nerviosas");
-	    sampleVaccine.setStock(235);
+		List<InsuranceBase> sampleIBS = new ArrayList<InsuranceBase>();
+	 	sampleIBS.add(sampleInsuranceBase);
+        when(insuranceBaseRepository.findAll()).thenReturn(sampleIBS);
 
-	    //Creo el tratamiento
-	    Treatment sampleTreatment = new Treatment();
-	    PetType raton = new PetType();
-	    sampleTreatment.setId(2);
-	    sampleTreatment.setPetType(raton);
-	    sampleTreatment.setPrice(25.0);
-	    sampleTreatment.setType("Tratamiento contra el aburrimiento");
-	    sampleTreatment.setDescription("Para que no te arranques los pelos este mes");
-
-	    Set<Vaccine> vacunas = new HashSet<Vaccine>();
-		vacunas.add(sampleVaccine);
-		Set<Treatment> tratamientos = new HashSet<Treatment>();
-		tratamientos.add(sampleTreatment);	
-			
-		InsuranceBase sampleInsuranceBase = new InsuranceBase();
-		PetType mascota = new PetType();
-		sampleInsuranceBase.setId(3);
-		sampleInsuranceBase.setName("Seguro para ganar dinero");
-		sampleInsuranceBase.setPetType(mascota);
-		sampleInsuranceBase.setVaccines(vacunas);
-		sampleInsuranceBase.setTreatments(tratamientos);
-		sampleInsuranceBase.setConditions("Ser rico");	
-		
-		 List<InsuranceBase> sampleIBS = new ArrayList<InsuranceBase>();
-		 	sampleIBS.add(sampleInsuranceBase);
-	        when(insuranceBaseRepository.findAll()).thenReturn(sampleIBS);
-	        InsuranceBaseService service = new InsuranceBaseService(insuranceBaseRepository);
-	        Collection<InsuranceBase> insurancesBases = service.findInsurancesBases();
-	        assertThat(insurancesBases).hasSize(1);
-	        InsuranceBase IB = insurancesBases.iterator().next();
-	        assertThat(IB.getId()).isEqualTo(3);
-	        assertThat(IB.getName()).isEqualTo("Seguro para ganar dinero");
+        InsuranceBaseService service = new InsuranceBaseService(insuranceBaseRepository);
+	    Collection<InsuranceBase> insurancesBases = service.findInsurancesBases();
+	    assertThat(insurancesBases).hasSize(1);
+	    InsuranceBase IB = insurancesBases.iterator().next();
+	    assertThat(IB.getId()).isEqualTo(3);
+	    assertThat(IB.getName()).isEqualTo("Seguro para ganar dinero");
     }
 	
 	@Test
     void shouldNotFindInsurancesBases() {
-		
-		Vaccine sampleVaccine = new Vaccine();
-	    PetType human = new PetType();
-	    sampleVaccine.setId(1);
-	    sampleVaccine.setInformation("Vacuna del coronavirus en pruebas, testeado en monos");
-	    sampleVaccine.setExpiration(LocalDate.of(2021, Month.APRIL, 3));
-	    sampleVaccine.setName("Vacuna contra el coronavirus");
-	    sampleVaccine.setPetType(human);
-	    sampleVaccine.setPrice(75.0);
-	    sampleVaccine.setProvider("China");
-	    sampleVaccine.setSideEffects("Puede provocar crisis nerviosas");
-	    sampleVaccine.setStock(235);
-
-	    //Creo el tratamiento
-	    Treatment sampleTreatment = new Treatment();
-	    PetType raton = new PetType();
-	    sampleTreatment.setId(2);
-	    sampleTreatment.setPetType(raton);
-	    sampleTreatment.setPrice(25.0);
-	    sampleTreatment.setType("Tratamiento contra el aburrimiento");
-	    sampleTreatment.setDescription("Para que no te arranques los pelos este mes");
-
-	    Set<Vaccine> vacunas = new HashSet<Vaccine>();
-		vacunas.add(sampleVaccine);
-		Set<Treatment> tratamientos = new HashSet<Treatment>();
-		tratamientos.add(sampleTreatment);	
-			
-		InsuranceBase sampleInsuranceBase = new InsuranceBase();
-		PetType mascota = new PetType();
-		sampleInsuranceBase.setId(3);
-		sampleInsuranceBase.setName("Seguro para ganar dinero");
-		sampleInsuranceBase.setPetType(mascota);
-		sampleInsuranceBase.setVaccines(vacunas);
-		sampleInsuranceBase.setTreatments(tratamientos);
-		sampleInsuranceBase.setConditions("Ser rico");	
-		
-		 List<InsuranceBase> sampleIBS = new ArrayList<InsuranceBase>();
-		 	sampleIBS.add(sampleInsuranceBase);
-	        when(insuranceBaseRepository.findAll()).thenReturn(sampleIBS);
-	        InsuranceBaseService service = new InsuranceBaseService(insuranceBaseRepository);	        
-	    	Assertions.assertThrows(Exception.class, ()->{sampleIBS.get(1);});
-			when(service.findInsuranceBaseById(30)).thenThrow(new RuntimeException());
-			Assertions.assertThrows(RuntimeException.class, ()-> {service.findInsuranceBaseById(30);});
+	   	List<InsuranceBase> sampleIBS = new ArrayList<InsuranceBase>();
+		sampleIBS.add(sampleInsuranceBase);
+	    when(insuranceBaseRepository.findAll()).thenReturn(sampleIBS);
+	    
+	    InsuranceBaseService service = new InsuranceBaseService(insuranceBaseRepository);	        
+	    Assertions.assertThrows(Exception.class, ()->{sampleIBS.get(1);});
+		when(service.findInsuranceBaseById(30)).thenThrow(new RuntimeException());
+		Assertions.assertThrows(RuntimeException.class, ()-> {service.findInsuranceBaseById(30);});
     }
 
 }

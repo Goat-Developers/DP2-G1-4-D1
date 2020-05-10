@@ -15,9 +15,13 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Appointment;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Vet;
 
 /**
@@ -40,5 +44,9 @@ public interface VetRepository {
 	Collection<Vet> findAll() throws DataAccessException;
 
 	void save(Vet vet);
+
+	Vet findById(int id);
+	
+	Vet findByPrincipal(String currentUsername);
 
 }

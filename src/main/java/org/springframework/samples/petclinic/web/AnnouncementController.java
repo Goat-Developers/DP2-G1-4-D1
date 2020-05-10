@@ -95,8 +95,6 @@ public class AnnouncementController {
 			return "announcements/createOrUpdateAnnouncementForm";
 		}
 		else {
-		
-			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String currentUsername = authentication.getName();
 			Vet vet = this.annService.findVetByUser(currentUsername);

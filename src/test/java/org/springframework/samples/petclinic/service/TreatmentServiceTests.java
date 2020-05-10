@@ -23,6 +23,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -35,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@AutoConfigureTestDatabase(replace=Replace.NONE)
 public class TreatmentServiceTests {
 	
 	@Autowired
@@ -84,7 +87,7 @@ public class TreatmentServiceTests {
 		assertThat(treatment1.getPetType()).isNotNull();
 		
 		Treatment treatment3 = EntityUtils.getById(treatments, Treatment.class, 3);
-		assertThat(treatment3.getType()).isEqualTo("Dientes");
+		assertThat(treatment3.getType()).isEqualTo("Dientes gatos");
 		assertThat(treatment3.getPrice()).isNotEqualTo(10);
 	}
 	

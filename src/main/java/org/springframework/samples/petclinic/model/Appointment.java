@@ -1,7 +1,8 @@
 
 package org.springframework.samples.petclinic.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,25 +10,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
-
-
+	
+	@NotNull
 	@Column(name = "appointment_date")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate appointmentDate;
-
+	
+	@NotNull
+	@Column(name = "appointment_time")
+	@DateTimeFormat( pattern = "HH:mm:ss")
+	private LocalTime appointmentTime;
 
 	@NotEmpty
-	@Column(name = "reason")
+	@Column(name ="appointment_reason")
 	private String reason;
-	
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "pet_id")
@@ -37,50 +46,23 @@ public class Appointment extends BaseEntity {
 	@JoinColumn(name = "treatment_id")
 	private Treatment treatment;
 	
+	@ManyToOne
+	@JoinColumn(name = "vaccine_id")
+	private Vaccine vaccine;
+	
+	@Column(name="appointment_attended")
+	private boolean attended;
 
-
-
+	@Column(name="appointment_observations")
+	private String observations;
+	
+	@Column(name="appointment_billing")
+	private Double billing;
+	
+	
 	public Appointment() {
-		this.appointmentDate = LocalDate.now();
-	}
-
-
-	public LocalDate getAppointment_date() {
-		return this.appointmentDate;
-	}
-
-
-	public void setAppointment_date(LocalDate appointmentDate) {
-		this.appointmentDate = appointmentDate;
-	}
-
-
-	public String getReason() {
-		return this.reason;
-	}
-
-	
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-	
-
-
-	
-	public Pet getPet() {
-		return this.pet;
-	}
-
-	public void setPet(Pet pet) {
-		this.pet = pet;
-	}
-	
-	public Treatment getTreatment() {
-		return this.treatment;
-	}
-
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
+		this.attended = false;
+		this.billing = 0.;
 	}
 
 }

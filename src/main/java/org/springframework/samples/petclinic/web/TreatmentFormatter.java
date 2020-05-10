@@ -19,14 +19,14 @@ public class TreatmentFormatter implements Formatter<Treatment>{
 	@Override
 	public String print(Treatment object, Locale locale) {
 		
-		return object.getType();
+		return object.getDescription();
 	}
 
 	@Override
 	public Treatment parse(String text, Locale locale) throws ParseException {
 		Collection<Treatment> treatments = this.insuranceService.findTreatments();
 		for (Treatment type : treatments) {
-			if (type.getType().equals(text)) {
+			if (type.getDescription().equals(text)) {
 				return type;
 			}
 		}
