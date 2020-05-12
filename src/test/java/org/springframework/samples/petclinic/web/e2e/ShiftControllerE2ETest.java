@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class) 
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.MOCK) 
 @AutoConfigureMockMvc
-public class ShiftControllerE2ETests {
+public class ShiftControllerE2ETest {
 	
 	private static final int TEST_SHIFT_ID = 20;
 	private static final int TEST_VET_ID = 2;

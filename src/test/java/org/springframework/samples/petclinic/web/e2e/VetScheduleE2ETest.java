@@ -54,7 +54,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class) 
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.MOCK) 
 @AutoConfigureMockMvc
-public class VetScheduleE2ETests {
+public class VetScheduleE2ETest {
 	
 
 	@Autowired
