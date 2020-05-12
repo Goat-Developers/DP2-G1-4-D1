@@ -51,7 +51,7 @@ public class Appointment extends BaseEntity {
 	private Vaccine vaccine;
 	
 	@Column(name="appointment_attended")
-	private boolean attended;
+	private Boolean attended;
 
 	@Column(name="appointment_observations")
 	private String observations;
