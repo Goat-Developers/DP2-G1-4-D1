@@ -27,6 +27,9 @@ public interface InsuranceRepository {
 	
 	Collection<Insurance> findAll();
 	
+	//Profiling HU11
+	Collection<Insurance> findAllWithTreatmentsAndVaccines();
+	
 	Insurance findById(int id);
 	
 	Collection<Vaccine> findVaccines();
