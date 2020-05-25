@@ -54,6 +54,7 @@ public class InsuranceService {
 	}
 	
 	@Transactional(readOnly = true)
+	@Cacheable("insuranceById")
 	public Insurance findInsuranceById(int id) {
 		return insuranceRepository.findById(id);
 	}
@@ -62,18 +63,22 @@ public class InsuranceService {
 	public void saveInsurance(Insurance insurance) throws DataAccessException {
         insuranceRepository.save(insurance);                
 	}
+	
 	@Transactional(readOnly = true)	
 	public Collection<Vaccine> findVaccines() throws DataAccessException {
 		return insuranceRepository.findVaccines();
 	}
+	
 	@Transactional(readOnly = true)	
 	public Collection<Vaccine> findVaccinesByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findVaccinesByPetTypeId(id);
 	}
+	
 	@Transactional(readOnly = true)	
 	public Collection<Treatment> findTreatments() throws DataAccessException {
 		return insuranceRepository.findTreatments();
 	}
+	
 	@Transactional(readOnly = true)	
 	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findTreatmentsByPetTypeId(id);
