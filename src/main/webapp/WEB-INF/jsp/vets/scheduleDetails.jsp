@@ -41,25 +41,7 @@
     			<a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Atender cita</a>
     			</c:if> 
 				</td>
-<!-- <sec:authorize access="hasAuthority('worker')">				 -->
-<!-- 				 <td> -->
-<%--                      <spring:url value="/vetSchedule/{day}/appointment/{appointmentId}" var="app"> --%>
-<%--                      <spring:param name="appointmentId" value="${appointment.id}"/> --%>
-<%--                      <spring:param name="day" value="${appointment.appointmentDate}"/> --%>
-<%--                      </spring:url> --%>
-<%--                      <a href="${fn:escapeXml(app)}"> Atender cita</a> --%>
-<!--                </td>     -->
-<!-- </sec:authorize> -->
 
-<!-- <sec:authorize access="hasAuthority('veterinarian')">				 -->
-<!-- 				 <td> -->
-<%--                      <spring:url value="/vetSchedule/{day}/appointment/{appointmentId}" var="app"> --%>
-<%--                      <spring:param name="appointmentId" value="${appointment.id}"/> --%>
-<%--                      <spring:param name="day" value="${appointment.appointmentDate}"/> --%>
-<%--                      </spring:url> --%>
-<%--                      <a href="${fn:escapeXml(app)}"> Atender cita</a> --%>
-<!--                </td>     -->
-<!-- </sec:authorize> -->
 			</tr>
 			</c:forEach>
    			

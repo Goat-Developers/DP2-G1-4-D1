@@ -61,6 +61,7 @@ public class Appointment extends BaseEntity {
 	
 	
 	public Appointment() {
+		this.appointmentDate=LocalDate.now();
 		this.attended = false;
 		this.billing = 0.;
 	}

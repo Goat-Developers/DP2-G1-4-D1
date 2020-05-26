@@ -20,13 +20,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Appointment;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Vaccine;
-import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.VetSchedule;
-import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.VetScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +35,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class VetScheduleService {
 
-	private VetRepository vetRepository;
 	private VetScheduleRepository vetScheduleRepository;
 
 
 	@Autowired
-	public VetScheduleService(VetRepository vetRepository, VetScheduleRepository vetScheduleRepository) {
-		this.vetRepository = vetRepository;
+	public VetScheduleService(VetScheduleRepository vetScheduleRepository) {
 		this.vetScheduleRepository = vetScheduleRepository;
 	}		
 

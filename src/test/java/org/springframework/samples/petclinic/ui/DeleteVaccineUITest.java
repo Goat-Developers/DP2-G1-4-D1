@@ -1,19 +1,14 @@
 package org.springframework.samples.petclinic.ui;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.test.annotation.DirtiesContext;
 
 @DirtiesContext

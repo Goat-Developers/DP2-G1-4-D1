@@ -38,12 +38,12 @@ public class Insurance extends BaseEntity {
 	@ManyToOne
 	private InsuranceBase insuranceBase;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "insurance_vaccines", joinColumns = @JoinColumn(name = "insurance_id"),
 			inverseJoinColumns = @JoinColumn(name = "vaccine_id"))
 	private Set<Vaccine> vaccines;
 
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(name = "insurance_treatments", joinColumns = @JoinColumn(name = "insurance_id"),
 			inverseJoinColumns = @JoinColumn(name = "treatment_id"))
 	private Set<Treatment> treatments;
@@ -68,12 +68,11 @@ public class Insurance extends BaseEntity {
 	
 	public Insurance() {
 		this.insuranceDate = LocalDate.now();
+		this.insuranceBase= null;
 		
 	}
 
-	//Propiedades derivadas - Derivated properties
 	
-
 	@Transient
 	public Double getInsurancePrice() {
 		Double res = 0.;

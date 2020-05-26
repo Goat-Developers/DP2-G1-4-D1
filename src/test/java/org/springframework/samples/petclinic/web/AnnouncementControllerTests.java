@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
-import java.util.Collections;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;

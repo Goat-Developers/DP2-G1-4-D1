@@ -128,11 +128,7 @@ public class Owner extends Person {
 		return getPetsInternal().remove(pet);
 	}
 
-	/**
-	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * @param name to test
-	 * @return true if pet name is already in use
-	 */
+
 	public Pet getPet(String name) {
 		return getPet(name, false);
 	}
@@ -149,11 +145,7 @@ public class Owner extends Person {
 		return null;
 	}
 
-	/**
-	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * @param name to test
-	 * @return true if pet name is already in use
-	 */
+	
 	public Pet getPet(String name, boolean ignoreNew) {
 		name = name.toLowerCase();
 		for (Pet pet : getPetsInternal()) {

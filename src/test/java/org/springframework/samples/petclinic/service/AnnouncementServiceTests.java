@@ -29,7 +29,6 @@ import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.AnnouncementRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
