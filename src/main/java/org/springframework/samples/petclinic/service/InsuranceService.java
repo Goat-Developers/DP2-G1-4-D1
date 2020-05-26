@@ -26,7 +26,9 @@ import javax.validation.Valid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.cache.annotation.CacheEvict;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
@@ -52,8 +54,9 @@ public class InsuranceService {
 	@Transactional(readOnly = true)	
 	@Cacheable("insurances")
 	public Collection<Insurance> findInsurances() throws DataAccessException {
-		return insuranceRepository.findAll();
+		return insuranceRepository.findAllWithTreatmentsAndVaccines();
 	}
+
 	@Transactional(readOnly = true)
 	@Cacheable("insuranceById")
 	public Insurance findInsuranceById(int id) {
@@ -66,6 +69,7 @@ public class InsuranceService {
         insuranceRepository.save(insurance);                
 	}
 	
+
 	@Transactional(readOnly = true)
 	public Collection<Vaccine> findVaccines() throws DataAccessException {
 		return insuranceRepository.findVaccines();
@@ -81,6 +85,7 @@ public class InsuranceService {
 	}
 	@Transactional(readOnly = true)
 	@Cacheable("treatmentsByPetTypeId")
+
 	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findTreatmentsByPetTypeId(id);
 	}

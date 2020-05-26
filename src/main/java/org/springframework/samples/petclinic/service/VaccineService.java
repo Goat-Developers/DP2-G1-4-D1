@@ -44,9 +44,13 @@ public class VaccineService {
 	@Transactional(readOnly = true)
 	@Cacheable("allVaccinesExpirated")
 	public List<Vaccine> findAllExpirated(){
-		return vaccineRepo.findAll().stream().filter(v -> v.getExpirated()).collect(Collectors.toList());
-		
+		return vaccineRepo.findAll().stream().filter(v -> expirado(v)).collect(Collectors.toList());	
 	}
+	
+	private Boolean expirado(Vaccine v) {
+		return v.getExpirated();
+	}
+
 	
 	@Transactional
 	@CacheEvict(cacheNames = "vaccineById", allEntries = true)
