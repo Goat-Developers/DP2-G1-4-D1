@@ -92,18 +92,17 @@ public class AppointmentController {
 		
 	}
 	@PostMapping(value = "appointment/new/{petId}")
-	public String postAppointmentCreationForm(@Valid Appointment appointment, BindingResult bindingResult,Map<String,Object>model, @PathVariable("petId") int id) throws DataAccessException, DuplicatedPetNameException {
+	public String postAppointmentCreationForm(@Valid Appointment app, BindingResult bindingResult,Map<String,Object>model, @PathVariable("petId") int id) throws DataAccessException, DuplicatedPetNameException {
 		
 		Pet pet = this.petService.findPetById(id);	
 		if(bindingResult.hasErrors()) {
 			
-
-			List<LocalTime> times= new ArrayList<LocalTime>();
+			List<LocalTime> times= new ArrayList<>();
 			for(int i=8; i<16; i++) {
 				times.add(LocalTime.of(i, 0,0));
 			}
 			model.put("pet",pet);
-			model.put("appointment", appointment);
+			model.put("appointment", app);
 			model.put("times",times);
 			
 				int petTypeId = pet.getType().getId();
@@ -120,55 +119,55 @@ public class AppointmentController {
 			Double res = 0.;
 		
 			if(pet.getInsurance() == null) {
-				if(!(appointment.getVaccine()==null)) {
-					res += appointment.getVaccine().getPrice();
+				if((app.getVaccine()!=null)) {
+					res += app.getVaccine().getPrice();
 					
 				}
-				if(!(appointment.getTreatment()==null)) {
-					res += appointment.getTreatment().getPrice();
+				if((app.getTreatment()!=null)) {
+					res += app.getTreatment().getPrice();
 				}
 			}else {
-				if(!(pet.getInsurance().getVaccines().contains(appointment.getVaccine())) && !(appointment.getVaccine() ==null)) {
-					res += appointment.getVaccine().getPrice();
+				if(!(pet.getInsurance().getVaccines().contains(app.getVaccine())) && (app.getVaccine() !=null)) {
+					res += app.getVaccine().getPrice();
 				}
-				if(!(pet.getInsurance().getTreatments().contains(appointment.getTreatment())) && !(appointment.getTreatment() ==null) ) {
-					res += appointment.getTreatment().getPrice();
+				if(!(pet.getInsurance().getTreatments().contains(app.getTreatment())) && (app.getTreatment() !=null) ) {
+					res += app.getTreatment().getPrice();
 				}
 			}
 			
-			if(!(appointment.getVaccine()==null)) {
-				Vaccine vacuna = appointment.getVaccine();
+			if((app.getVaccine()!=null)) {
+				Vaccine vacuna = app.getVaccine();
 				vacuna.setStock(vacuna.getStock()-1);
 				this.vaccineService.saveVaccine(vacuna);
 			}
 			
-			appointment.setBilling(res);
-			this.appService.saveAppointment(appointment);
-			pet.getAppointments().add(appointment);
-			if(pet.getInsurance()!=null && !(appointment.getVaccine() == null)) {
-				pet.getInsurance().getVaccines().remove(appointment.getVaccine());
+			app.setBilling(res);
+			this.appService.saveAppointment(app);
+			pet.getAppointments().add(app);
+			if(pet.getInsurance()!=null && (app.getVaccine() != null)) {
+				pet.getInsurance().getVaccines().remove(app.getVaccine());
 				
 			}
-			if(pet.getInsurance()!=null && !(appointment.getTreatment() == null)) {
-				pet.getInsurance().getTreatments().remove(appointment.getTreatment());
+			if(pet.getInsurance()!=null && (app.getTreatment() != null)) {
+				pet.getInsurance().getTreatments().remove(app.getTreatment());
 			}
 			this.petService.savePet(pet);
-			VetSchedule vtSchedule = asignaAppointment(appointment);
-			vtSchedule.getAppointments().add(appointment);
+			VetSchedule vtSchedule = asignaAppointment(app);
+			vtSchedule.getAppointments().add(app);
 			this.vtSchService.saveVtSchedule(vtSchedule);
 			
 			
 		}
 		return "redirect:/owners/"+pet.getOwner().getId();
 	}
-	private VetSchedule asignaAppointment(@Valid Appointment appointment) {
+	private VetSchedule asignaAppointment(@Valid Appointment app) {
 		VetSchedule res = new VetSchedule();
 		List<VetSchedule> allVetSchedule = (List<VetSchedule>) this.vtSchService.findAll();
 		for(int i=0; i<allVetSchedule.size(); i++) {
 			List<LocalTime> shifts = allVetSchedule.get(i).getShifts().stream().map(Shift::getShiftDate).collect(Collectors.toList());
-			if(shifts.contains(appointment.getAppointmentTime())) {
-				List<Appointment> appVetSchedule = allVetSchedule.get(i).getAppointments().stream().filter(x->x.getAppointmentDate().equals(appointment.getAppointmentDate())&& x.getAppointmentTime().equals(appointment.getAppointmentTime())).collect(Collectors.toList());
-				if(appVetSchedule.size()==0) {
+			if(shifts.contains(app.getAppointmentTime())) {
+				List<Appointment> appVetSchedule = allVetSchedule.get(i).getAppointments().stream().filter(x->x.getAppointmentDate().equals(app.getAppointmentDate())&& x.getAppointmentTime().equals(app.getAppointmentTime())).collect(Collectors.toList());
+				if(appVetSchedule.isEmpty()) {
 					res= allVetSchedule.get(i);
 					break;
 				}
@@ -188,12 +187,12 @@ public class AppointmentController {
 	
 
 	@PostMapping(value = "/appointment/observe")
-	public String VetObserveApplication(@ModelAttribute("appointment") Appointment appoint, @ModelAttribute("id") int id) {
+	public String VetObserveApplication(@ModelAttribute("appointment") Appointment app, @ModelAttribute("id") int id) {
 
-		Appointment app = this.appService.findAppointmentById(id);
-		app.setObservations(appoint.getObservations());
-		app.setAttended(true);
-		this.appService.saveAppointment(app);
+		Appointment appt = this.appService.findAppointmentById(id);
+		appt.setObservations(app.getObservations());
+		appt.setAttended(true);
+		this.appService.saveAppointment(appt);
 		return "redirect:/vets";
 	}
 

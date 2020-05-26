@@ -11,11 +11,9 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hamcrest.collection.IsArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,8 +39,6 @@ import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 
 @WebMvcTest(value = InsuranceController.class, 
 includeFilters = { @ComponentScan.Filter(value = PetTypeFormatter.class,type = FilterType.ASSIGNABLE_TYPE), @ComponentScan.Filter(value = VaccineFormatter.class, type = FilterType.ASSIGNABLE_TYPE)

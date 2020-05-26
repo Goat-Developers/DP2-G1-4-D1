@@ -19,11 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-
-
-
-
 @Controller
 public class AnnouncementController {
 	
@@ -53,19 +48,19 @@ public class AnnouncementController {
 		
 	}
 	@GetMapping("/announcements/tag")
-	public String showAnnouncementListFiltered(Announcement announcement, Map<String,Object> model) {
+	public String showAnnouncementListFiltered(Announcement ann, Map<String,Object> model) {
 		Announcements announcements = new Announcements();
-		if(announcement.getTag()=="") {
+		if(ann.getTag()=="") {
 			announcements.getAnnouncementList().addAll(annService.findAnnouncements());
 		}else {
-			announcements.getAnnouncementList().addAll(annService.findAnnouncementsByTag(announcement.getTag().toLowerCase()));
+			announcements.getAnnouncementList().addAll(annService.findAnnouncementsByTag(ann.getTag().toLowerCase()));
 			if (announcements.getAnnouncementList().size()==0) {
 				model.put("vacio", true);
 			}
 		}
 		
 		model.put("announcements",announcements);
-		model.put("announcement",announcement);
+		model.put("announcement",ann);
 		return URL_ANNOUNCEMENTS;
 	}
 	@GetMapping("/announcements/{announcementId}")
@@ -75,11 +70,11 @@ public class AnnouncementController {
 		return "announcements/announcementDetails";
 	}
 	@GetMapping("/announcements/old")
-	public String ShowOldAnnouncementList(Map<String,Object> model,Announcement announcement ) {
+	public String ShowOldAnnouncementList(Map<String,Object> model,Announcement ann ) {
 		Announcements announcements = new Announcements();
 		announcements.getAnnouncementList().addAll(annService.findOldAnnouncements());
 		model.put("announcements",announcements);
-		model.put("announcement",announcement);
+		model.put("announcement",ann);
 		return URL_ANNOUNCEMENTS;
 	}
 	
@@ -90,7 +85,7 @@ public class AnnouncementController {
 		return "announcements/createOrUpdateAnnouncementForm";
 	}
 	@PostMapping(value = "/announcement/new")
-	public String processCreationForm(@Valid Announcement announcement, BindingResult result) {
+	public String processCreationForm(@Valid Announcement ann, BindingResult result) {
 		if (result.hasErrors()) {
 			return "announcements/createOrUpdateAnnouncementForm";
 		}
@@ -98,9 +93,9 @@ public class AnnouncementController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String currentUsername = authentication.getName();
 			Vet vet = this.annService.findVetByUser(currentUsername);
-			announcement.setVet(vet);
-			announcement.setTag(announcement.getTag().toLowerCase().replaceAll("[\\s+,,]","").trim());;
-			this.annService.saveAnnouncement(announcement);
+			ann.setVet(vet);
+			ann.setTag(ann.getTag().toLowerCase().replaceAll("[\\s+,,]","").trim());;
+			this.annService.saveAnnouncement(ann);
 			this.vetService.saveVet(vet);
 			
 			return "redirect:/announcements";

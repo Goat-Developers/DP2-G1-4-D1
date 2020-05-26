@@ -72,12 +72,10 @@ public class Pet extends NamedEntity {
 	private Set<Appointment> appointments;
 	
 	
-	///Revisar multiplicidad
 	@ManyToOne
 	@JoinColumn(name = "treatment_id")
 	private Treatment treatment;
-	
-	///Revisar multiplicidad
+
 	@OneToOne
 	@JoinColumn(name = "insurance_id")
 	private Insurance insurance;

@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.samples.petclinic.model.Insurance;
-import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
@@ -26,7 +22,6 @@ import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.samples.petclinic.web.InsuranceController;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -37,7 +32,6 @@ import org.springframework.validation.MapBindingResult;
 public class InsuranceControllerIntegrationTests {
 
 	private static final int TEST_INSURANCE_ID = 2;
-	private static final int TEST_INSURANCE_BASE_ID = 1;
 	private static final int TEST_VACCINE_ID = 1;
 	private static final int TEST_TREATMENT_ID = 4;
 	private static final int TEST_PET_ID = 1;

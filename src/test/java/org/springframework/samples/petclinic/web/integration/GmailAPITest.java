@@ -3,8 +3,6 @@ package org.springframework.samples.petclinic.web.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.mail.internet.MimeMessage;
 
@@ -13,16 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.samples.petclinic.model.Insurance;
-import org.springframework.samples.petclinic.model.InsuranceBase;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.Treatment;
-import org.springframework.samples.petclinic.model.Vaccine;
-import org.springframework.samples.petclinic.service.InsuranceBaseService;
-import org.springframework.samples.petclinic.service.PetService;
-import org.springframework.samples.petclinic.service.TreatmentService;
-import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.samples.petclinic.util.GmailQuickstart;
 import org.springframework.samples.petclinic.util.SendEmail;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -34,7 +22,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 
-import io.cucumber.java.en.When;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureWebTestClient

@@ -68,12 +68,11 @@ public class Insurance extends BaseEntity {
 	
 	public Insurance() {
 		this.insuranceDate = LocalDate.now();
+		this.insuranceBase= null;
 		
 	}
 
-	//Propiedades derivadas - Derivated properties
 	
-
 	@Transient
 	public Double getInsurancePrice() {
 		Double res = 0.;
