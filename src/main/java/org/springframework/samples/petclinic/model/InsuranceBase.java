@@ -50,7 +50,6 @@ public class InsuranceBase extends BaseEntity {
 			inverseJoinColumns = @JoinColumn(name = "treatment_id"))
 	private Set<Treatment> treatments;
 
-	//Propiedades derivadas - Derivated properties
 	
 	@Transient
 	public Double getPrice() {

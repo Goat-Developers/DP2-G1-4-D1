@@ -47,12 +47,12 @@ public class TreatmentControllerIntegrationTests {
 	@Test
 	void testShowTreatment() throws Exception {
 		ModelMap model=new ModelMap();
-		Treatment treatment = treatmentService.findById(TEST_TREATMENT_ID);
+		
 
 		String view = treatmentController.ShowtreatmentDetail(TEST_TREATMENT_ID, model);
 		
 		assertEquals(view,"treatment/treatmentDetails");
-		//assertEquals(model.getAttribute("treatment"), treatment); da dos treatments distintos????
+		
 	}
 	
 	@Test

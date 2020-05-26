@@ -2,9 +2,7 @@ package org.springframework.samples.petclinic.web;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -20,28 +18,19 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.devtools.remote.server.AccessManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.InsuranceBase;
-import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Treatment;
-import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.model.VaccinationSchedule;
 import org.springframework.samples.petclinic.model.Vaccine;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
@@ -50,16 +39,9 @@ import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.samples.petclinic.service.VaccineService;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.ModelMap;
 
 /**
  * Test class for {@link OwnerController}
@@ -312,9 +294,9 @@ class VaccineControllerTests {
        			.andExpect(view().name("vaccine/vaccineStock"));
     }	 
         
-        @WithMockUser(value = "spring")
-        @Test
-        void testDeleteVaccine() throws Exception {
+      @WithMockUser(value = "spring")
+      @Test
+      void testDeleteVaccine() throws Exception {
     		
         	mockMvc.perform(get("/vaccine/{vaccineId}/delete", TEST_VACCINEC_ID))
         			.andExpect(status().is3xxRedirection())		
@@ -326,8 +308,8 @@ class VaccineControllerTests {
            mockMvc.perform(get("/vaccine/{vaccineId}/delete", TEST_VACCINEC_BASE_ID))
            .andExpect(status().is3xxRedirection())
   			.andExpect(view().name("redirect:/vaccine"));
-       	assertThat(clinicService.findById(TEST_VACCINEC_BASE_ID)).isEqualTo(null);
-       	assertThat(insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID).getVaccines()
+       		assertThat(clinicService.findById(TEST_VACCINEC_BASE_ID)).isEqualTo(null);
+       		assertThat(insuranceBaseService.findInsuranceBaseById(TEST_INSURANCE_BASE_ID).getVaccines()
     			.contains(clinicService.findById(TEST_VACCINEC_BASE_ID))).isFalse();
 
 

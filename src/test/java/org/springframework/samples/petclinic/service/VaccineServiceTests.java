@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -162,8 +161,8 @@ class VaccineServiceTests {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(strings= {"Dientes","2020/04/15","null","14.2"})
-	void shouldFailSetTreatmentPriceByStrings(String argument) {
+	@ValueSource(strings= {"Dientes","2020/04/15","null","14.22"})
+	void shouldFailSetVaccinePriceByStrings(String argument) {
 		try {
 			this.vaccineService.findById(1).setPrice(Double.parseDouble(argument));
 		} catch (NumberFormatException ex) {

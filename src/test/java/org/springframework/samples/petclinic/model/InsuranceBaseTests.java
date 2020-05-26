@@ -4,30 +4,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
 import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.samples.petclinic.service.VaccineService;
 import org.springframework.samples.petclinic.web.InsuranceBaseController;
-import org.springframework.samples.petclinic.web.PetTypeFormatter;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 
 public class InsuranceBaseTests {
 	
@@ -54,7 +42,6 @@ public class InsuranceBaseTests {
 	@BeforeEach
 	void setup() {	
 	
-	//Creo la vacuna
     vaccineCoronavirus = new Vaccine();
     PetType human = new PetType();
     vaccineCoronavirus.setId(TEST_VACCINE_ID);
@@ -67,7 +54,6 @@ public class InsuranceBaseTests {
     vaccineCoronavirus.setSideEffects("Puede provocar crisis nerviosas");
     vaccineCoronavirus.setStock(235);
 
-    //Creo el tratamiento
     tratamientoParaAburrimiento = new Treatment();
     PetType raton = new PetType();
     tratamientoParaAburrimiento.setId(TEST_TREATMENT_ID);

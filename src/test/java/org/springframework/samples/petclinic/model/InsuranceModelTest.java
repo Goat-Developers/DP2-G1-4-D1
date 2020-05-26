@@ -8,12 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.samples.petclinic.repository.VaccineRepository;
 import org.springframework.samples.petclinic.service.InsuranceBaseService;
-import org.springframework.samples.petclinic.service.InsuranceService;
 import org.springframework.samples.petclinic.service.TreatmentService;
 import org.springframework.samples.petclinic.service.VaccineService;
-import org.springframework.samples.petclinic.web.VaccineController;
 
 public class InsuranceModelTest {
 	
@@ -58,7 +55,6 @@ public class InsuranceModelTest {
 		
 		@BeforeEach
 		void setup() {
-			//Creo la vacuna para seguro
 			vaccineCoronavirus = new Vaccine();
 	        PetType mariposa = new PetType();
 	        mariposa.setId(8);
@@ -74,7 +70,6 @@ public class InsuranceModelTest {
 	        vaccineCoronavirus.setStock(235);
 	      
 	        
-	        //Creo el tratamiento
 	        treatmentParaAburrimiento = new Treatment();
 	        PetType raton = new PetType();
 	        raton.setId(9);
@@ -86,7 +81,6 @@ public class InsuranceModelTest {
 	        treatmentParaAburrimiento.setDescription("Para que no te arranques los pelos este mes");
 	        
 	        
-	      //Creo la vacuna para seguro base
 	        vaccineExplotacion = new Vaccine();
 	        PetType koala = new PetType();
 	        koala.setId(12);
@@ -102,7 +96,6 @@ public class InsuranceModelTest {
 	        vaccineExplotacion.setStock(2);
 	        
 	        
-	      //Creo el tratamiento para seguro base
 	        treatmentParaNada = new Treatment();
 	        PetType agaporni = new PetType();
 	        agaporni.setId(11);
@@ -115,7 +108,6 @@ public class InsuranceModelTest {
 	        
 	        
 	        
-	        //Crear Seguro Base
 	        
 	        Set<Vaccine> vacunasBase = new HashSet<Vaccine>();
 			vacunasBase.add(vaccineExplotacion);
@@ -135,7 +127,6 @@ public class InsuranceModelTest {
 	        
 	        
 	        
-	        //Creo el seguro
 	        
 			Set<Vaccine> vacunas = new HashSet<Vaccine>();
 			vacunas.add(vaccineCoronavirus);

@@ -19,7 +19,7 @@ import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Shift;
-import org.springframework.samples.petclinic.model.Vet;
+
 
 /**
  * Repository class for <code>Vet</code> domain objects All method names are compliant
