@@ -28,6 +28,7 @@
             </resources>
         </cache-template>
         
+
 	    <cache alias="insuranceById" uses-template="default">
 	        <key-type>java.lang.Integer</key-type>
 	        <value-type>org.springframework.samples.petclinic.model.Insurance</value-type>
@@ -45,4 +46,23 @@
 	        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
 	        <value-type>java.util.Collection</value-type>
 	    </cache>        
-</config>
+
+
+	    <cache alias="vaccineById" uses-template="default">
+	        <key-type>java.lang.Integer</key-type>
+	        <value-type>org.springframework.samples.petclinic.model.Vaccine</value-type>
+	    </cache>      
+	     <cache alias="allVaccines" uses-template="default">
+	        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+	        <value-type>java.util.List</value-type>
+	    </cache>  
+	     <cache alias="allVaccinesExpirated" uses-template="default">
+	        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+	        <value-type>java.util.List</value-type>
+	    </cache>     
+	    <cache alias="vaccinesLow" uses-template="default">
+	        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+	        <value-type>java.util.List</value-type>
+	    </cache>     
+    </config>
+
