@@ -61,7 +61,7 @@ public class VaccinationScheduleController {
 		LocalDate primer =  LocalDate.now();
 		Collection<Vaccine> choosedVaccines= vaccSchedule.getVaccines();
 		for(int i=0; i<choosedVaccines.size();i++) {
-			dates.add(primer.plus(new Long(4+i+(pet.getBirthDate().getDayOfMonth()/10)),ChronoUnit.WEEKS));
+			dates.add(primer.plus(4+i+(pet.getBirthDate().getDayOfMonth()/10),ChronoUnit.WEEKS));
 		}
 		vaccSchedule.setDates(dates);
 		this.vcsService.saveVaccSchedule(vaccSchedule);
