@@ -26,9 +26,7 @@ public class AnnouncementController {
 	
 	private final VetService vetService;
 	
-	private final String anns = "announcements";
 	
-	private final String announ = "announcement";
 	
 	private static final String URL_ANNOUNCEMENTS ="announcements/announcementList"; 
 
@@ -46,8 +44,8 @@ public class AnnouncementController {
 		Announcements announcements = new Announcements();
 		announcements.getAnnouncementList().addAll(annService.findAnnouncements());
 		Announcement announcement = new Announcement();
-		model.put(anns,announcements);
-		model.put(announ,announcement);
+		model.put("announcements",announcements);
+		model.put("announcement",announcement);
 		return URL_ANNOUNCEMENTS;
 		
 	}
@@ -63,29 +61,29 @@ public class AnnouncementController {
 			}
 		}
 		
-		model.put(anns,announcements);
-		model.put(announ,ann);
+		model.put("announcements",announcements);
+		model.put("announcement",ann);
 		return URL_ANNOUNCEMENTS;
 	}
 	@GetMapping("/announcements/{announcementId}")
 	public String showAnnouncementDetail(@PathVariable("announcementId")  int announcementId, Map<String,Object>  model ) {
 		Announcement a = annService.findAnnouncementById(announcementId);
-		model.put(announ,a);
+		model.put("announcement",a);
 		return "announcements/announcementDetails";
 	}
 	@GetMapping("/announcements/old")
 	public String showOldAnnouncementList(Map<String,Object> model,Announcement ann ) {
 		Announcements announcements = new Announcements();
 		announcements.getAnnouncementList().addAll(annService.findOldAnnouncements());
-		model.put(anns,announcements);
-		model.put(announ,ann);
+		model.put("announcements",announcements);
+		model.put("announcement",ann);
 		return URL_ANNOUNCEMENTS;
 	}
 	
 	@GetMapping("/announcement/new")
 	public String initAnnouncementCreationForm(Map<String,Object> model) {
 		Announcement announcement = new Announcement();
-		model.put(announ,announcement);
+		model.put("announcement",announcement);
 		return "announcements/createOrUpdateAnnouncementForm";
 	}
 	@PostMapping(value = "/announcement/new")

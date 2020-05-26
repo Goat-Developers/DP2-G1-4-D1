@@ -75,6 +75,7 @@ public class AnnouncementControllerTests {
 		announcement.setVet(vet);
 		given(this.annService.findAnnouncementById(AnnouncementControllerTests.ANNOUNCEMENT_TEST_ID)).willReturn(announcement);
 	}
+	
 	@WithMockUser(value = "vet1")
     @Test
     void testShowAnnouncements() throws Exception {

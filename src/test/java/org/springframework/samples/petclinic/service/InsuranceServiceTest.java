@@ -145,15 +145,15 @@ public class InsuranceServiceTest {
 	@Test
 	void shouldFindInsurances() {
 		Collection<Insurance> insurance = this.insuranceService.findInsurances();
-		assertThat(insurance.size()).isEqualTo(0);
+		assertThat(insurance.size()).isEqualTo(1);
 	}
 	
-	// NO HAY NINGUN INSURANCE EN EL DATA
-	/*@Test
+	
+	@Test
 	void shouldFindById() {
 		Insurance insurance = this.insuranceService.findInsuranceById(1);
 		assertThat(insurance.getId()).isEqualTo(1);
-	}*/
+	}
 
 	@Test
 	@Transactional
