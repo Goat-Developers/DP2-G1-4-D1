@@ -3,15 +3,14 @@ package org.springframework.samples.petclinic.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vaccine;
-import org.springframework.samples.petclinic.repository.AnnouncementRepository;
 import org.springframework.samples.petclinic.repository.VaccineRepository;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,23 +29,31 @@ public class VaccineService {
 
 
 	@Transactional
+	@Cacheable("vaccineById")
 	public Vaccine findById(int id) {
 		return vaccineRepo.findById(id);	
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
+	@Cacheable("allVaccines")
 	public List<Vaccine> findAll(){
 		return vaccineRepo.findAll().stream().collect(Collectors.toList());
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
+	@Cacheable("allVaccinesExpirated")
 	public List<Vaccine> findAllExpirated(){
-		return vaccineRepo.findAll().stream().filter(v -> v.getExpirated()).collect(Collectors.toList());
-		
+		return vaccineRepo.findAll().stream().filter(v -> expirado(v)).collect(Collectors.toList());	
 	}
 	
+	private Boolean expirado(Vaccine v) {
+		return v.getExpirated();
+	}
+
+	
 	@Transactional
+	@CacheEvict(cacheNames = "vaccineById", allEntries = true)
 	public void saveVaccine(@Valid Vaccine vaccine) {
 		vaccineRepo.save(vaccine);
 		
@@ -58,12 +65,14 @@ public class VaccineService {
 		
 	}
 
+	@Transactional(readOnly = true)
 	public List<PetType> findPetTypes() {
 		
 		return vaccineRepo.findPetTypes();
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
+	@Cacheable("vaccinesLow")
 	public List<Vaccine> findVaccinesWithLowStock(){
 		
 		return vaccineRepo.findVaccinesWithLowStock();

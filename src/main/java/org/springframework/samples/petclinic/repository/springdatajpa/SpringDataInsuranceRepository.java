@@ -36,6 +36,10 @@ public interface SpringDataInsuranceRepository extends InsuranceRepository, Repo
 	@Query("SELECT insurance FROM Insurance insurance")
 	Collection<Insurance> findAll();
 	
+	//Profiling HU11
+	@Query("SELECT DISTINCT i FROM Insurance i LEFT JOIN FETCH i.treatments t LEFT JOIN FETCH i.vaccines v")
+	Collection<Insurance> findAllWithTreatmentsAndVaccines();
+	
 	@Query("SELECT vaccine from Vaccine vaccine WHERE vaccine.expiration > current_date")
 	Collection<Vaccine> findVaccines();
 	

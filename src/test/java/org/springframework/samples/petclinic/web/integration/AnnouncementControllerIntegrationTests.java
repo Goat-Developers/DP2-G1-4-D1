@@ -25,7 +25,6 @@ import org.springframework.validation.MapBindingResult;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AnnouncementControllerIntegrationTests {
 
-	private static final int VET_TEST_ID = 1;
 	private static final int ANNOUNCEMENT_TEST_ID = 1;
 	
 	@Autowired

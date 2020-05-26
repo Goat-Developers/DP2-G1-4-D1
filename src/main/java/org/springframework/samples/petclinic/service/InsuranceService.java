@@ -26,6 +26,10 @@ import javax.validation.Valid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.cache.annotation.CacheEvict;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Insurance;
 import org.springframework.samples.petclinic.model.Pet;
@@ -48,30 +52,39 @@ public class InsuranceService {
 		this.insuranceRepository = insuranceRepository;
 	}
 	@Transactional(readOnly = true)	
+	@Cacheable("insurances")
 	public Collection<Insurance> findInsurances() throws DataAccessException {
-		return insuranceRepository.findAll();
+		return insuranceRepository.findAllWithTreatmentsAndVaccines();
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Cacheable("insuranceById")
 	public Insurance findInsuranceById(int id) {
 		return insuranceRepository.findById(id);
 	}
 	
 	@Transactional(rollbackFor = DuplicatedPetNameException.class)
+	@CacheEvict(cacheNames="insuranceById", allEntries=true)
 	public void saveInsurance(Insurance insurance) throws DataAccessException {
         insuranceRepository.save(insurance);                
 	}
 	
+
+	@Transactional(readOnly = true)
 	public Collection<Vaccine> findVaccines() throws DataAccessException {
 		return insuranceRepository.findVaccines();
 	}
-	
+	@Transactional(readOnly = true)
+	@Cacheable("vaccinesByPetTypeId")
 	public Collection<Vaccine> findVaccinesByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findVaccinesByPetTypeId(id);
 	}
-	
+	@Transactional(readOnly = true)
 	public Collection<Treatment> findTreatments() throws DataAccessException {
 		return insuranceRepository.findTreatments();
 	}
+	@Transactional(readOnly = true)
+	@Cacheable("treatmentsByPetTypeId")
 
 	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
 		return insuranceRepository.findTreatmentsByPetTypeId(id);

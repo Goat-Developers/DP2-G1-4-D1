@@ -1,9 +1,7 @@
 package org.springframework.samples.petclinic.web.e2e;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalTime;
 
@@ -34,7 +32,7 @@ public class ShiftControllerE2ETest {
 		a.setId(TEST_SHIFT_ID);
 		a.setShiftDate(LocalTime.of(16, 00, 00));
 		mockMvc.perform(get("/shifts/{shiftId}/new/{vetId}",TEST_SHIFT_ID,TEST_VET_ID))
-		.andExpect(status().isOk());
+		.andExpect(status().is3xxRedirection());
 	}
 	
 	@WithMockUser(username="vet1",authorities= {"veterinarian"}) 

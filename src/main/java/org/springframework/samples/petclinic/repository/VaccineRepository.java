@@ -10,17 +10,17 @@ import org.springframework.samples.petclinic.model.Vaccine;
 
 public interface VaccineRepository  {
 	
-	List<Vaccine> findAll() throws DataAccessException;
+	List<Vaccine> findAll();
 
-	Vaccine findById(int id) throws DataAccessException;
+	Vaccine findById(int id);
 
 	void save(@Valid Vaccine vaccine);
 	
-	List<PetType> findPetTypes() throws DataAccessException;
+	List<PetType> findPetTypes();
 	
 	void delete(@Valid Vaccine vaccine);
 	
-	List<Vaccine> findVaccinesWithLowStock() throws DataAccessException;;
+	List<Vaccine> findVaccinesWithLowStock();
 	
 
 }
