@@ -56,17 +56,17 @@ public class PetService {
 	}
 
 	@Transactional(readOnly = true)
-	public Collection<PetType> findPetTypes() throws DataAccessException {
+	public Collection<PetType> findPetTypes() {
 		return petRepository.findPetTypes();
 	}
 	
 	@Transactional
-	public void saveVisit(Visit visit) throws DataAccessException {
+	public void saveVisit(Visit visit) {
 		visitRepository.save(visit);
 	}
 
 	@Transactional(readOnly = true)
-	public Pet findPetById(int id) throws DataAccessException {
+	public Pet findPetById(int id) {
 		return petRepository.findById(id);
 	}
 

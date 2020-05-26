@@ -17,7 +17,6 @@ package org.springframework.samples.petclinic.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.repository.AuthoritiesRepository;
 import org.springframework.stereotype.Service;
@@ -40,12 +39,12 @@ public class AuthoritiesService {
 	}
 
 	@Transactional
-	public void saveAuthorities(Authorities authorities) throws DataAccessException {
+	public void saveAuthorities(Authorities authorities) {
 		authoritiesRepository.save(authorities);
 	}
 	
 	@Transactional
-	public void saveAuthorities(String username, String role) throws DataAccessException {
+	public void saveAuthorities(String username, String role) {
 		Authorities authority = new Authorities();
 		authority.setUsername(username);
 		authority.setAuthority(role);

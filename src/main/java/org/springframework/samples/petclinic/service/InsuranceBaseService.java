@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.InsuranceBase;
 import org.springframework.samples.petclinic.repository.InsuranceBaseRepository;
 import org.springframework.stereotype.Service;
@@ -36,12 +35,12 @@ public class InsuranceBaseService {
 	}
 	
 	@Transactional(readOnly = true)	
-	public List<InsuranceBase> findInsurancesBases() throws DataAccessException {
+	public List<InsuranceBase> findInsurancesBases() {
 		return insuranceBaseRepository.findAll();
 	}
 	
 	@Transactional(readOnly = true)
-	public Collection<InsuranceBase> findInsurancesBasesByPetTypeId(int id) throws DataAccessException {
+	public Collection<InsuranceBase> findInsurancesBasesByPetTypeId(int id) {
 		return insuranceBaseRepository.findByPetTypeId(id);
 	}
 	

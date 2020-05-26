@@ -64,7 +64,7 @@ public class VaccinationScheduleController {
 			dates.add(primer.plus(new Long(4+i+(pet.getBirthDate().getDayOfMonth()/10)),ChronoUnit.WEEKS));
 		}
 		vaccSchedule.setDates(dates);
-		this.vcsService.SaveVaccSchedule(vaccSchedule);
+		this.vcsService.saveVaccSchedule(vaccSchedule);
 		pet.setSchedule(vaccSchedule);
 		this.petService.savePet(pet);
 		return "redirect:/owners/"+pet.getOwner().getId();

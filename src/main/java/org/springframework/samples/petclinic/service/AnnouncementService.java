@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Announcement;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.AnnouncementRepository;
@@ -23,11 +22,11 @@ public class AnnouncementService {
 	}
 	
 	@Transactional(readOnly = true)	
-	public Collection<Announcement> findAnnouncements() throws DataAccessException {
+	public Collection<Announcement> findAnnouncements() {
 		return annrepository.findAll();
 	}
 	
-	public Collection<Announcement> findAnnouncementsByTag(String tag)  throws DataAccessException{
+	public Collection<Announcement> findAnnouncementsByTag(String tag){
 		return annrepository.findByTag(tag);
 	}
 	
@@ -36,11 +35,11 @@ public class AnnouncementService {
 		return annrepository.findById(id);
 	}
 	
-	public Collection<Announcement> findOldAnnouncements()  throws DataAccessException{
+	public Collection<Announcement> findOldAnnouncements(){
 		return annrepository.findOld();
 	}
 	
-	public void saveAnnouncement(@Valid Announcement announcement)  throws DataAccessException{
+	public void saveAnnouncement(@Valid Announcement announcement){
 		 annrepository.save(announcement);
 		
 	}

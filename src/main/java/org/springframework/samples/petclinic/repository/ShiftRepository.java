@@ -17,7 +17,6 @@ package org.springframework.samples.petclinic.repository;
 
 import java.util.Collection;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Shift;
 
 
@@ -34,11 +33,8 @@ import org.springframework.samples.petclinic.model.Shift;
  */
 public interface ShiftRepository {
 
-	/**
-	 * Retrieve all <code>Vet</code>s from the data store.
-	 * @return a <code>Collection</code> of <code>Vet</code>s
-	 */
-	Collection<Shift> findAll() throws DataAccessException;
+	
+	Collection<Shift> findAll();
 
 	void save(Shift shift);
 

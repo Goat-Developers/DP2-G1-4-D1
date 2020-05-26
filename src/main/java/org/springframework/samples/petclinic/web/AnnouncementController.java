@@ -26,6 +26,10 @@ public class AnnouncementController {
 	
 	private final VetService vetService;
 	
+	private final String anns = "announcements";
+	
+	private final String announ = "announcement";
+	
 	private static final String URL_ANNOUNCEMENTS ="announcements/announcementList"; 
 
 	@Autowired
@@ -42,8 +46,8 @@ public class AnnouncementController {
 		Announcements announcements = new Announcements();
 		announcements.getAnnouncementList().addAll(annService.findAnnouncements());
 		Announcement announcement = new Announcement();
-		model.put("announcements",announcements);
-		model.put("announcement",announcement);
+		model.put(anns,announcements);
+		model.put(announ,announcement);
 		return URL_ANNOUNCEMENTS;
 		
 	}
@@ -54,34 +58,34 @@ public class AnnouncementController {
 			announcements.getAnnouncementList().addAll(annService.findAnnouncements());
 		}else {
 			announcements.getAnnouncementList().addAll(annService.findAnnouncementsByTag(ann.getTag().toLowerCase()));
-			if (announcements.getAnnouncementList().size()==0) {
+			if (announcements.getAnnouncementList().isEmpty()) {
 				model.put("vacio", true);
 			}
 		}
 		
-		model.put("announcements",announcements);
-		model.put("announcement",ann);
+		model.put(anns,announcements);
+		model.put(announ,ann);
 		return URL_ANNOUNCEMENTS;
 	}
 	@GetMapping("/announcements/{announcementId}")
-	public String ShowAnnouncementDetail(@PathVariable("announcementId")  int announcementId, Map<String,Object>  model ) {
+	public String showAnnouncementDetail(@PathVariable("announcementId")  int announcementId, Map<String,Object>  model ) {
 		Announcement a = annService.findAnnouncementById(announcementId);
-		model.put("announcement",a);
+		model.put(announ,a);
 		return "announcements/announcementDetails";
 	}
 	@GetMapping("/announcements/old")
-	public String ShowOldAnnouncementList(Map<String,Object> model,Announcement ann ) {
+	public String showOldAnnouncementList(Map<String,Object> model,Announcement ann ) {
 		Announcements announcements = new Announcements();
 		announcements.getAnnouncementList().addAll(annService.findOldAnnouncements());
-		model.put("announcements",announcements);
-		model.put("announcement",ann);
+		model.put(anns,announcements);
+		model.put(announ,ann);
 		return URL_ANNOUNCEMENTS;
 	}
 	
 	@GetMapping("/announcement/new")
 	public String initAnnouncementCreationForm(Map<String,Object> model) {
 		Announcement announcement = new Announcement();
-		model.put("announcement",announcement);
+		model.put(announ,announcement);
 		return "announcements/createOrUpdateAnnouncementForm";
 	}
 	@PostMapping(value = "/announcement/new")
@@ -94,7 +98,7 @@ public class AnnouncementController {
 			String currentUsername = authentication.getName();
 			Vet vet = this.annService.findVetByUser(currentUsername);
 			ann.setVet(vet);
-			ann.setTag(ann.getTag().toLowerCase().replaceAll("[\\s+,,]","").trim());;
+			ann.setTag(ann.getTag().toLowerCase().replaceAll("[\\s+,,]","").trim());
 			this.annService.saveAnnouncement(ann);
 			this.vetService.saveVet(vet);
 			

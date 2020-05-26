@@ -12,7 +12,7 @@ public class VaccinationScheduleService {
 	@Autowired
 	VaccinationScheduleRepository vSRepository;
 	
-	public void SaveVaccSchedule(VaccinationSchedule vacSchedule) {
+	public void saveVaccSchedule(VaccinationSchedule vacSchedule) {
 		this.vSRepository.save(vacSchedule);
 	}
 

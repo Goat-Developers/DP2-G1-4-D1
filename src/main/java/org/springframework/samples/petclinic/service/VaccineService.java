@@ -42,13 +42,8 @@ public class VaccineService {
 	}
 	
 	@Transactional(readOnly = true)
-	@Cacheable("allVaccinesExpirated")
 	public List<Vaccine> findAllExpirated(){
-		return vaccineRepo.findAll().stream().filter(v -> expirado(v)).collect(Collectors.toList());	
-	}
-	
-	private Boolean expirado(Vaccine v) {
-		return v.getExpirated();
+		return vaccineRepo.findAll().stream().filter(Vaccine::getExpirated).collect(Collectors.toList());	
 	}
 
 	
@@ -72,7 +67,6 @@ public class VaccineService {
 	}
 	
 	@Transactional(readOnly = true)
-	@Cacheable("vaccinesLow")
 	public List<Vaccine> findVaccinesWithLowStock(){
 		
 		return vaccineRepo.findVaccinesWithLowStock();

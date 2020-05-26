@@ -64,7 +64,7 @@ public class AnnouncementControllerIntegrationTests {
 		Announcement announcement = new Announcement();
 		announcement = annService.findAnnouncementById(ANNOUNCEMENT_TEST_ID);
 
-		String view = annController.ShowOldAnnouncementList(model, announcement);
+		String view = annController.showOldAnnouncementList(model, announcement);
 		
 		assertEquals(view,"announcements/announcementList");
 		assertNotNull(model.get("announcement"));
@@ -74,7 +74,7 @@ public class AnnouncementControllerIntegrationTests {
 	void testShowAnnouncement() throws Exception{
 		ModelMap model=new ModelMap();
 
-		String view = annController.ShowAnnouncementDetail(ANNOUNCEMENT_TEST_ID, model);
+		String view = annController.showAnnouncementDetail(ANNOUNCEMENT_TEST_ID, model);
 		
 		assertEquals(view,"announcements/announcementDetails");
 		assertNotNull(model.get("announcement"));

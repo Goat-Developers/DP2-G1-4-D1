@@ -85,8 +85,8 @@ INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,'Seguro Base 
 
 INSERT INTO insurance_base_vaccines VALUES (1, 1);
 INSERT INTO insurance_base_vaccines VALUES (2, 7);
-INSERT INTO insurance_base_vaccines VALUES (3, 2);
-INSERT INTO insurance_base_vaccines VALUES (4, 4);
+INSERT INTO insurance_base_vaccines VALUES (3, 3);
+INSERT INTO insurance_base_vaccines VALUES (4, 11);
 INSERT INTO insurance_base_vaccines VALUES (5, 5);
 INSERT INTO insurance_base_vaccines VALUES (6, 6);
 
@@ -97,6 +97,8 @@ INSERT INTO insurance_base_treatments VALUES (3, 7);
 INSERT INTO insurance_base_treatments VALUES (4, 1);
 INSERT INTO insurance_base_treatments VALUES (5, 8);
 INSERT INTO insurance_base_treatments VALUES (6, 5);
+
+INSERT INTO insurances(id, insurance_base_id) VALUES (1,1);
 
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
@@ -139,7 +141,7 @@ INSERT INTO shifts(id, shift_date) VALUES (6, '13:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (7, '14:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (8, '15:00:00');
 
-INSERT INTO appointments(id, appointment_date, appointment_time, appointment_reason, pet_id, treatment_id,vaccine_id) VALUES (1, '2020-08-03', '09:00:00', 'Curar la pata', 4, 1, 4);
+INSERT INTO appointments(id, appointment_date, appointment_time, appointment_reason, pet_id, treatment_id,vaccine_id) VALUES (1, '2020-08-03', '09:00:00', 'Curar la pata', 4, 1, 11);
 
 INSERT INTO vet_schedule(id) VALUES (1);
 INSERT INTO vet_schedule(id) VALUES (2); 

@@ -44,7 +44,6 @@ public class VetScheduleService {
 	}		
 
 	public List<Appointment> findAppointmentsByDay(LocalDate day) {
-		// TODO Auto-generated method stub
 		return vetScheduleRepository.findAppointmentsByDay(day);
 	}		
   public Collection<VetSchedule> findAll() {

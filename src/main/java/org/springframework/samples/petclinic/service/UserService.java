@@ -40,7 +40,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public void saveUser(User user) throws DataAccessException {
+	public void saveUser(User user) {
 		user.setEnabled(true);
 		userRepository.save(user);
 	}

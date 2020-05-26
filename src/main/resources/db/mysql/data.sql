@@ -57,6 +57,7 @@ INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,s
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (11,4,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (12,5,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (13,6,'Vacuna de cannabis','Para polen',332,'Chema','2021-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
+INSERT INTO vaccines(id,pet_type_id,name,information,price,provider,expiration,stock,side_effects) VALUES (14,6,'Vacuna de cannabis','Para polen',332,'Chema','2001-06-06',20,'Posibilidad de fiebre en los próximos 3 días');
 
 
 INSERT INTO treatments(id,pet_type_id,type,price,description) VALUES (1,4,'Dientes serpiente',65.7,'Limpieza de dientes');
@@ -84,8 +85,8 @@ INSERT INTO insurances_bases(id,name,type_id,conditions) VALUES (6,'Seguro Base 
 
 INSERT INTO insurance_base_vaccines VALUES (1, 1);
 INSERT INTO insurance_base_vaccines VALUES (2, 7);
-INSERT INTO insurance_base_vaccines VALUES (3, 2);
-INSERT INTO insurance_base_vaccines VALUES (4, 4);
+INSERT INTO insurance_base_vaccines VALUES (3, 3);
+INSERT INTO insurance_base_vaccines VALUES (4, 11);
 INSERT INTO insurance_base_vaccines VALUES (5, 5);
 INSERT INTO insurance_base_vaccines VALUES (6, 6);
 
@@ -96,6 +97,8 @@ INSERT INTO insurance_base_treatments VALUES (3, 7);
 INSERT INTO insurance_base_treatments VALUES (4, 1);
 INSERT INTO insurance_base_treatments VALUES (5, 8);
 INSERT INTO insurance_base_treatments VALUES (6, 5);
+
+INSERT INTO insurances(id, insurance_base_id) VALUES (1,1);
 
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
@@ -138,10 +141,10 @@ INSERT INTO shifts(id, shift_date) VALUES (6, '13:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (7, '14:00:00');
 INSERT INTO shifts(id, shift_date) VALUES (8, '15:00:00');
 
-INSERT INTO appointments(id, appointment_date, appointment_time, appointment_reason, pet_id, treatment_id,vaccine_id) VALUES (1, '2020-08-03', '09:00:00', 'Curar la pata', 4, 1, 4);
+INSERT INTO appointments(id, appointment_date, appointment_time, appointment_reason, pet_id, treatment_id,vaccine_id) VALUES (1, '2020-08-03', '09:00:00', 'Curar la pata', 4, 1, 11);
 
 INSERT INTO vet_schedule(id) VALUES (1);
-INSERT INTO vet_schedule(id) VALUES (2);
+INSERT INTO vet_schedule(id) VALUES (2); 
 INSERT INTO vet_schedule(id) VALUES (3);
 INSERT INTO vet_schedule(id) VALUES (4);
 INSERT INTO vet_schedule(id) VALUES (5);
@@ -185,6 +188,7 @@ INSERT INTO schedule_shifts VALUES (6, 8);
 
 INSERT INTO schedule_appointments VALUES (2,1); 
 
+
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (1, 'James', 'Carter','vet1', 4,1);
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (2, 'Helen', 'Leary','vet2',5,2);
 INSERT INTO vets(id,first_name,last_name,username,max_shifts, vet_schedule_id) VALUES (3, 'Linda', 'Douglas','vet3',5,3);
@@ -199,6 +203,7 @@ INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VA
 INSERT INTO announcements(id,body,header,tag,announcement_date, vet_id,likes) VALUES (4,'esto body CON MAYUS','esto header en tiempo','gatos','2022-03-22',1,0);
 
 
+
 INSERT INTO specialties VALUES (1, 'Radiology');
 INSERT INTO specialties VALUES (2, 'Surgery');
 INSERT INTO specialties VALUES (3, 'Dentistry');
@@ -209,4 +214,3 @@ INSERT INTO vet_specialties VALUES (3, 2);
 INSERT INTO vet_specialties VALUES (3, 3);
 INSERT INTO vet_specialties VALUES (4, 2);
 INSERT INTO vet_specialties VALUES (5, 1);
-

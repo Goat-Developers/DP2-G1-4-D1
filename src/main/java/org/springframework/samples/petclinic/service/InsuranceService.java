@@ -53,7 +53,7 @@ public class InsuranceService {
 	}
 	@Transactional(readOnly = true)	
 	@Cacheable("insurances")
-	public Collection<Insurance> findInsurances() throws DataAccessException {
+	public Collection<Insurance> findInsurances() {
 		return insuranceRepository.findAllWithTreatmentsAndVaccines();
 	}
 
@@ -65,28 +65,28 @@ public class InsuranceService {
 	
 	@Transactional(rollbackFor = DuplicatedPetNameException.class)
 	@CacheEvict(cacheNames="insuranceById", allEntries=true)
-	public void saveInsurance(Insurance insurance) throws DataAccessException {
+	public void saveInsurance(Insurance insurance) {
         insuranceRepository.save(insurance);                
 	}
 	
 
 	@Transactional(readOnly = true)
-	public Collection<Vaccine> findVaccines() throws DataAccessException {
+	public Collection<Vaccine> findVaccines() {
 		return insuranceRepository.findVaccines();
 	}
 	@Transactional(readOnly = true)
 	@Cacheable("vaccinesByPetTypeId")
-	public Collection<Vaccine> findVaccinesByPetTypeId(int id) throws DataAccessException {
+	public Collection<Vaccine> findVaccinesByPetTypeId(int id) {
 		return insuranceRepository.findVaccinesByPetTypeId(id);
 	}
 	@Transactional(readOnly = true)
-	public Collection<Treatment> findTreatments() throws DataAccessException {
+	public Collection<Treatment> findTreatments() {
 		return insuranceRepository.findTreatments();
 	}
 	@Transactional(readOnly = true)
 	@Cacheable("treatmentsByPetTypeId")
 
-	public Collection<Treatment> findTreatmentsByPetTypeId(int id) throws DataAccessException {
+	public Collection<Treatment> findTreatmentsByPetTypeId(int id) {
 		return insuranceRepository.findTreatmentsByPetTypeId(id);
 	}
 	

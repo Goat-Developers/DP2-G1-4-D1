@@ -18,7 +18,6 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -36,10 +35,10 @@ public interface SpringDataPetRepository extends PetRepository, Repository<Pet, 
 
 	@Override
 	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
-	List<PetType> findPetTypes() throws DataAccessException;
+	List<PetType> findPetTypes();
 	
 	@Query("SELECT pet FROM Pet pet WHERE pet.id=?1")
-	Pet findById(@Param("id")int id) throws DataAccessException;
+	Pet findById(@Param("id")int id);
 	
 	@Query("SELECT pet FROM Pet pet")
 	Collection<Pet> findPets();

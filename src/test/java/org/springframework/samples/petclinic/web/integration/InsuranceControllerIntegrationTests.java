@@ -31,7 +31,7 @@ import org.springframework.validation.MapBindingResult;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class InsuranceControllerIntegrationTests {
 
-	private static final int TEST_INSURANCE_ID = 2;
+	private static final int TEST_INSURANCE_ID = 1;
 	private static final int TEST_VACCINE_ID = 1;
 	private static final int TEST_TREATMENT_ID = 4;
 	private static final int TEST_PET_ID = 1;
@@ -68,10 +68,9 @@ public class InsuranceControllerIntegrationTests {
     void testShowInsurance() throws Exception {
 		ModelMap model=new ModelMap();
 		
-		String view = insuranceController.ShowInsuranceDetail(TEST_INSURANCE_ID, model);
+		String view = insuranceController.showInsuranceDetail(TEST_INSURANCE_ID, model);
 		
 		assertEquals(view,"insurances/insuranceDetails");
-		//assertNotNull(model.get("insurance"));
 	}
 	
 	@Test

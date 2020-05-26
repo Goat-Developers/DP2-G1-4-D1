@@ -48,6 +48,8 @@ public class AppointmentController {
 	
 	private final InsuranceService insuranceService;
 	
+	private final String appo= "appointment";
+	
 	@Autowired
 	public AppointmentController(AppointmentService appointmentService, PetService petService,InsuranceService insuranceService,VetScheduleService vtSchService,VaccineService vaccineService) {
 		this.vtSchService = vtSchService;
@@ -72,12 +74,12 @@ public class AppointmentController {
 		Appointment appointment = new Appointment();
 		Pet pet = this.petService.findPetById(id);	
 
-		List<LocalTime> times= new ArrayList<LocalTime>();
+		List<LocalTime> times= new ArrayList<>();
 		for(int i=8; i<16; i++) {
 			times.add(LocalTime.of(i, 0,0));
 		}
 		model.put("pet",pet);
-		model.put("appointment", appointment);
+		model.put(appo, appointment);
 		model.put("times",times);
 		
 
@@ -102,7 +104,7 @@ public class AppointmentController {
 				times.add(LocalTime.of(i, 0,0));
 			}
 			model.put("pet",pet);
-			model.put("appointment", app);
+			model.put(appo, app);
 			model.put("times",times);
 			
 				int petTypeId = pet.getType().getId();
@@ -180,7 +182,7 @@ public class AppointmentController {
 	@GetMapping(value="/appointment/{appointementId}")
 	public String showAppointmentDetails(@PathVariable("appointementId") int appointementId, Map<String,Object>  model ) {
 		Appointment appointment = this.appService.findAppointmentById(appointementId);
-		model.put("appointment", appointment);
+		model.put(appo, appointment);
 		return "appointments/appointmentDetails";
 		
 	}

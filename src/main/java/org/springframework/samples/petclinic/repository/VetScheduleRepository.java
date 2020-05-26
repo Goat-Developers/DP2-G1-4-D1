@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Appointment;
 import org.springframework.samples.petclinic.model.VetSchedule;
 
@@ -40,7 +39,7 @@ public interface VetScheduleRepository {
 	 * Retrieve all <code>Vet</code>s from the data store.
 	 * @return a <code>Collection</code> of <code>Vet</code>s
 	 */
-	Collection<VetSchedule> findAll() throws DataAccessException;
+	Collection<VetSchedule> findAll();
 
 	void save(VetSchedule vetSchedule);
 

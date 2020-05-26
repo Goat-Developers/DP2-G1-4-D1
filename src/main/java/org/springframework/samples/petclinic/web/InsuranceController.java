@@ -81,7 +81,7 @@ public class InsuranceController {
 	}
 	
 	@GetMapping("/insurances/{insuranceId}")
-	public String ShowInsuranceDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object> model) {
+	public String showInsuranceDetail(@PathVariable("insuranceId")  int insuranceId, Map<String,Object> model) {
 		Insurance insurance = insuranceService.findInsuranceById(insuranceId);
 		model.put("insurance",insurance);
 		return "insurances/insuranceDetails";
