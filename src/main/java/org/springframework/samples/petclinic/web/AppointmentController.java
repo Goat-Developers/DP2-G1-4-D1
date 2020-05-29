@@ -113,45 +113,23 @@ public class AppointmentController {
 				model.put("vaccines", vaccines);
 				model.put("treatments", treatments);
 			
-	
-			
 			return "appointments/createAppointment";
 		}else {
 			Double res = 0.;
 		
 			if(pet.getInsurance() == null) {
-				if((app.getVaccine()!=null)) {
-					res += app.getVaccine().getPrice();
-					
-				}
-				if((app.getTreatment()!=null)) {
-					res += app.getTreatment().getPrice();
-				}
+				
+				res =sumPrice(app);
+
 			}else {
-				if(!(pet.getInsurance().getVaccines().contains(app.getVaccine())) && (app.getVaccine() !=null)) {
-					res += app.getVaccine().getPrice();
-				}
-				if(!(pet.getInsurance().getTreatments().contains(app.getTreatment())) && (app.getTreatment() !=null) ) {
-					res += app.getTreatment().getPrice();
-				}
+				res = sumInsurancePrice(app, pet);
 			}
 			
-			if((app.getVaccine()!=null)) {
-				Vaccine vacuna = app.getVaccine();
-				vacuna.setStock(vacuna.getStock()-1);
-				this.vaccineService.saveVaccine(vacuna);
-			}
-			
+			decreaseVaccineStock(app,pet);
 			app.setBilling(res);
 			this.appService.saveAppointment(app);
 			pet.getAppointments().add(app);
-			if(pet.getInsurance()!=null && (app.getVaccine() != null)) {
-				pet.getInsurance().getVaccines().remove(app.getVaccine());
-				
-			}
-			if(pet.getInsurance()!=null && (app.getTreatment() != null)) {
-				pet.getInsurance().getTreatments().remove(app.getTreatment());
-			}
+			removeUsed(app,pet);
 			this.petService.savePet(pet);
 			VetSchedule vtSchedule = asignaAppointment(app);
 			vtSchedule.getAppointments().add(app);
@@ -161,6 +139,50 @@ public class AppointmentController {
 		}
 		return "redirect:/owners/"+pet.getOwner().getId();
 	}
+	
+	
+	private void removeUsed(Appointment app, Pet pet) {
+		if(pet.getInsurance()!=null && (app.getVaccine() != null)) {
+			pet.getInsurance().getVaccines().remove(app.getVaccine());
+		}
+		if(pet.getInsurance()!=null && (app.getTreatment() != null)) {
+			pet.getInsurance().getTreatments().remove(app.getTreatment());
+		}
+	}
+	
+	private void decreaseVaccineStock(Appointment app,Pet pet) {
+		if((app.getVaccine()!=null)) {
+			if(!(pet.getInsurance().getVaccines().contains(app.getVaccine()))){
+				Vaccine vacuna = app.getVaccine();
+				vacuna.setStock(vacuna.getStock()-1);
+				this.vaccineService.saveVaccine(vacuna);
+			}
+		}
+	}
+	
+	private Double sumInsurancePrice(Appointment app, Pet pet) {
+		Double res= 0.;
+		if(!(pet.getInsurance().getVaccines().contains(app.getVaccine())) && (app.getVaccine() !=null)) {
+		   res += app.getVaccine().getPrice();
+		}
+		if(!(pet.getInsurance().getTreatments().contains(app.getTreatment())) && (app.getTreatment() !=null) ) {
+		   res += app.getTreatment().getPrice();
+		}
+		return res;
+	}
+
+	private Double sumPrice(Appointment app) {
+		Double res= 0.;
+		if((app.getVaccine()!=null)) {
+			res += app.getVaccine().getPrice();
+				
+		} if((app.getTreatment()!=null)) {
+			res += app.getTreatment().getPrice();
+					
+		}
+		return res;
+	}
+	
 	private VetSchedule asignaAppointment(@Valid Appointment app) {
 		VetSchedule res = new VetSchedule();
 		List<VetSchedule> allVetSchedule = (List<VetSchedule>) this.vtSchService.findAll();
