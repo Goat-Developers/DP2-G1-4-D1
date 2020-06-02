@@ -116,9 +116,8 @@ class InsuranceBaseServiceTests {
 	
 	@ParameterizedTest
 	@ValueSource(ints= {-8,0,90})
-	void shouldNotFindInsuranceBaseByPetTypeId(Integer argument) {
-		Collection<InsuranceBase> segurosBase = this.insuranceBaseService.findInsurancesBasesByPetTypeId(argument);
-		assertThat(segurosBase);
+	void shouldNotFindInsuranceBaseById(Integer argument) {
+		Assertions.assertThrows(NullPointerException.class, () -> {this.insuranceBaseService.findInsuranceBaseById(argument).getId();});
 
 	}
 	
