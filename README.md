@@ -1,7 +1,7 @@
 # Descripción del proyecto
 ## Sprint 1
 
-Nos presentamos al nivel 2 de aplicación y  vamos a realizar una extensión del proyecto PetClinic.
+Nos presentamos al nivel 2 de aplicación y vamos a realizar una extensión del proyecto PetClinic.
 
 [Documentos de requisitos y planificación](https://github.com/DP2-G1-4/DP2-G1-4-D1/wiki/Descripci%C3%B3n-del-proyecto)
 
