@@ -133,7 +133,7 @@ public class InsuranceController {
 				vac.setStock(vac.getStock()-1);
 				this.vaccineService.saveVaccine(vac);
 			}
-			//this.insuranceService.sendMessage(insurance,pet);
+			this.insuranceService.sendMessage(ins,ptt);
 			ins.getVaccines().addAll(ins.getInsuranceBase().getVaccines());
 			ins.getTreatments().addAll(ins.getInsuranceBase().getTreatments());
 			this.insuranceService.saveInsurance(ins);
