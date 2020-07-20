@@ -1,4 +1,7 @@
 # Descripción del proyecto
+
+[![Build Status](https://travis-ci.org/DP2-G1-4/DP2-G1-4-D1.svg?branch=master)](https://travis-ci.org/DP2-G1-4/DP2-G1-4-D1)
+---
 ## Sprint 1
 
 Nos presentamos al nivel 2 de aplicación y vamos a realizar una extensión del proyecto PetClinic.
